@@ -121,17 +121,14 @@ nav{display:flex;align-items:center;gap:12px;padding:0 2rem;height:54px;backgrou
     <div class="status-box" id="csv-status"></div>
   </div>
 
-  <!-- STEP 3: API Key -->
-  <div class="card">
-    <div class="card-label">Step 3 · Claude API key</div>
-    <input type="password" class="field-input" id="f-apikey" placeholder="sk-ant-..." style="width:100%" oninput="updateBtn()">
-    <div class="api-note">Never stored. Sent only to your Cloudflare proxy → Anthropic. Get one at <a class="api-link" href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a></div>
-  </div>
+  <!-- STEP 3: hidden - API key stored in Cloudflare Worker -->
+  <input type="hidden" id="f-apikey" value="managed-by-cloudflare">
 
   <div class="error-box" id="error-box"></div>
 
   <!-- RUN -->
   <button class="btn-big" id="btn-run" onclick="runSynthesis()" disabled>▶ Run synthesis</button>
+  <!-- API key managed by Cloudflare Worker - admins do not need to enter it -->
 
   <!-- PROGRESS -->
   <div class="progress-wrap" id="progress-wrap">
@@ -191,9 +188,7 @@ function showStatus(msg) {
 // UPDATE BUTTON STATE
 function updateBtn() {
   var hasCSV = csvData.length > 1;
-  var key = document.getElementById('f-apikey').value.trim();
-  var hasKey = key.length > 20;
-  document.getElementById('btn-run').disabled = !(hasCSV && hasKey);
+  document.getElementById('btn-run').disabled = !hasCSV;
 }
 
 function onAccountChange() {
@@ -373,12 +368,11 @@ function buildPrompt() {
 // RUN SYNTHESIS
 async function runSynthesis() {
   hideError();
-  var apiKey = document.getElementById('f-apikey').value.trim();
   acctName = document.getElementById('f-account').value.trim() || 'Account';
   var date = document.getElementById('f-date').value;
+  var apiKey = 'proxy-managed';
 
   if (csvData.length < 2) { showError('No CSV loaded. Load responses first.'); return; }
-  if (!apiKey) { showError('Enter your Claude API key.'); return; }
 
   document.getElementById('btn-run').disabled = true;
   document.getElementById('btn-run').textContent = 'Running...';
@@ -408,7 +402,7 @@ async function runSynthesis() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': apiKey
+        'x-api-key': 'REPLACE_WITH_YOUR_KEY'
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
