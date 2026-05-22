@@ -760,7 +760,7 @@ async function pushToGitHub() {
   const name = accounts[currentAccountId].name.replace(/[^a-z0-9]/gi,'_');
   const allKeys = ['_ts','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15a','q15b','q15c','q15d'];
   const headers = ['Submitted','Q1 Name','Q2 Role','Q3 Time on Account','Q4 Client Perception','Q5 Relevance Risk','Q6 Stop Doing','Q7 Primary Contact','Q8 Client Perspective','Q9 Underinvested Areas','Q10 Relationship Gap','Q11 White Space','Q12 Ecosystem Partner','Q13 Mega Deal','Q14 Competitor','Q15A Internal Obstacle','Q15B Bold Move','Q15C Session Question','Q15D Facilitator Notes'];
-  const esc = v => '"' + String(v||''').replace(/"/g,'""'') + '"';
+  const esc = v => '"' + String(v||'').replace(/"/g,'""') + '"';
   const rows = [headers.map(esc).join(',')];
   responses.forEach(r => rows.push(allKeys.map(k => esc(r[k]||'')).join(',')));
   const csvContent = rows.join('\n');
