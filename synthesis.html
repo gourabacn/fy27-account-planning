@@ -142,11 +142,12 @@ nav{display:flex;align-items:center;gap:12px;padding:0 2rem;height:54px;backgrou
   <div style="font-family:var(--mono);font-size:11px;color:var(--t3);text-align:center;margin-bottom:12px">— or upload manually —</div>
 
   <!-- CSV DROP ZONE -->
-  <div class="drop-zone" id="drop-zone" onclick="document.getElementById('csv-file').click()" ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)">
-    <input type="file" id="csv-file" accept=".csv" onchange="onFileSelect(event)">
+  <div class="drop-zone" id="drop-zone">
+    <input type="file" id="csv-file" accept=".csv" onchange="onFileSelect(event)" style="position:absolute;width:1px;height:1px;opacity:0">
     <div class="drop-icon">&#8595;</div>
-    <div class="drop-title" id="drop-title">Drop CSV file here or click to browse</div>
-    <div class="drop-sub" id="drop-sub">Export from the Account Planning admin app → upload here</div>
+    <div class="drop-title" id="drop-title">Click the button below to select your CSV</div>
+    <div class="drop-sub" id="drop-sub">Export from the Account Planning admin app</div>
+    <button onclick="document.getElementById('csv-file').click()" style="margin-top:12px;padding:10px 24px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:var(--mono);font-size:12px;cursor:pointer;font-weight:500">Browse for CSV file</button>
   </div>
 
   <!-- SUMMARY -->
@@ -255,7 +256,7 @@ async function fetchFromGitHub() {
   const repo = document.getElementById('gh-repo').value.trim();
   const acct = document.getElementById('account-name').value.trim();
   if (!user || !repo) { showError('Enter your GitHub username and repo name first.'); return; }
-  if (!acct) { showError('Enter the account name first so we know which CSV file to fetch.'); return; }
+  if (!acct) { showError('Enter the Account Name field above first, then click Fetch CSV.'); document.getElementById('account-name').focus(); return; }
 
   const filename = acct.replace(/[^a-z0-9]/gi,'_') + '_responses.csv';
   const url = 'https://raw.githubusercontent.com/' + user + '/' + repo + '/main/data/' + filename;
@@ -336,7 +337,8 @@ function processFile(file) {
     document.getElementById('drop-sub').textContent = rows + ' responses loaded · ' + roles.length + ' roles';
 
     checkReady();
-    toast('CSV loaded — ' + rows + ' responses');
+    document.getElementById('btn-generate').disabled = false;
+    toast('CSV loaded — ' + rows + ' responses ready · enter API key to run synthesis');
   };
   reader.readAsText(file);
 }
