@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FY27 Account Planning · Accenture</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f0f2f5; --surface:#ffffff; --border:rgba(0,0,0,0.1); --border-s:rgba(0,0,0,0.22);
+  --text:#0d0d0d; --t2:#2a2a2a; --t3:#666660;
+  --accent:#0047cc; --accent-bg:rgba(0,71,204,0.06); --accent-light:#ddeaff;
+  --green:#0a5e38; --green-bg:#d6f2e5;
+  --amber:#6b3d00; --amber-bg:#fdefd3;
+  --red:#8b1a1a; --red-bg:#fce8e8;
+  --r:10px; --rl:16px;
+  --mono:'DM Mono',monospace; --disp:'Syne',sans-serif; --body:'Lora',serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:100vh}
+.screen{display:none;min-height:100vh;flex-direction:column}
+.screen.active{display:flex}
+
+/* LOGIN */
+#s-login{align-items:center;justify-content:center;background:#e8edf5}
+.lbox{width:100%;max-width:400px;padding:2rem}
+.llogo{font-family:var(--disp);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem}
+.ltitle{font-family:var(--disp);font-size:30px;font-weight:700;color:var(--text);line-height:1.15;margin-bottom:6px}
+.lsub{font-family:var(--mono);font-size:11px;color:var(--t3);margin-bottom:1.75rem;line-height:1.6}
+.lbox label{display:block;font-family:var(--mono);font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.lbox input[type=email]{width:100%;padding:11px 13px;background:#fff;border:0.5px solid var(--border-s);border-radius:var(--r);color:var(--text);font-family:var(--mono);font-size:13px;outline:none;transition:border-color .2s}
+.lbox input[type=email]:focus{border-color:var(--accent)}
+.lbox input[type=email]::placeholder{color:var(--t3)}
+.btn-primary{display:block;width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:var(--r);font-family:var(--disp);font-size:14px;font-weight:600;cursor:pointer;margin-top:12px;transition:opacity .15s}
+.btn-primary:hover{opacity:.88}
+.lerr{font-family:var(--mono);font-size:11px;color:var(--red);margin-top:8px;display:none}
+
+/* NAV */
+.nav{display:flex;align-items:center;gap:12px;padding:0 1.75rem;height:54px;background:#0d0d0d;border-bottom:0.5px solid rgba(255,255,255,0.08);flex-shrink:0}
+.nav-logo{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#60a5fa}
+.nav-sep{color:rgba(255,255,255,0.2);font-size:16px}
+.nav-title{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.45);flex:1}
+.nav-user{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.35)}
+.btn-nav{background:none;border:none;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.4);cursor:pointer;padding:4px 8px;border-radius:6px;transition:background .15s}
+.btn-nav:hover{background:rgba(255,255,255,0.08);color:#fff}
+.btn-back{display:flex;align-items:center;gap:5px;background:none;border:none;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.5);cursor:pointer;padding:4px 8px;border-radius:6px;transition:background .15s}
+.btn-back:hover{background:rgba(255,255,255,0.08);color:#fff}
+
+/* LAYOUT */
+.page-body{flex:1;padding:2rem;max-width:880px;width:100%;margin:0 auto}
+.page-title{font-family:var(--disp);font-size:22px;font-weight:700;margin-bottom:3px}
+.page-sub{font-family:var(--mono);font-size:11px;color:var(--t3);margin-bottom:2rem}
+.sec-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:10px}
+
+/* ACCOUNT GRID */
+.acct-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(256px,1fr));gap:12px;margin-bottom:2rem}
+.acct-card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rl);padding:1rem 1.2rem;cursor:pointer;transition:border-color .15s,transform .1s}
+.acct-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.acct-name{font-family:var(--disp);font-size:15px;font-weight:600;margin-bottom:4px}
+.acct-meta{font-family:var(--mono);font-size:10px;color:var(--t3);margin-bottom:10px;display:flex;gap:10px}
+.acct-actions{display:flex;gap:6px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:999px;border:0.5px solid}
+.pill-draft{background:var(--amber-bg);color:var(--amber);border-color:rgba(122,74,0,.25)}
+.pill-live{background:var(--green-bg);color:var(--green);border-color:rgba(10,122,74,.25)}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+
+/* BUTTONS */
+.btn{padding:6px 13px;border-radius:7px;font-family:var(--mono);font-size:11px;cursor:pointer;border:0.5px solid var(--border-s);background:transparent;color:var(--t2);transition:background .15s}
+.btn:hover{background:var(--bg)}
+.btn-accent{background:var(--accent-bg);border-color:rgba(0,71,204,.3);color:var(--accent)}
+.btn-accent:hover{background:var(--accent-light)}
+.btn-green{background:var(--green);color:#fff;border-color:var(--green)}
+.btn-green:hover{opacity:.88}
+.btn-danger{color:var(--red);border-color:rgba(160,32,32,.25)}
+.btn-danger:hover{background:var(--red-bg)}
+
+/* NEW ACCOUNT */
+.new-acct-box{background:var(--surface);border:0.5px dashed var(--border-s);border-radius:var(--rl);padding:1.2rem;display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.new-acct-box input{flex:1;min-width:180px;padding:9px 12px;border:0.5px solid var(--border-s);border-radius:var(--r);font-family:var(--mono);font-size:13px;background:var(--bg);color:var(--text);outline:none}
+.new-acct-box input:focus{border-color:var(--accent)}
+
+/* EDITOR */
+#s-editor{background:var(--bg)}
+.editor-body{flex:1;padding:2rem;max-width:800px;width:100%;margin:0 auto}
+.editor-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.editor-acct{font-family:var(--mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.editor-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start}
+
+.url-bar{background:var(--green-bg);border:0.5px solid rgba(10,122,74,.2);border-radius:var(--r);padding:10px 14px;display:flex;align-items:center;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
+.url-lbl{font-family:var(--mono);font-size:10px;color:var(--green);white-space:nowrap}
+.url-val{font-family:var(--mono);font-size:11px;color:var(--green);flex:1;word-break:break-all}
+.btn-copy{padding:5px 10px;border-radius:6px;font-family:var(--mono);font-size:10px;cursor:pointer;border:0.5px solid rgba(10,122,74,.3);background:#fff;color:var(--green);transition:background .15s;white-space:nowrap}
+.btn-copy:hover{background:var(--green-bg)}
+.btn-email-link{padding:5px 10px;border-radius:6px;font-family:var(--mono);font-size:10px;cursor:pointer;border:0.5px solid var(--green);background:var(--green);color:#fff;transition:opacity .15s;white-space:nowrap}
+.btn-email-link:hover{opacity:.85}
+
+.sec-block{margin-bottom:1.75rem}
+.sec-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:7px;border-bottom:0.5px solid var(--border)}
+.sec-code{font-family:var(--mono);font-size:10px;color:var(--t3);min-width:22px}
+.sec-name{font-family:var(--disp);font-size:12px;font-weight:600;flex:1}
+.sec-time{font-family:var(--mono);font-size:10px;color:var(--t3)}
+
+.q-item{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:11px 13px;margin-bottom:7px;transition:border-color .15s}
+.q-item.editing{border-color:var(--accent);background:#f0f5ff}
+.q-row{display:flex;align-items:flex-start;gap:9px}
+.q-num{font-family:var(--mono);font-size:10px;color:var(--t3);min-width:26px;padding-top:3px}
+.q-body{flex:1}
+.q-display{font-size:14px;line-height:1.55;color:var(--text)}
+.q-input{width:100%;font-size:14px;line-height:1.55;color:var(--text);font-family:var(--body);border:none;background:transparent;resize:none;outline:none;min-height:44px}
+.q-hint-display{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:4px;line-height:1.5}
+.q-hint-input{width:100%;font-family:var(--mono);font-size:11px;color:var(--t3);border:none;background:transparent;resize:none;outline:none;margin-top:4px;line-height:1.5}
+.q-meta{display:flex;gap:5px;align-items:center;margin-top:7px;flex-wrap:wrap}
+.tbadge{font-family:var(--mono);font-size:10px;padding:1px 6px;border-radius:999px;border:0.5px solid var(--border);color:var(--t3);background:var(--bg)}
+.rbadge{font-family:var(--mono);font-size:10px;padding:1px 6px;border-radius:999px;border:0.5px solid rgba(160,32,32,.2);color:var(--red);background:var(--red-bg)}
+.obadge{font-family:var(--mono);font-size:10px;padding:1px 6px;border-radius:999px;border:0.5px solid var(--border);color:var(--t3)}
+.q-edit-btn{font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:5px;border:0.5px solid var(--border);background:transparent;cursor:pointer;color:var(--t3);margin-left:auto;transition:all .15s}
+.q-edit-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+.opts-display{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.opt-chip{font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:999px;border:0.5px solid var(--border);color:var(--t2);background:var(--bg)}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:#1a1a18;color:#fff;font-family:var(--mono);font-size:12px;padding:10px 18px;border-radius:var(--r);opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* RESPONSES TABLE */
+.resp-section{margin-top:2rem}
+.resp-toolbar{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.resp-count{font-family:var(--mono);font-size:11px;color:var(--t3);flex:1}
+.resp-table-wrap{overflow-x:auto;border:0.5px solid var(--border);border-radius:var(--r);background:var(--surface)}
+.resp-table{width:100%;border-collapse:collapse;font-size:12px}
+.resp-table th{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--t3);padding:8px 12px;border-bottom:0.5px solid var(--border);text-align:left;white-space:nowrap;background:var(--bg)}
+.resp-table td{padding:8px 12px;border-bottom:0.5px solid var(--border);color:var(--text);vertical-align:top;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--mono)}
+.resp-table tr:last-child td{border-bottom:none}
+.resp-table tr:hover td{background:var(--bg)}
+.empty-state{text-align:center;padding:2.5rem;font-family:var(--mono);font-size:12px;color:var(--t3)}
+
+/* FORM (respondent view) */
+#s-form{background:var(--bg)}
+.form-wrap{flex:1;padding:2rem;max-width:660px;width:100%;margin:0 auto}
+.form-mast{padding-bottom:1.5rem;margin-bottom:2rem;border-bottom:0.5px solid var(--border)}
+.form-eyebrow{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:6px}
+.form-title{font-family:var(--disp);font-size:26px;font-weight:700;line-height:1.15;margin-bottom:10px}
+.form-preamble{font-family:var(--mono);font-size:12px;color:var(--t2);line-height:1.75;border-left:2px solid var(--border-s);padding-left:14px}
+.fsec-head{font-family:var(--disp);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);margin:2rem 0 1rem;padding-bottom:7px;border-bottom:0.5px solid var(--border)}
+.fq{margin-bottom:1.5rem}
+.fq-label{font-family:var(--disp);font-size:15px;font-weight:500;line-height:1.5;margin-bottom:4px}
+.fq-hint{font-family:var(--mono);font-size:11px;color:var(--t3);margin-bottom:8px;line-height:1.5}
+.fq input[type=text],.fq textarea,.fq select{width:100%;padding:10px 12px;border:0.5px solid var(--border-s);border-radius:var(--r);font-family:var(--body);font-size:14px;background:var(--surface);color:var(--text);outline:none;transition:border-color .2s}
+.fq input[type=text]:focus,.fq textarea:focus{border-color:var(--accent)}
+.fq textarea{resize:vertical;min-height:88px;line-height:1.6}
+.fq select{cursor:pointer}
+.choice-group{display:flex;flex-direction:column;gap:7px}
+.choice-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border:0.5px solid var(--border-s);border-radius:var(--r);cursor:pointer;transition:border-color .15s,background .15s;background:var(--surface);user-select:none}
+.choice-item:hover,.choice-item.sel{border-color:var(--accent);background:rgba(0,71,204,0.06)}
+.choice-circle{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--border-s);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color .15s}
+.choice-item.sel .choice-circle{border-color:var(--accent)}
+.circle-inner{width:7px;height:7px;border-radius:50%;background:var(--accent);display:none}
+.choice-item.sel .circle-inner{display:block}
+.choice-square{width:14px;height:14px;border-radius:3px;border:1.5px solid var(--border-s);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.choice-item.sel .choice-square{border-color:var(--accent);background:var(--accent)}
+.sq-check{font-size:9px;color:#fff;display:none}
+.choice-item.sel .sq-check{display:block}
+.choice-lbl{font-size:13px;color:var(--text)}
+.multi-note{font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:5px}
+.form-submit-wrap{margin-top:2.5rem;padding-top:1.5rem;border-top:0.5px solid var(--border)}
+.form-submitted{text-align:center;padding:3rem 2rem}
+.submitted-icon{font-size:32px;margin-bottom:1rem}
+.submitted-title{font-family:var(--disp);font-size:22px;font-weight:700;margin-bottom:8px}
+.submitted-msg{font-family:var(--mono);font-size:12px;color:var(--t2);line-height:1.7}
+
+/* NOT FOUND */
+#s-notfound{align-items:center;justify-content:center;text-align:center}
+.nf-title{font-family:var(--disp);font-size:22px;font-weight:700;margin-bottom:8px}
+.nf-sub{font-family:var(--mono);font-size:12px;color:var(--t3)}
+
+.toast{position:fixed;bottom:24px;right:24px;background:#1a1a18;color:#fff;font-family:var(--mono);font-size:12px;padding:10px 18px;border-radius:var(--r);opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- FIRST RUN SETUP -->
+<div id="s-setup" class="screen" style="align-items:center;justify-content:center;background:#e8edf5">
+  <div class="lbox" style="max-width:480px">
+    <div class="llogo">Accenture</div>
+    <div class="ltitle">First-time setup</div>
+    <div class="lsub" style="margin-bottom:1.5rem">Add the email addresses that will have admin access. This list is stored in your browser — nothing is hardcoded in the app.</div>
+    <label>Add admin email</label>
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <input type="email" id="setup-email" placeholder="name@accenture.com" style="flex:1;padding:11px 13px;background:#fff;border:0.5px solid rgba(0,0,0,0.22);border-radius:10px;font-family:var(--mono);font-size:13px;outline:none;color:var(--text)" onkeydown="if(event.key==='Enter')addAdminEntry()">
+      <button onclick="addAdminEntry()" style="padding:11px 16px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-family:var(--disp);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap">Add</button>
+    </div>
+    <div id="setup-list" style="margin-bottom:1.5rem;min-height:40px"></div>
+    <button class="btn-primary" onclick="finishSetup()">Save and continue</button>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:12px;line-height:1.6">These emails are stored only in this browser's local storage. They are not visible in the app's source code.</div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="s-login" class="screen">
+  <div class="lbox">
+    <div class="llogo">Accenture</div>
+    <div class="ltitle">FY27 Account<br>Planning</div>
+    <div class="lsub">Admin portal · Enter your Accenture email to continue</div>
+    <label for="login-email">Email address</label>
+    <input type="email" id="login-email" placeholder="name@accenture.com" autocomplete="email">
+    <div class="lerr" id="login-err">That email isn't on the admin list. Contact your planning lead.</div>
+    <button class="btn-primary" onclick="doLogin()">Continue</button>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="s-admin" class="screen">
+  <nav class="nav">
+    <span class="nav-logo">Accenture</span>
+    <span class="nav-sep">/</span>
+    <span class="nav-title">FY27 Account Planning · Admin</span>
+    <span class="nav-user" id="nav-user"></span>
+    <button class="btn-nav" onclick="doLogout()">Sign out</button>
+  </nav>
+  <div class="page-body">
+    <div class="page-title">Accounts</div>
+    <div class="page-sub" id="admin-sub"></div>
+    <div class="sec-label">Active accounts</div>
+    <div class="acct-grid" id="acct-grid"></div>
+    <div class="sec-label">Add account</div>
+    <div class="new-acct-box">
+      <input type="text" id="new-acct-name" placeholder="Client name e.g. Alaska Airlines" maxlength="80">
+      <button class="btn btn-accent" onclick="addAccount()">+ Add account</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUESTION EDITOR -->
+<div id="s-editor" class="screen">
+  <nav class="nav">
+    <button class="btn-back" onclick="showAdmin()">&#8592; Accounts</button>
+    <span class="nav-sep">/</span>
+    <span class="nav-title" id="editor-nav-title"></span>
+    <span class="nav-user" id="editor-nav-user"></span>
+    <button class="btn-nav" onclick="doLogout()">Sign out</button>
+  </nav>
+  <div class="editor-body">
+    <div class="editor-hdr">
+      <div>
+        <div class="editor-acct" id="editor-acct-label"></div>
+        <div class="page-title" id="editor-title">Question Editor</div>
+        <div class="page-sub">Edit questions below then publish to generate the respondent URL.</div>
+      </div>
+      <div class="editor-actions">
+        <button class="btn" onclick="resetQuestions()">Reset to master</button>
+        <button class="btn btn-accent" onclick="saveQuestions()">Save draft</button>
+        <button class="btn btn-green" onclick="publishForm()">Publish &amp; get URL</button>
+      </div>
+    </div>
+
+    <div id="url-bar-wrap" style="display:none">
+      <div class="url-bar">
+        <span class="url-lbl">Form URL</span>
+        <span class="url-val" id="url-display"></span>
+        <button class="btn-copy" onclick="copyURL()">Copy</button>
+        <button class="btn-email-link" onclick="sendEmail()">Open in Outlook</button>
+      </div>
+    </div>
+
+    <div id="q-editor-body"></div>
+
+    <div class="resp-section">
+      <div class="sec-label">Responses</div>
+      <div class="resp-toolbar">
+        <span class="resp-count" id="resp-count">0 responses</span>
+        <button class="btn" onclick="exportCSV()">Export CSV</button>
+      </div>
+      <div id="resp-table-wrap"></div>
+    </div>
+  </div>
+</div>
+
+<!-- RESPONDENT FORM -->
+<div id="s-form" class="screen">
+  <div class="form-wrap" id="form-wrap"></div>
+</div>
+
+<!-- NOT FOUND -->
+<div id="s-notfound" class="screen">
+  <div>
+    <div class="nf-title">Form not found</div>
+    <div class="nf-sub">This link is invalid or the form has not been published yet.</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function getAdmins() {
+  try { return JSON.parse(localStorage.getItem('ap_admins') || '[]'); } catch(e) { return []; }
+}
+function saveAdmins(list) { localStorage.setItem('ap_admins', JSON.stringify(list)); }
+
+const MASTER = [
+  {sec:'Section 01 · Respondent Identity',time:'~1 min',qs:[
+    {id:'q1',num:'Q1',text:'What is your name?',hint:'',type:'short',required:true},
+    {id:'q2',num:'Q2',text:'What is your primary role on the <Account>?',hint:'',type:'dropdown',required:true,opts:['CAL','Delivery Lead','Solution Architect','Sales','Industry/Domain Lead','Ecosystem/Partner Lead','Other']},
+    {id:'q3',num:'Q3',text:'How much of your time was focused on the <Account> in the last 90 days?',hint:'',type:'single',required:true,opts:['Less than 10%','10–25%','25–50%','More than 50%']}
+  ]},
+  {sec:'Section 02 · Truth Check',time:'~2 min',qs:[
+    {id:'q4',num:'Q4',text:'If you had to be completely honest: how does this client actually see Accenture today? Not what we hope — what we\'ve earned.',hint:'Give a specific characterization. What words would the client use behind closed doors?',type:'long',required:true},
+    {id:'q5',num:'Q5',text:'What is the single biggest risk that Accenture loses relevance at this account in the next 6 months — and what would trigger it?',hint:'Name the specific trigger, not a general vulnerability.',type:'long',required:true},
+    {id:'q6',num:'Q6',text:'Name one thing Accenture should stop doing — or actively de-prioritize — at this account. What is it, and why is continuing it a mistake?',hint:'',type:'long',required:true}
+  ]},
+  {sec:'Section 03 · Client Lens',time:'~2 min',qs:[
+    {id:'q7',num:'Q7',text:'Who is your primary client contact? Provide their name, title, and a one-sentence description of their decision-making authority.',hint:'',type:'short',required:true},
+    {id:'q8',num:'Q8',text:'From that person\'s perspective specifically — not our own — what is Accenture\'s single most important contribution to their organization right now?',hint:'What would they say if asked by their CEO?',type:'long',required:true},
+    {id:'q9',num:'Q9',text:'Which business challenges is Accenture most underinvested in addressing at this account? Select up to two.',hint:'',type:'multi',required:true,opts:['AI and automation','Cloud and infrastructure','Operating model and talent','Customer experience and digital','Data and analytics','Finance and cost optimization','Supply chain and operations','Cybersecurity and risk','Sustainability and ESG','Other — describe below'],max:2},
+    {id:'q10',num:'Q10',text:'Who else at the client should Accenture be building a direct relationship with — but currently isn\'t? Name them, give their title, and explain specifically why this relationship matters.',hint:'Name and title required. "A senior leader in IT" is not a specific answer.',type:'long',required:true}
+  ]},
+  {sec:'Section 04 · White Space',time:'~2 min',qs:[
+    {id:'q11',num:'Q11',text:'Where should Accenture be playing at this account that it currently isn\'t? Identify the specific capability gap, untouched business unit, or relationship blind spot — and say why now is the moment.',hint:'',type:'long',required:true},
+    {id:'q12',num:'Q12',text:'Which ecosystem partner represents the biggest untapped opportunity at this account — and what is the specific play? Name the partner, name the client need, and describe the joint move.',hint:'',type:'long',required:true},
+    {id:'q13',num:'Q13',text:'If Accenture could originate one transformational engagement ($50M+) at this account in FY27, what would it be? Describe the problem it solves, the outcome it drives, and why the client would fund it.',hint:'',type:'long',required:true}
+  ]},
+  {sec:'Section 05 · Threat Board',time:'~1 min',qs:[
+    {id:'q14',num:'Q14',text:'Who is the most dangerous competitor at this account right now? Name the firm. What are they doing, which relationships do they hold, and what would it take for the client to choose them over Accenture?',hint:'Name them. Vague competitive landscape summaries will not be useful in the room.',type:'long',required:true},
+    {id:'q15a',num:'Q15A',text:'What is the single biggest internal Accenture obstacle to growing this account — something within our control to fix? Name it plainly.',hint:'',type:'long',required:true}
+  ]},
+  {sec:'Section 06 · Bold Move & Session Ask',time:'~2 min',qs:[
+    {id:'q15b',num:'Q15B',text:'What is one bold move Accenture should make at this account in the next 90 days that hasn\'t been tried? Not a refinement of what\'s already happening — something genuinely new.',hint:'',type:'long',required:true},
+    {id:'q15c',num:'Q15C',text:'What is the single question this planning session must answer to be worth your time? Write it as a direct question.',hint:'',type:'short',required:true},
+    {id:'q15d',num:'Q15D',text:'Anything the session facilitator should know going in — context, tensions, or dynamics that won\'t surface any other way?',hint:'',type:'long',required:false}
+  ]}
+];
+
+// STATE
+let currentUser = null;
+let currentAccountId = null;
+let editingQId = null;
+
+function getState() {
+  try { return JSON.parse(localStorage.getItem('ap_state') || '{}'); } catch(e) { return {}; }
+}
+function saveState(s) { localStorage.setItem('ap_state', JSON.stringify(s)); }
+
+function getAccounts() { return getState().accounts || {}; }
+function saveAccounts(a) { const s = getState(); s.accounts = a; saveState(s); }
+
+function getResponses(accountId) { return getState()['resp_'+accountId] || []; }
+function saveResponse(accountId, resp) {
+  const s = getState();
+  const k = 'resp_'+accountId;
+  s[k] = s[k] || [];
+  s[k].push(resp);
+  saveState(s);
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// LOGIN
+function doLogin() {
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
+  const admins = getAdmins();
+  if (!admins.length) { showSetup(); return; }
+  if (admins.includes(email)) {
+    currentUser = email;
+    document.getElementById('login-err').style.display = 'none';
+    showAdmin();
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+  }
+}
+document.getElementById('login-email').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+function showSetup() { show('s-setup'); renderSetupList(); }
+
+function renderSetupList() {
+  const admins = getAdmins();
+  const list = document.getElementById('setup-list');
+  if (!admins.length) {
+    list.innerHTML = '<div style="font-family:var(--mono);font-size:12px;color:var(--t3);padding:8px 0">No admins added yet.</div>';
+    return;
+  }
+  list.innerHTML = admins.map((e,i) => `<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:0.5px solid var(--border);font-family:var(--mono);font-size:12px;">
+    <span style="flex:1;color:var(--text)">${e}</span>
+    <button onclick="removeAdmin(${i})" style="background:none;border:none;cursor:pointer;font-size:12px;color:var(--red);font-family:var(--mono)">Remove</button>
+  </div>`).join('');
+}
+
+function addAdminEntry() {
+  const input = document.getElementById('setup-email');
+  const email = input.value.trim().toLowerCase();
+  if (!email || !email.includes('@')) { toast('Enter a valid email'); return; }
+  const admins = getAdmins();
+  if (admins.includes(email)) { toast('Already on the list'); return; }
+  admins.push(email);
+  saveAdmins(admins);
+  input.value = '';
+  renderSetupList();
+  toast('Admin added');
+}
+
+function removeAdmin(i) {
+  const admins = getAdmins();
+  admins.splice(i, 1);
+  saveAdmins(admins);
+  renderSetupList();
+}
+
+function finishSetup() {
+  const admins = getAdmins();
+  if (!admins.length) { toast('Add at least one admin email first'); return; }
+  show('s-login');
+  toast('Setup complete — log in with your email');
+}
+
+function doLogout() {
+  currentUser = null;
+  currentAccountId = null;
+  show('s-login');
+  document.getElementById('login-email').value = '';
+}
+
+// ADMIN
+function showAdmin() {
+  document.getElementById('nav-user').textContent = currentUser;
+  const now = new Date();
+  document.getElementById('admin-sub').textContent =
+    'Logged in as ' + currentUser + ' · ' + now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  renderAccountGrid();
+  show('s-admin');
+}
+
+function renderAccountGrid() {
+  const accounts = getAccounts();
+  const grid = document.getElementById('acct-grid');
+  const keys = Object.keys(accounts);
+  if (!keys.length) {
+    grid.innerHTML = '<div style="font-family:var(--mono);font-size:12px;color:var(--t3);padding:1rem 0">No accounts yet. Add one below.</div>';
+    return;
+  }
+  grid.innerHTML = keys.map(id => {
+    const a = accounts[id];
+    const respCount = getResponses(id).length;
+    const status = a.published ? 'pill-live' : 'pill-draft';
+    const statusLabel = a.published ? 'Live' : 'Draft';
+    return `<div class="acct-card" onclick="openEditor('${id}')">
+      <div class="acct-name">${a.name}</div>
+      <div class="acct-meta">
+        <span>${respCount} response${respCount!==1?'s':''}</span>
+        <span>Updated ${a.updated||'—'}</span>
+      </div>
+      <div class="acct-actions">
+        <span class="pill ${status}"><span class="pill-dot"></span>${statusLabel}</span>
+        <button class="btn btn-accent" onclick="event.stopPropagation();openEditor('${id}')">Edit</button>
+        <button class="btn btn-danger" onclick="event.stopPropagation();deleteAccount('${id}')">Delete</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function addAccount() {
+  const name = document.getElementById('new-acct-name').value.trim();
+  if (!name) { toast('Enter an account name first'); return; }
+  const accounts = getAccounts();
+  const id = 'acct_' + Date.now();
+  accounts[id] = {
+    name,
+    questions: JSON.parse(JSON.stringify(MASTER)),
+    published: false,
+    updated: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})
+  };
+  saveAccounts(accounts);
+  document.getElementById('new-acct-name').value = '';
+  renderAccountGrid();
+  toast('Account "' + name + '" created');
+}
+
+function deleteAccount(id) {
+  if (!confirm('Delete this account and all its responses?')) return;
+  const accounts = getAccounts();
+  delete accounts[id];
+  saveAccounts(accounts);
+  const s = getState();
+  delete s['resp_'+id];
+  saveState(s);
+  renderAccountGrid();
+  toast('Account deleted');
+}
+
+// EDITOR
+function openEditor(id) {
+  currentAccountId = id;
+  const accounts = getAccounts();
+  const a = accounts[id];
+  document.getElementById('editor-acct-label').textContent = a.name;
+  document.getElementById('editor-title').textContent = 'Question Editor';
+  document.getElementById('editor-nav-title').textContent = a.name;
+  document.getElementById('editor-nav-user').textContent = currentUser;
+
+  if (a.published) {
+    const url = buildFormURL(id);
+    document.getElementById('url-display').textContent = url;
+    document.getElementById('url-bar-wrap').style.display = 'block';
+  } else {
+    document.getElementById('url-bar-wrap').style.display = 'none';
+  }
+
+  renderQEditor(a.questions);
+  renderResponseTable(id);
+  show('s-editor');
+}
+
+function buildFormURL(id) {
+  return window.location.origin + window.location.pathname + '?form=' + id;
+}
+
+function renderQEditor(sections) {
+  const wrap = document.getElementById('q-editor-body');
+  wrap.innerHTML = sections.map((sec, si) => `
+    <div class="sec-block">
+      <div class="sec-hdr">
+        <span class="sec-code">${String(si+1).padStart(2,'0')}</span>
+        <span class="sec-name">${sec.sec}</span>
+        <span class="sec-time">${sec.time}</span>
+      </div>
+      ${sec.qs.map(q => renderQItem(q, si)).join('')}
+    </div>`).join('');
+}
+
+function renderQItem(q, si) {
+  const optsHtml = (q.opts && q.type !== 'single' && q.type !== 'multi') ? '' :
+    q.opts ? `<div class="opts-display">${q.opts.map(o=>`<span class="opt-chip">${o}</span>`).join('')}${q.max?`<span class="opt-chip" style="color:var(--accent)">max ${q.max}</span>`:''}</div>` : '';
+  const multiOpts = (q.type==='single'||q.type==='multi') && q.opts ?
+    `<div class="opts-display">${q.opts.map(o=>`<span class="opt-chip">${o}</span>`).join('')}${q.max?`<span class="opt-chip" style="color:var(--accent)">max ${q.max}</span>`:''}</div>` : '';
+  return `<div class="q-item" id="qi-${q.id}">
+    <div class="q-row">
+      <span class="q-num">${q.num}</span>
+      <div class="q-body">
+        <div class="q-display" id="qd-${q.id}">${q.text}</div>
+        <textarea class="q-input" id="qt-${q.id}" style="display:none" rows="3">${q.text}</textarea>
+        ${q.hint ? `<div class="q-hint-display" id="qhd-${q.id}">${q.hint}</div>` : `<div class="q-hint-display" id="qhd-${q.id}" style="display:none">${q.hint||''}</div>`}
+        <textarea class="q-hint-input" id="qht-${q.id}" style="display:none" rows="2" placeholder="Helper text (optional)">${q.hint||''}</textarea>
+        ${multiOpts}
+      </div>
+      <button class="q-edit-btn" id="qeb-${q.id}" onclick="toggleEdit('${q.id}','${si}')">Edit</button>
+    </div>
+    <div class="q-meta">
+      <span class="tbadge">${q.type==='short'?'Short text':q.type==='long'?'Long text':q.type==='dropdown'?'Dropdown':q.type==='single'?'Single choice':'Multi-select'}</span>
+      ${q.required ? '<span class="rbadge">Required</span>' : '<span class="obadge">Optional</span>'}
+    </div>
+  </div>`;
+}
+
+function toggleEdit(qid, si) {
+  const accounts = getAccounts();
+  const a = accounts[currentAccountId];
+
+  if (editingQId === qid) {
+    // SAVE
+    const newText = document.getElementById('qt-'+qid).value.trim();
+    const newHint = document.getElementById('qht-'+qid).value.trim();
+    if (newText) {
+      a.questions[si].qs.find(q=>q.id===qid).text = newText;
+      a.questions[si].qs.find(q=>q.id===qid).hint = newHint;
+      a.updated = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
+      saveAccounts(accounts);
+    }
+    document.getElementById('qd-'+qid).textContent = newText || document.getElementById('qd-'+qid).textContent;
+    document.getElementById('qd-'+qid).style.display = '';
+    document.getElementById('qt-'+qid).style.display = 'none';
+    const hd = document.getElementById('qhd-'+qid);
+    hd.textContent = newHint;
+    hd.style.display = newHint ? '' : 'none';
+    document.getElementById('qht-'+qid).style.display = 'none';
+    document.getElementById('qi-'+qid).classList.remove('editing');
+    document.getElementById('qeb-'+qid).textContent = 'Edit';
+    editingQId = null;
+    toast('Question saved');
+  } else {
+    // Close any open editor first
+    if (editingQId) {
+      document.getElementById('qd-'+editingQId).style.display = '';
+      document.getElementById('qt-'+editingQId).style.display = 'none';
+      document.getElementById('qhd-'+editingQId).style.display = document.getElementById('qhd-'+editingQId).textContent ? '' : 'none';
+      document.getElementById('qht-'+editingQId).style.display = 'none';
+      document.getElementById('qi-'+editingQId).classList.remove('editing');
+      document.getElementById('qeb-'+editingQId).textContent = 'Edit';
+    }
+    // OPEN
+    document.getElementById('qd-'+qid).style.display = 'none';
+    document.getElementById('qt-'+qid).style.display = '';
+    document.getElementById('qhd-'+qid).style.display = 'none';
+    document.getElementById('qht-'+qid).style.display = '';
+    document.getElementById('qi-'+qid).classList.add('editing');
+    document.getElementById('qeb-'+qid).textContent = 'Save';
+    document.getElementById('qt-'+qid).focus();
+    editingQId = qid;
+  }
+}
+
+function saveQuestions() {
+  const accounts = getAccounts();
+  accounts[currentAccountId].updated = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  saveAccounts(accounts);
+  toast('Draft saved');
+}
+
+function resetQuestions() {
+  if (!confirm('Reset all questions to the master template? Your edits will be lost.')) return;
+  const accounts = getAccounts();
+  accounts[currentAccountId].questions = JSON.parse(JSON.stringify(MASTER));
+  accounts[currentAccountId].updated = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  saveAccounts(accounts);
+  renderQEditor(accounts[currentAccountId].questions);
+  toast('Reset to master template');
+}
+
+function publishForm() {
+  const accounts = getAccounts();
+  accounts[currentAccountId].published = true;
+  accounts[currentAccountId].updated = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  saveAccounts(accounts);
+  const url = buildFormURL(currentAccountId);
+  document.getElementById('url-display').textContent = url;
+  document.getElementById('url-bar-wrap').style.display = 'block';
+  toast('Form published — URL ready');
+}
+
+function copyURL() {
+  const url = buildFormURL(currentAccountId);
+  navigator.clipboard.writeText(url).then(() => toast('URL copied to clipboard'));
+}
+
+function sendEmail() {
+  const accounts = getAccounts();
+  const name = accounts[currentAccountId].name;
+  const url = buildFormURL(currentAccountId);
+  const subject = encodeURIComponent('FY27 Account Planning Pre-Read — ' + name);
+  const body = encodeURIComponent(
+    'Hi,\n\nPlease complete the FY27 Account Planning Pre-Read for ' + name + ' before our session.\n\n' +
+    'It takes approximately 10 minutes — 15 strategic questions, no status updates.\n\n' +
+    'Form link: ' + url + '\n\n' +
+    'Specific answers only. Your input shapes the planning session directly.\n\n' +
+    'Thank you.'
+  );
+  window.open('mailto:?subject=' + subject + '&body=' + body);
+}
+
+// RESPONSES
+function renderResponseTable(accountId) {
+  const responses = getResponses(accountId);
+  const wrap = document.getElementById('resp-table-wrap');
+  document.getElementById('resp-count').textContent = responses.length + ' response' + (responses.length!==1?'s':'');
+
+  if (!responses.length) {
+    wrap.innerHTML = '<div class="empty-state">No responses yet. Share the form URL to start collecting.</div>';
+    return;
+  }
+
+  const cols = ['Submitted','Q1 · Name','Q2 · Role','Q3 · Time','Q4 · Truth','Q14 · Competitor','Q15B · Bold Move'];
+  const colKeys = ['_ts','q1','q2','q3','q4','q14','q15b'];
+
+  wrap.innerHTML = `<div class="resp-table-wrap"><table class="resp-table">
+    <thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead>
+    <tbody>${responses.map(r=>`<tr>${colKeys.map(k=>`<td title="${(r[k]||'').replace(/"/g,'&quot;')}">${r[k]||'—'}</td>`).join('')}</tr>`).join('')}
+    </tbody></table></div>`;
+}
+
+function exportCSV() {
+  const responses = getResponses(currentAccountId);
+  if (!responses.length) { toast('No responses to export'); return; }
+
+  const allKeys = ['_ts','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15a','q15b','q15c','q15d'];
+  const headers = ['Submitted','Q1 Name','Q2 Role','Q3 Time on Account','Q4 Client Perception','Q5 Relevance Risk','Q6 Stop Doing','Q7 Primary Contact','Q8 Client Perspective','Q9 Underinvested Areas','Q10 Relationship Gap','Q11 White Space','Q12 Ecosystem Partner','Q13 Mega Deal','Q14 Competitor','Q15A Internal Obstacle','Q15B Bold Move','Q15C Session Question','Q15D Facilitator Notes'];
+
+  const esc = v => '"' + String(v||'').replace(/"/g,'""') + '"';
+  const rows = [headers.map(esc).join(',')];
+  responses.forEach(r => rows.push(allKeys.map(k => esc(r[k]||'')).join(',')));
+
+  const accounts = getAccounts();
+  const name = accounts[currentAccountId].name.replace(/[^a-z0-9]/gi,'_');
+  const blob = new Blob([rows.join('\n')], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'FY27_AccountPlanning_' + name + '_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  toast('CSV downloaded');
+}
+
+// RESPONDENT FORM
+function loadRespondentForm(accountId) {
+  const accounts = getAccounts();
+  const a = accounts[accountId];
+  if (!a || !a.published) { show('s-notfound'); return; }
+
+  const wrap = document.getElementById('form-wrap');
+  let html = `<div class="form-mast">
+    <div class="form-eyebrow">FY27 Account Planning · Pre-Read</div>
+    <div class="form-title">${a.name}</div>
+    <div class="form-preamble">This is not a status update. Write down what you actually think — where this account stands, where it's headed, and what it would take to matter more. 10 minutes. 15 questions. Specific answers only.</div>
+  </div>`;
+
+  a.questions.forEach(sec => {
+    html += `<div class="fsec-head">${sec.sec} <span style="font-weight:400;opacity:.6">${sec.time}</span></div>`;
+    sec.qs.forEach(q => {
+      html += `<div class="fq" id="fq-${q.id}">
+        <div class="fq-label">${q.num}. ${q.text}${!q.required?'<span style="font-size:11px;color:var(--t3);font-family:var(--mono);margin-left:6px">optional</span>':''}</div>
+        ${q.hint?`<div class="fq-hint">${q.hint}</div>`:''}`;
+
+      if (q.type === 'short') {
+        html += `<input type="text" id="fi-${q.id}" placeholder="Your answer">`;
+      } else if (q.type === 'long') {
+        html += `<textarea id="fi-${q.id}" placeholder="Your answer" rows="4"></textarea>`;
+      } else if (q.type === 'dropdown') {
+        html += `<select id="fi-${q.id}"><option value="">Select one...</option>${q.opts.map(o=>`<option value="${o}">${o}</option>`).join('')}</select>`;
+      } else if (q.type === 'single') {
+        html += `<div class="choice-group">${q.opts.map((o,i)=>`
+          <div class="choice-item" id="ci-${q.id}-${i}" onclick="selectSingle('${q.id}',${i})">
+            <div class="choice-circle"><div class="circle-inner"></div></div>
+            <span class="choice-lbl">${o}</span>
+          </div>`).join('')}</div>`;
+      } else if (q.type === 'multi') {
+        html += `<div class="choice-group">${q.opts.map((o,i)=>`
+          <div class="choice-item" id="ci-${q.id}-${i}" onclick="selectMulti('${q.id}',${i},${q.max||99})">
+            <div class="choice-square"><span class="sq-check">✓</span></div>
+            <span class="choice-lbl">${o}</span>
+          </div>`).join('')}</div>
+          <div class="multi-note">Select up to ${q.max||2}</div>`;
+      }
+      html += `</div>`;
+    });
+  });
+
+  html += `<div class="form-submit-wrap">
+    <button class="btn-primary" style="max-width:200px" onclick="submitForm('${accountId}')">Submit responses</button>
+  </div>`;
+
+  wrap.innerHTML = html;
+  show('s-form');
+}
+
+function selectSingle(qid, idx) {
+  const accounts = getAccounts();
+  const a = accounts[currentAccountId || Object.keys(accounts).find(id => accounts[id].published && buildFormURL(id).includes(new URLSearchParams(window.location.search).get('form')))];
+  const sec = a.questions.find(s => s.qs.find(q=>q.id===qid));
+  const q = sec.qs.find(q=>q.id===qid);
+  q.opts.forEach((_,i) => document.getElementById('ci-'+qid+'-'+i)?.classList.remove('sel'));
+  document.getElementById('ci-'+qid+'-'+idx)?.classList.add('sel');
+}
+
+function selectMulti(qid, idx, max) {
+  const el = document.getElementById('ci-'+qid+'-'+idx);
+  if (el.classList.contains('sel')) { el.classList.remove('sel'); return; }
+  const parent = el.closest('.choice-group');
+  const selected = parent.querySelectorAll('.sel').length;
+  if (selected >= max) { toast('Select up to ' + max + ' options'); return; }
+  el.classList.add('sel');
+}
+
+function submitForm(accountId) {
+  const accounts = getAccounts();
+  const a = accounts[accountId];
+  const resp = { _ts: new Date().toISOString() };
+  let valid = true;
+  let firstMissing = null;
+
+  a.questions.forEach(sec => {
+    sec.qs.forEach(q => {
+      let val = '';
+      if (q.type === 'short' || q.type === 'long' || q.type === 'dropdown') {
+        val = (document.getElementById('fi-'+q.id)?.value||'').trim();
+      } else if (q.type === 'single') {
+        const sel = document.querySelector('#fq-'+q.id+' .choice-item.sel .choice-lbl');
+        val = sel ? sel.textContent : '';
+      } else if (q.type === 'multi') {
+        const sels = document.querySelectorAll('#fq-'+q.id+' .choice-item.sel .choice-lbl');
+        val = Array.from(sels).map(s=>s.textContent).join('; ');
+      }
+      resp[q.id] = val;
+      if (q.required && !val) {
+        valid = false;
+        if (!firstMissing) firstMissing = q.id;
+        document.getElementById('fq-'+q.id).style.outline = '1.5px solid var(--accent)';
+        document.getElementById('fq-'+q.id).style.borderRadius = '8px';
+        document.getElementById('fq-'+q.id).style.padding = '8px';
+      } else {
+        document.getElementById('fq-'+q.id).style.outline = '';
+        document.getElementById('fq-'+q.id).style.padding = '';
+      }
+    });
+  });
+
+  if (!valid) {
+    toast('Please answer all required questions');
+    document.getElementById('fq-'+firstMissing)?.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
+  saveResponse(accountId, resp);
+
+  document.getElementById('form-wrap').innerHTML = `
+    <div class="form-submitted">
+      <div class="submitted-icon">&#10003;</div>
+      <div class="submitted-title">Submitted. Thank you.</div>
+      <div class="submitted-msg">Your responses have been recorded.<br>The account planning session facilitator will synthesize all submissions before the session.<br><br>See you in the room.</div>
+    </div>`;
+}
+
+// ROUTER
+function route() {
+  const params = new URLSearchParams(window.location.search);
+  const formId = params.get('form');
+  if (formId) {
+    loadRespondentForm(formId);
+  } else {
+    const admins = getAdmins();
+    if (!admins.length) {
+      show('s-setup');
+    } else {
+      show('s-login');
+    }
+  }
+}
+
+route();
+</script>
+</body>
+</html>
