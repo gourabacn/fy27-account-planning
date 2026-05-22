@@ -197,6 +197,29 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
   </div>
 </div>
 
+<!-- GITHUB SETTINGS MODAL -->
+<div id="s-github" class="screen" style="align-items:center;justify-content:center;background:#e8edf5">
+  <div class="lbox" style="max-width:520px">
+    <div class="llogo">Accenture</div>
+    <div class="ltitle">GitHub settings</div>
+    <div class="lsub" style="margin-bottom:1.5rem">These settings enable automatic CSV push to GitHub after export. Stored only in this browser — never in the source code.</div>
+    <label>GitHub Personal Access Token</label>
+    <input type="password" id="gh-token" placeholder="github_pat_..." style="width:100%;padding:11px 13px;background:#fff;border:0.5px solid rgba(0,0,0,0.22);border-radius:10px;font-family:var(--mono);font-size:13px;outline:none;color:var(--text);margin-bottom:4px">
+    <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-bottom:16px;line-height:1.6">Fine-grained token · repo: fy27-account-planning · Contents: Read and write</div>
+    <label>GitHub username</label>
+    <input type="text" id="gh-user" placeholder="e.g. gourabacn" style="width:100%;padding:11px 13px;background:#fff;border:0.5px solid rgba(0,0,0,0.22);border-radius:10px;font-family:var(--mono);font-size:13px;outline:none;color:var(--text);margin-bottom:4px">
+    <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-bottom:16px;line-height:1.6">Your personal GitHub username</div>
+    <label>Repository name</label>
+    <input type="text" id="gh-repo" placeholder="fy27-account-planning" value="fy27-account-planning" style="width:100%;padding:11px 13px;background:#fff;border:0.5px solid rgba(0,0,0,0.22);border-radius:10px;font-family:var(--mono);font-size:13px;outline:none;color:var(--text);margin-bottom:16px">
+    <div id="gh-status" style="font-family:var(--mono);font-size:11px;margin-bottom:12px;display:none"></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-primary" style="flex:1" onclick="saveGitHubSettings()">Save settings</button>
+      <button class="btn" style="padding:12px 20px" onclick="showAdmin()">Cancel</button>
+    </div>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:12px;line-height:1.6">Token is stored only in this browser's local storage. It is never sent anywhere except directly to GitHub's API when pushing a CSV file.</div>
+  </div>
+</div>
+
 <!-- LOGIN -->
 <div id="s-login" class="screen">
   <div class="lbox">
@@ -217,6 +240,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
     <span class="nav-sep">/</span>
     <span class="nav-title">FY27 Account Planning · Admin</span>
     <span class="nav-user" id="nav-user"></span>
+    <button class="btn-nav" onclick="showGitHubSettings()">&#9881; GitHub settings</button>
     <button class="btn-nav" onclick="doLogout()">Sign out</button>
   </nav>
   <div class="page-body">
@@ -270,7 +294,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
       <div class="sec-label">Responses</div>
       <div class="resp-toolbar">
         <span class="resp-count" id="resp-count">0 responses</span>
-        <button class="btn" onclick="exportCSV()">Export CSV</button>
+        <button class="btn" onclick="exportCSV()">Download CSV</button>
+        <button class="btn btn-accent" onclick="pushToGitHub()" id="btn-push-github">Push to GitHub</button>
       </div>
       <div id="resp-table-wrap"></div>
     </div>
@@ -694,6 +719,98 @@ function exportCSV() {
   a.download = 'FY27_AccountPlanning_' + name + '_' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
   toast('CSV downloaded');
+}
+
+// GITHUB SETTINGS
+function getGitHubSettings() {
+  try { return JSON.parse(localStorage.getItem('ap_github') || '{}'); } catch(e) { return {}; }
+}
+
+function showGitHubSettings() {
+  const s = getGitHubSettings();
+  document.getElementById('gh-token').value = s.token || '';
+  document.getElementById('gh-user').value = s.user || '';
+  document.getElementById('gh-repo').value = s.repo || 'fy27-account-planning';
+  document.getElementById('gh-status').style.display = 'none';
+  show('s-github');
+}
+
+function saveGitHubSettings() {
+  const token = document.getElementById('gh-token').value.trim();
+  const user = document.getElementById('gh-user').value.trim();
+  const repo = document.getElementById('gh-repo').value.trim();
+  if (!token || !user || !repo) { toast('Fill in all three fields'); return; }
+  localStorage.setItem('ap_github', JSON.stringify({ token, user, repo }));
+  toast('GitHub settings saved');
+  showAdmin();
+}
+
+async function pushToGitHub() {
+  const responses = getResponses(currentAccountId);
+  if (!responses.length) { toast('No responses to push'); return; }
+
+  const gh = getGitHubSettings();
+  if (!gh.token || !gh.user || !gh.repo) {
+    toast('Set up GitHub settings first');
+    showGitHubSettings();
+    return;
+  }
+
+  const accounts = getAccounts();
+  const name = accounts[currentAccountId].name.replace(/[^a-z0-9]/gi,'_');
+  const allKeys = ['_ts','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15a','q15b','q15c','q15d'];
+  const headers = ['Submitted','Q1 Name','Q2 Role','Q3 Time on Account','Q4 Client Perception','Q5 Relevance Risk','Q6 Stop Doing','Q7 Primary Contact','Q8 Client Perspective','Q9 Underinvested Areas','Q10 Relationship Gap','Q11 White Space','Q12 Ecosystem Partner','Q13 Mega Deal','Q14 Competitor','Q15A Internal Obstacle','Q15B Bold Move','Q15C Session Question','Q15D Facilitator Notes'];
+  const esc = v => '"' + String(v||''').replace(/"/g,'""'') + '"';
+  const rows = [headers.map(esc).join(',')];
+  responses.forEach(r => rows.push(allKeys.map(k => esc(r[k]||'')).join(',')));
+  const csvContent = rows.join('\n');
+
+  const filename = 'data/' + name + '_responses.csv';
+  const apiUrl = 'https://api.github.com/repos/' + gh.user + '/' + gh.repo + '/contents/' + filename;
+
+  const btn = document.getElementById('btn-push-github');
+  btn.textContent = 'Pushing...';
+  btn.disabled = true;
+
+  try {
+    // Check if file already exists to get SHA for update
+    let sha = null;
+    const checkRes = await fetch(apiUrl, {
+      headers: { 'Authorization': 'Bearer ' + gh.token, 'Accept': 'application/vnd.github+json' }
+    });
+    if (checkRes.ok) {
+      const existing = await checkRes.json();
+      sha = existing.sha;
+    }
+
+    const body = {
+      message: 'Update ' + name + ' responses ' + new Date().toISOString().slice(0,10),
+      content: btoa(unescape(encodeURIComponent(csvContent))),
+      ...(sha ? { sha } : {})
+    };
+
+    const pushRes = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + gh.token,
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (!pushRes.ok) {
+      const err = await pushRes.json();
+      throw new Error(err.message || 'Push failed');
+    }
+
+    toast('CSV pushed to GitHub — ' + responses.length + ' responses');
+  } catch(err) {
+    toast('Push failed: ' + err.message);
+  } finally {
+    btn.textContent = 'Push to GitHub';
+    btn.disabled = false;
+  }
 }
 
 // RESPONDENT FORM
