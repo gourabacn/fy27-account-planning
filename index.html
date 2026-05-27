@@ -95,6 +95,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .btn-email-link{padding:5px 10px;border-radius:6px;font-family:var(--mono);font-size:10px;cursor:pointer;border:0.5px solid var(--green);background:var(--green);color:#fff;transition:opacity .15s;white-space:nowrap}
 .btn-email-link:hover{opacity:.85}
 
+/* URL warning banner */
+.url-warning{background:var(--amber-bg);border:0.5px solid rgba(122,74,0,.25);border-radius:var(--r);padding:10px 14px;margin-bottom:8px;font-family:var(--mono);font-size:11px;color:var(--amber);line-height:1.6}
+.url-warning strong{font-weight:600}
+
 .sec-block{margin-bottom:1.75rem}
 .sec-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:7px;border-bottom:0.5px solid var(--border)}
 .sec-code{font-family:var(--mono);font-size:10px;color:var(--t3);min-width:22px}
@@ -135,6 +139,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .resp-table tr:hover td{background:var(--bg)}
 .empty-state{text-align:center;padding:2.5rem;font-family:var(--mono);font-size:12px;color:var(--t3)}
 
+/* inline responses notice */
+.resp-notice{background:var(--accent-bg);border:0.5px solid rgba(0,71,204,.2);border-radius:var(--r);padding:12px 14px;margin-bottom:12px;font-family:var(--mono);font-size:11px;color:var(--accent);line-height:1.7}
+.resp-notice strong{font-weight:600}
+
 /* FORM (respondent view) */
 #s-form{background:var(--bg)}
 .form-wrap{flex:1;padding:2rem;max-width:660px;width:100%;margin:0 auto}
@@ -169,13 +177,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .submitted-title{font-family:var(--disp);font-size:22px;font-weight:700;margin-bottom:8px}
 .submitted-msg{font-family:var(--mono);font-size:12px;color:var(--t2);line-height:1.7}
 
+/* Submission copy box */
+.copy-box{text-align:left;margin-top:2rem;background:var(--bg);border:0.5px solid var(--border);border-radius:var(--r);padding:1rem}
+.copy-box-title{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:8px}
+.copy-box textarea{width:100%;font-family:var(--mono);font-size:11px;color:var(--t2);background:var(--surface);border:0.5px solid var(--border);border-radius:6px;padding:8px;resize:vertical;min-height:120px;outline:none;line-height:1.6}
+.copy-box .btn{margin-top:6px}
+
 /* NOT FOUND */
 #s-notfound{align-items:center;justify-content:center;text-align:center}
 .nf-title{font-family:var(--disp);font-size:22px;font-weight:700;margin-bottom:8px}
 .nf-sub{font-family:var(--mono);font-size:12px;color:var(--t3)}
-
-.toast{position:fixed;bottom:24px;right:24px;background:#1a1a18;color:#fff;font-family:var(--mono);font-size:12px;padding:10px 18px;border-radius:var(--r);opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none;z-index:999}
-.toast.show{opacity:1;transform:translateY(0)}
 </style>
 </head>
 <body>
@@ -185,38 +196,22 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
   <div class="lbox" style="max-width:480px">
     <div class="llogo">Accenture</div>
     <div class="ltitle">First-time setup</div>
-    <div class="lsub" style="margin-bottom:1.5rem">Add the email addresses that will have admin access. This list is stored in your browser — nothing is hardcoded in the app.</div>
-    <label>Add admin email</label>
+    <div class="lsub" style="margin-bottom:1.5rem">Add the email addresses that will have admin access. Also set the email address where form submissions should be sent.</div>
+
+    <label>Submissions go to (admin email)</label>
+    <div style="margin-bottom:16px">
+      <input type="email" id="setup-notify-email" placeholder="planning-lead@accenture.com" style="width:100%;padding:11px 13px;background:#fff;border:0.5px solid rgba(0,0,0,0.22);border-radius:10px;font-family:var(--mono);font-size:13px;outline:none;color:var(--text)">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:5px;line-height:1.6">Respondents will be prompted to email their answers here after submitting.</div>
+    </div>
+
+    <label>Add admin email (login access)</label>
     <div style="display:flex;gap:8px;margin-bottom:12px">
       <input type="email" id="setup-email" placeholder="name@accenture.com" style="flex:1;padding:11px 13px;background:#fff;border:0.5px solid rgba(0,0,0,0.22);border-radius:10px;font-family:var(--mono);font-size:13px;outline:none;color:var(--text)" onkeydown="if(event.key==='Enter')addAdminEntry()">
       <button onclick="addAdminEntry()" style="padding:11px 16px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-family:var(--disp);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap">Add</button>
     </div>
     <div id="setup-list" style="margin-bottom:1.5rem;min-height:40px"></div>
     <button class="btn-primary" onclick="finishSetup()">Save and continue</button>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:12px;line-height:1.6">These emails are stored only in this browser's local storage. They are not visible in the app's source code.</div>
-  </div>
-</div>
-
-<!-- GITHUB SETTINGS MODAL -->
-<div id="s-github" class="screen" style="align-items:center;justify-content:center;background:#e8edf5">
-  <div class="lbox" style="max-width:520px">
-    <div class="llogo">Accenture</div>
-    <div class="ltitle">GitHub settings</div>
-    <div class="lsub" style="margin-bottom:1.5rem">These settings enable automatic CSV push to GitHub after export. Stored only in this browser — never in the source code.</div>
-    <label>GitHub Personal Access Token</label>
-    <input type="password" id="gh-token" placeholder="github_pat_..." style="width:100%;padding:11px 13px;background:#fff;border:0.5px solid rgba(0,0,0,0.22);border-radius:10px;font-family:var(--mono);font-size:13px;outline:none;color:var(--text);margin-bottom:4px">
-    <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-bottom:16px;line-height:1.6">Fine-grained token · repo: fy27-account-planning · Contents: Read and write</div>
-    <label>GitHub username</label>
-    <input type="text" id="gh-user" placeholder="e.g. gourabacn" style="width:100%;padding:11px 13px;background:#fff;border:0.5px solid rgba(0,0,0,0.22);border-radius:10px;font-family:var(--mono);font-size:13px;outline:none;color:var(--text);margin-bottom:4px">
-    <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-bottom:16px;line-height:1.6">Your personal GitHub username</div>
-    <label>Repository name</label>
-    <input type="text" id="gh-repo" placeholder="fy27-account-planning" value="fy27-account-planning" style="width:100%;padding:11px 13px;background:#fff;border:0.5px solid rgba(0,0,0,0.22);border-radius:10px;font-family:var(--mono);font-size:13px;outline:none;color:var(--text);margin-bottom:16px">
-    <div id="gh-status" style="font-family:var(--mono);font-size:11px;margin-bottom:12px;display:none"></div>
-    <div style="display:flex;gap:8px">
-      <button class="btn-primary" style="flex:1" onclick="saveGitHubSettings()">Save settings</button>
-      <button class="btn" style="padding:12px 20px" onclick="showAdmin()">Cancel</button>
-    </div>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:12px;line-height:1.6">Token is stored only in this browser's local storage. It is never sent anywhere except directly to GitHub's API when pushing a CSV file.</div>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:12px;line-height:1.6">Stored only in this browser's local storage. Not visible in source code.</div>
   </div>
 </div>
 
@@ -240,7 +235,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
     <span class="nav-sep">/</span>
     <span class="nav-title">FY27 Account Planning · Admin</span>
     <span class="nav-user" id="nav-user"></span>
-    <button class="btn-nav" onclick="showGitHubSettings()">&#9881; GitHub settings</button>
     <button class="btn-nav" onclick="doLogout()">Sign out</button>
   </nav>
   <div class="page-body">
@@ -280,6 +274,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
     </div>
 
     <div id="url-bar-wrap" style="display:none">
+      <div class="url-warning">
+        <strong>How responses reach you:</strong> This app runs entirely in your browser — there's no server storing responses. When a respondent submits, they'll be shown their answers and prompted to send them to <span id="notify-email-display"></span> via email. A backend database integration is in progress for a future release.
+      </div>
       <div class="url-bar">
         <span class="url-lbl">Form URL</span>
         <span class="url-val" id="url-display"></span>
@@ -292,10 +289,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 
     <div class="resp-section">
       <div class="sec-label">Responses</div>
+      <div class="resp-notice">
+        <strong>v1 — email-based collection.</strong> Responses are emailed to you by respondents after they submit. Paste received responses below to store them here for export. A Supabase-backed version is coming in the next release.
+      </div>
       <div class="resp-toolbar">
         <span class="resp-count" id="resp-count">0 responses</span>
-        <button class="btn" onclick="exportCSV()">Download CSV</button>
-        <button class="btn btn-accent" onclick="pushToGitHub()" id="btn-push-github">Push to GitHub</button>
+        <button class="btn" onclick="exportCSV()">Export CSV</button>
       </div>
       <div id="resp-table-wrap"></div>
     </div>
@@ -311,17 +310,52 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 <div id="s-notfound" class="screen">
   <div>
     <div class="nf-title">Form not found</div>
-    <div class="nf-sub">This link is invalid or the form has not been published yet.</div>
+    <div class="nf-sub">This link is invalid or the form payload could not be decoded.</div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
+// ─────────────────────────────────────────────────────────────────────────────
+// BACKEND STUB — swap this out in v2 when Supabase/Firebase is wired up.
+// In v1 this is a no-op; responses go via email instead.
+// ─────────────────────────────────────────────────────────────────────────────
+const RESPONSE_BACKEND = {
+  enabled: false,          // flip to true in v2
+  endpoint: '',            // e.g. 'https://xyz.supabase.co/rest/v1/responses'
+  apiKey: '',              // public anon key goes here
+
+  async submit(accountId, accountName, responseData) {
+    if (!this.enabled || !this.endpoint) return { ok: false, reason: 'backend_disabled' };
+    try {
+      const res = await fetch(this.endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': this.apiKey,
+          'Authorization': 'Bearer ' + this.apiKey,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ account_id: accountId, account_name: accountName, ...responseData })
+      });
+      return { ok: res.ok, status: res.status };
+    } catch(e) {
+      return { ok: false, reason: e.message };
+    }
+  }
+};
+// ─────────────────────────────────────────────────────────────────────────────
+
 function getAdmins() {
   try { return JSON.parse(localStorage.getItem('ap_admins') || '[]'); } catch(e) { return []; }
 }
 function saveAdmins(list) { localStorage.setItem('ap_admins', JSON.stringify(list)); }
+
+function getNotifyEmail() {
+  return localStorage.getItem('ap_notify_email') || '';
+}
+function saveNotifyEmail(email) { localStorage.setItem('ap_notify_email', email); }
 
 const MASTER = [
   {sec:'Section 01 · Respondent Identity',time:'~1 min',qs:[
@@ -390,6 +424,49 @@ function toast(msg) {
   setTimeout(() => t.classList.remove('show'), 2200);
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// SELF-CONTAINED URL ENCODING / DECODING
+// The form payload is: { v: 1, id: accountId, name: accountName, qs: questions, notify: email }
+// Encoded as base64url so no server lookup is needed.
+// ─────────────────────────────────────────────────────────────────────────────
+
+function encodeFormPayload(accountId, accountName, questions, notifyEmail) {
+  const payload = {
+    v: 1,
+    id: accountId,
+    name: accountName,
+    qs: questions,
+    notify: notifyEmail || ''
+  };
+  const json = JSON.stringify(payload);
+  // btoa works on ASCII; use encodeURIComponent to handle unicode safely
+  const b64 = btoa(unescape(encodeURIComponent(json)));
+  // Make URL-safe (base64url)
+  return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+}
+
+function decodeFormPayload(token) {
+  try {
+    // Restore standard base64 from base64url
+    let b64 = token.replace(/-/g, '+').replace(/_/g, '/');
+    while (b64.length % 4) b64 += '=';
+    const json = decodeURIComponent(escape(atob(b64)));
+    const payload = JSON.parse(json);
+    if (!payload || payload.v !== 1 || !payload.qs) return null;
+    return payload;
+  } catch(e) {
+    return null;
+  }
+}
+
+function buildFormURL(accountId) {
+  const accounts = getAccounts();
+  const a = accounts[accountId];
+  if (!a) return '';
+  const token = encodeFormPayload(accountId, a.name, a.questions, getNotifyEmail());
+  return window.location.origin + window.location.pathname + '?form=' + token;
+}
+
 // LOGIN
 function doLogin() {
   const email = document.getElementById('login-email').value.trim().toLowerCase();
@@ -443,6 +520,8 @@ function removeAdmin(i) {
 function finishSetup() {
   const admins = getAdmins();
   if (!admins.length) { toast('Add at least one admin email first'); return; }
+  const notifyEmail = document.getElementById('setup-notify-email').value.trim().toLowerCase();
+  if (notifyEmail) saveNotifyEmail(notifyEmail);
   show('s-login');
   toast('Setup complete — log in with your email');
 }
@@ -534,6 +613,7 @@ function openEditor(id) {
   if (a.published) {
     const url = buildFormURL(id);
     document.getElementById('url-display').textContent = url;
+    document.getElementById('notify-email-display').textContent = getNotifyEmail() || '[no email set — go to setup]';
     document.getElementById('url-bar-wrap').style.display = 'block';
   } else {
     document.getElementById('url-bar-wrap').style.display = 'none';
@@ -542,10 +622,6 @@ function openEditor(id) {
   renderQEditor(a.questions);
   renderResponseTable(id);
   show('s-editor');
-}
-
-function buildFormURL(id) {
-  return window.location.origin + window.location.pathname + '?form=' + id;
 }
 
 function renderQEditor(sections) {
@@ -562,8 +638,6 @@ function renderQEditor(sections) {
 }
 
 function renderQItem(q, si) {
-  const optsHtml = (q.opts && q.type !== 'single' && q.type !== 'multi') ? '' :
-    q.opts ? `<div class="opts-display">${q.opts.map(o=>`<span class="opt-chip">${o}</span>`).join('')}${q.max?`<span class="opt-chip" style="color:var(--accent)">max ${q.max}</span>`:''}</div>` : '';
   const multiOpts = (q.type==='single'||q.type==='multi') && q.opts ?
     `<div class="opts-display">${q.opts.map(o=>`<span class="opt-chip">${o}</span>`).join('')}${q.max?`<span class="opt-chip" style="color:var(--accent)">max ${q.max}</span>`:''}</div>` : '';
   return `<div class="q-item" id="qi-${q.id}">
@@ -590,7 +664,6 @@ function toggleEdit(qid, si) {
   const a = accounts[currentAccountId];
 
   if (editingQId === qid) {
-    // SAVE
     const newText = document.getElementById('qt-'+qid).value.trim();
     const newHint = document.getElementById('qht-'+qid).value.trim();
     if (newText) {
@@ -611,7 +684,6 @@ function toggleEdit(qid, si) {
     editingQId = null;
     toast('Question saved');
   } else {
-    // Close any open editor first
     if (editingQId) {
       document.getElementById('qd-'+editingQId).style.display = '';
       document.getElementById('qt-'+editingQId).style.display = 'none';
@@ -620,7 +692,6 @@ function toggleEdit(qid, si) {
       document.getElementById('qi-'+editingQId).classList.remove('editing');
       document.getElementById('qeb-'+editingQId).textContent = 'Edit';
     }
-    // OPEN
     document.getElementById('qd-'+qid).style.display = 'none';
     document.getElementById('qt-'+qid).style.display = '';
     document.getElementById('qhd-'+qid).style.display = 'none';
@@ -656,6 +727,7 @@ function publishForm() {
   saveAccounts(accounts);
   const url = buildFormURL(currentAccountId);
   document.getElementById('url-display').textContent = url;
+  document.getElementById('notify-email-display').textContent = getNotifyEmail() || '[no email set]';
   document.getElementById('url-bar-wrap').style.display = 'block';
   toast('Form published — URL ready');
 }
@@ -687,7 +759,7 @@ function renderResponseTable(accountId) {
   document.getElementById('resp-count').textContent = responses.length + ' response' + (responses.length!==1?'s':'');
 
   if (!responses.length) {
-    wrap.innerHTML = '<div class="empty-state">No responses yet. Share the form URL to start collecting.</div>';
+    wrap.innerHTML = '<div class="empty-state">No responses yet. Responses emailed to you by respondents can be pasted in via the import panel above (coming in the next build).</div>';
     return;
   }
 
@@ -721,112 +793,25 @@ function exportCSV() {
   toast('CSV downloaded');
 }
 
-// GITHUB SETTINGS
-function getGitHubSettings() {
-  try { return JSON.parse(localStorage.getItem('ap_github') || '{}'); } catch(e) { return {}; }
-}
+// ─────────────────────────────────────────────────────────────────────────────
+// RESPONDENT FORM — loads entirely from the URL token, no localStorage needed
+// ─────────────────────────────────────────────────────────────────────────────
 
-function showGitHubSettings() {
-  const s = getGitHubSettings();
-  document.getElementById('gh-token').value = s.token || '';
-  document.getElementById('gh-user').value = s.user || '';
-  document.getElementById('gh-repo').value = s.repo || 'fy27-account-planning';
-  document.getElementById('gh-status').style.display = 'none';
-  show('s-github');
-}
+let _formPayload = null; // cached decoded payload for the current form session
 
-function saveGitHubSettings() {
-  const token = document.getElementById('gh-token').value.trim();
-  const user = document.getElementById('gh-user').value.trim();
-  const repo = document.getElementById('gh-repo').value.trim();
-  if (!token || !user || !repo) { toast('Fill in all three fields'); return; }
-  localStorage.setItem('ap_github', JSON.stringify({ token, user, repo }));
-  toast('GitHub settings saved');
-  showAdmin();
-}
-
-async function pushToGitHub() {
-  const responses = getResponses(currentAccountId);
-  if (!responses.length) { toast('No responses to push'); return; }
-
-  const gh = getGitHubSettings();
-  if (!gh.token || !gh.user || !gh.repo) {
-    toast('Set up GitHub settings first');
-    showGitHubSettings();
-    return;
-  }
-
-  const accounts = getAccounts();
-  const name = accounts[currentAccountId].name.replace(/[^a-z0-9]/gi,'_');
-  const allKeys = ['_ts','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15a','q15b','q15c','q15d'];
-  const headers = ['Submitted','Q1 Name','Q2 Role','Q3 Time on Account','Q4 Client Perception','Q5 Relevance Risk','Q6 Stop Doing','Q7 Primary Contact','Q8 Client Perspective','Q9 Underinvested Areas','Q10 Relationship Gap','Q11 White Space','Q12 Ecosystem Partner','Q13 Mega Deal','Q14 Competitor','Q15A Internal Obstacle','Q15B Bold Move','Q15C Session Question','Q15D Facilitator Notes'];
-  const esc = v => '"' + String(v||'').replace(/"/g,'""') + '"';
-  const rows = [headers.map(esc).join(',')];
-  responses.forEach(r => rows.push(allKeys.map(k => esc(r[k]||'')).join(',')));
-  const csvContent = rows.join('\n');
-
-  const filename = 'data/' + name + '_responses.csv';
-  const apiUrl = 'https://api.github.com/repos/' + gh.user + '/' + gh.repo + '/contents/' + filename;
-
-  const btn = document.getElementById('btn-push-github');
-  btn.textContent = 'Pushing...';
-  btn.disabled = true;
-
-  try {
-    // Check if file already exists to get SHA for update
-    let sha = null;
-    const checkRes = await fetch(apiUrl, {
-      headers: { 'Authorization': 'Bearer ' + gh.token, 'Accept': 'application/vnd.github+json' }
-    });
-    if (checkRes.ok) {
-      const existing = await checkRes.json();
-      sha = existing.sha;
-    }
-
-    const body = {
-      message: 'Update ' + name + ' responses ' + new Date().toISOString().slice(0,10),
-      content: btoa(unescape(encodeURIComponent(csvContent))),
-      ...(sha ? { sha } : {})
-    };
-
-    const pushRes = await fetch(apiUrl, {
-      method: 'PUT',
-      headers: {
-        'Authorization': 'Bearer ' + gh.token,
-        'Accept': 'application/vnd.github+json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    });
-
-    if (!pushRes.ok) {
-      const err = await pushRes.json();
-      throw new Error(err.message || 'Push failed');
-    }
-
-    toast('CSV pushed to GitHub — ' + responses.length + ' responses');
-  } catch(err) {
-    toast('Push failed: ' + err.message);
-  } finally {
-    btn.textContent = 'Push to GitHub';
-    btn.disabled = false;
-  }
-}
-
-// RESPONDENT FORM
-function loadRespondentForm(accountId) {
-  const accounts = getAccounts();
-  const a = accounts[accountId];
-  if (!a || !a.published) { show('s-notfound'); return; }
+function loadRespondentForm(token) {
+  const payload = decodeFormPayload(token);
+  if (!payload) { show('s-notfound'); return; }
+  _formPayload = payload;
 
   const wrap = document.getElementById('form-wrap');
   let html = `<div class="form-mast">
     <div class="form-eyebrow">FY27 Account Planning · Pre-Read</div>
-    <div class="form-title">${a.name}</div>
+    <div class="form-title">${payload.name}</div>
     <div class="form-preamble">This is not a status update. Write down what you actually think — where this account stands, where it's headed, and what it would take to matter more. 10 minutes. 15 questions. Specific answers only.</div>
   </div>`;
 
-  a.questions.forEach(sec => {
+  payload.qs.forEach(sec => {
     html += `<div class="fsec-head">${sec.sec} <span style="font-weight:400;opacity:.6">${sec.time}</span></div>`;
     sec.qs.forEach(q => {
       html += `<div class="fq" id="fq-${q.id}">
@@ -841,7 +826,7 @@ function loadRespondentForm(accountId) {
         html += `<select id="fi-${q.id}"><option value="">Select one...</option>${q.opts.map(o=>`<option value="${o}">${o}</option>`).join('')}</select>`;
       } else if (q.type === 'single') {
         html += `<div class="choice-group">${q.opts.map((o,i)=>`
-          <div class="choice-item" id="ci-${q.id}-${i}" onclick="selectSingle('${q.id}',${i})">
+          <div class="choice-item" id="ci-${q.id}-${i}" onclick="selectSingle('${q.id}',${i},${q.opts.length})">
             <div class="choice-circle"><div class="circle-inner"></div></div>
             <span class="choice-lbl">${o}</span>
           </div>`).join('')}</div>`;
@@ -858,19 +843,17 @@ function loadRespondentForm(accountId) {
   });
 
   html += `<div class="form-submit-wrap">
-    <button class="btn-primary" style="max-width:200px" onclick="submitForm('${accountId}')">Submit responses</button>
+    <button class="btn-primary" style="max-width:200px" onclick="submitForm()">Submit responses</button>
   </div>`;
 
   wrap.innerHTML = html;
   show('s-form');
 }
 
-function selectSingle(qid, idx) {
-  const accounts = getAccounts();
-  const a = accounts[currentAccountId || Object.keys(accounts).find(id => accounts[id].published && buildFormURL(id).includes(new URLSearchParams(window.location.search).get('form')))];
-  const sec = a.questions.find(s => s.qs.find(q=>q.id===qid));
-  const q = sec.qs.find(q=>q.id===qid);
-  q.opts.forEach((_,i) => document.getElementById('ci-'+qid+'-'+i)?.classList.remove('sel'));
+function selectSingle(qid, idx, total) {
+  for (let i = 0; i < total; i++) {
+    document.getElementById('ci-'+qid+'-'+i)?.classList.remove('sel');
+  }
   document.getElementById('ci-'+qid+'-'+idx)?.classList.add('sel');
 }
 
@@ -883,14 +866,14 @@ function selectMulti(qid, idx, max) {
   el.classList.add('sel');
 }
 
-function submitForm(accountId) {
-  const accounts = getAccounts();
-  const a = accounts[accountId];
+async function submitForm() {
+  if (!_formPayload) return;
+  const payload = _formPayload;
   const resp = { _ts: new Date().toISOString() };
   let valid = true;
   let firstMissing = null;
 
-  a.questions.forEach(sec => {
+  payload.qs.forEach(sec => {
     sec.qs.forEach(q => {
       let val = '';
       if (q.type === 'short' || q.type === 'long' || q.type === 'dropdown') {
@@ -922,22 +905,70 @@ function submitForm(accountId) {
     return;
   }
 
-  saveResponse(accountId, resp);
+  // Try backend first (v2+); fall through to email if disabled
+  const backendResult = await RESPONSE_BACKEND.submit(payload.id, payload.name, resp);
+
+  // Build a readable plain-text summary of the responses for the email fallback
+  const allQs = payload.qs.flatMap(s => s.qs);
+  const summary = allQs.map(q => {
+    const val = resp[q.id] || '(no answer)';
+    return q.num + '. ' + q.text + '\n' + val;
+  }).join('\n\n');
+
+  const notifyEmail = payload.notify || '';
+  const emailSubject = encodeURIComponent('FY27 Account Planning Pre-Read — ' + payload.name + ' — ' + (resp.q1 || 'Respondent'));
+  const emailBody = encodeURIComponent(
+    'FY27 Account Planning Pre-Read\nAccount: ' + payload.name + '\nSubmitted: ' + resp._ts + '\n\n' +
+    '─────────────────────────────\n\n' + summary
+  );
+  const mailtoLink = notifyEmail
+    ? 'mailto:' + notifyEmail + '?subject=' + emailSubject + '&body=' + emailBody
+    : 'mailto:?subject=' + emailSubject + '&body=' + emailBody;
+
+  // Copy-text for the fallback box
+  const copyText = 'FY27 Account Planning Pre-Read\nAccount: ' + payload.name + '\nSubmitted: ' + resp._ts + '\n\n' +
+    allQs.map(q => q.num + '. ' + q.text + '\n' + (resp[q.id] || '(no answer)')).join('\n\n');
+
+  const backendMsg = backendResult.ok
+    ? '<p style="color:var(--green);font-family:var(--mono);font-size:12px;margin-top:8px">✓ Responses saved to database.</p>'
+    : '';
 
   document.getElementById('form-wrap').innerHTML = `
     <div class="form-submitted">
       <div class="submitted-icon">&#10003;</div>
       <div class="submitted-title">Submitted. Thank you.</div>
-      <div class="submitted-msg">Your responses have been recorded.<br>The account planning session facilitator will synthesize all submissions before the session.<br><br>See you in the room.</div>
+      <div class="submitted-msg">
+        Your responses have been recorded. The account planning session facilitator will synthesize all submissions before the session.<br><br>
+        ${backendResult.ok ? 'Your responses were saved automatically.' : `<strong>One more step:</strong> Please email your responses to the planning lead so they're captured.`}
+        <br><br>See you in the room.
+      </div>
+      ${backendMsg}
+      ${!backendResult.ok ? `
+      <div style="margin-top:1.5rem">
+        <a href="${mailtoLink}" style="display:inline-block;padding:11px 22px;background:var(--accent);color:#fff;border-radius:var(--r);font-family:var(--disp);font-size:14px;font-weight:600;text-decoration:none;">
+          ${notifyEmail ? 'Email responses to planning lead' : 'Email responses (opens mail app)'}
+        </a>
+      </div>
+      <div class="copy-box" style="margin-top:1.5rem">
+        <div class="copy-box-title">Or copy your answers manually</div>
+        <textarea readonly id="copy-ta">${copyText.replace(/</g,'&lt;')}</textarea>
+        <button class="btn btn-accent" onclick="doCopy()">Copy to clipboard</button>
+      </div>` : ''}
     </div>`;
+}
+
+function doCopy() {
+  const ta = document.getElementById('copy-ta');
+  if (!ta) return;
+  navigator.clipboard.writeText(ta.value).then(() => toast('Copied to clipboard'));
 }
 
 // ROUTER
 function route() {
   const params = new URLSearchParams(window.location.search);
-  const formId = params.get('form');
-  if (formId) {
-    loadRespondentForm(formId);
+  const formToken = params.get('form');
+  if (formToken) {
+    loadRespondentForm(formToken);
   } else {
     const admins = getAdmins();
     if (!admins.length) {
