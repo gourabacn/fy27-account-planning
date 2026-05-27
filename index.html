@@ -221,13 +221,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
     <span class="nav-sep">/</span>
     <span class="nav-title">FY27 Account Planning · Admin</span>
     <span class="nav-user" id="nav-user"></span>
-    <button class="btn-nav" onclick="openSettings()">⚙ Settings</button>
     <button class="btn-nav" onclick="doLogout()">Sign out</button>
   </nav>
   <div class="page-body">
     <div class="page-title">Accounts</div>
     <div class="page-sub" id="admin-sub"></div>
-    <div id="no-config-warn" style="display:none" class="not-configured" onclick="openSettings()" style="cursor:pointer">
+    <div id="no-config-warn" style="display:none" class="not-configured" style="cursor:pointer">
       ⚠ Supabase not connected — click here or use ⚙ Settings to configure. Short URLs and response saving will not work until connected.
     </div>
     <div class="sec-label" style="margin-top:1rem">Active accounts</div>
@@ -247,7 +246,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
     <span class="nav-sep">/</span>
     <span class="nav-title" id="editor-nav-title"></span>
     <span class="nav-user" id="editor-nav-user"></span>
-    <button class="btn-nav" onclick="openSettings()">⚙ Settings</button>
     <button class="btn-nav" onclick="doLogout()">Sign out</button>
   </nav>
   <div class="editor-body">
@@ -343,8 +341,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 })();
 
 // ─── SUPABASE CONFIG ──────────────────────────────────────────────────────────
+// Credentials are baked in — no admin setup required.
+// The anon key is intentionally embedded (it is public by design in Supabase).
+// The admin secret is only needed once the Edge Function is deployed.
+const _SB_HARDCODED = {
+  url:    'https://uaszxyofbqgcmkkgfjdw.supabase.co',
+  key:    'REPLACE_WITH_YOUR_ANON_KEY',
+  secret: 'REPLACE_WITH_YOUR_ADMIN_SECRET',
+  notify: ''
+};
+
 function getSBConfig() {
-  try { return JSON.parse(localStorage.getItem('ap_sb') || 'null'); } catch(e) { return null; }
+  // Merge: hardcoded base, overridden by anything saved in localStorage (via Settings modal)
+  const saved = (() => { try { return JSON.parse(localStorage.getItem('ap_sb') || 'null'); } catch(e) { return null; } })();
+  return saved || _SB_HARDCODED;
 }
 function saveSBConfig(c) { localStorage.setItem('ap_sb', JSON.stringify(c)); }
 
