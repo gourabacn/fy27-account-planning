@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#f0f2f5; --surface:#ffffff; --border:rgba(0,0,0,0.1); --border-s:rgba(0,0,0,0.22);
+  --bg:#f0f2f5; --surface:#fff; --border:rgba(0,0,0,0.1); --border-s:rgba(0,0,0,0.22);
   --text:#0d0d0d; --t2:#2a2a2a; --t3:#666660;
   --accent:#0047cc; --accent-bg:rgba(0,71,204,0.06); --accent-light:#ddeaff;
   --green:#0a5e38; --green-bg:#d6f2e5;
@@ -19,13 +19,16 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:15px}
 body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:100vh}
+
+/* ── Screens ── */
 .screen{display:none;min-height:100vh;flex-direction:column}
 .screen.active{display:flex}
 
+/* ── Login ── */
 #s-login{align-items:center;justify-content:center;background:#e8edf5}
 .lbox{width:100%;max-width:400px;padding:2rem}
 .llogo{font-family:var(--disp);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem}
-.ltitle{font-family:var(--disp);font-size:30px;font-weight:700;color:var(--text);line-height:1.15;margin-bottom:6px}
+.ltitle{font-family:var(--disp);font-size:30px;font-weight:700;line-height:1.15;margin-bottom:6px}
 .lsub{font-family:var(--mono);font-size:11px;color:var(--t3);margin-bottom:1.75rem;line-height:1.6}
 .lbox label{display:block;font-family:var(--mono);font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
 .lbox input[type=email]{width:100%;padding:11px 13px;background:#fff;border:0.5px solid var(--border-s);border-radius:var(--r);color:var(--text);font-family:var(--mono);font-size:13px;outline:none;transition:border-color .2s}
@@ -35,6 +38,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .btn-primary:hover{opacity:.88}
 .lerr{font-family:var(--mono);font-size:11px;color:var(--red);margin-top:8px;display:none}
 
+/* ── Nav ── */
 .nav{display:flex;align-items:center;gap:12px;padding:0 1.75rem;height:54px;background:#0d0d0d;border-bottom:0.5px solid rgba(255,255,255,0.08);flex-shrink:0}
 .nav-logo{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#60a5fa}
 .nav-sep{color:rgba(255,255,255,0.2);font-size:16px}
@@ -45,30 +49,23 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .btn-back{display:flex;align-items:center;gap:5px;background:none;border:none;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.5);cursor:pointer;padding:4px 8px;border-radius:6px;transition:background .15s}
 .btn-back:hover{background:rgba(255,255,255,0.08);color:#fff}
 
+/* ── Layout ── */
 .page-body{flex:1;padding:2rem;max-width:880px;width:100%;margin:0 auto}
 .page-title{font-family:var(--disp);font-size:22px;font-weight:700;margin-bottom:3px}
 .page-sub{font-family:var(--mono);font-size:11px;color:var(--t3);margin-bottom:2rem}
 .sec-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:10px}
 
-/* Supabase setup banner */
-.setup-banner{background:#fff8ec;border:0.5px solid rgba(122,74,0,.25);border-radius:var(--rl);padding:1.2rem 1.4rem;margin-bottom:2rem}
-.setup-banner h3{font-family:var(--disp);font-size:13px;font-weight:700;color:var(--amber);margin-bottom:8px}
-.setup-banner p{font-family:var(--mono);font-size:11px;color:var(--t2);line-height:1.7;margin-bottom:10px}
-.setup-banner code{background:var(--bg);border:0.5px solid var(--border-s);border-radius:5px;padding:0 5px;font-size:11px;font-family:var(--mono)}
-.setup-banner pre{background:var(--bg);border:0.5px solid var(--border-s);border-radius:8px;padding:10px 12px;font-family:var(--mono);font-size:11px;line-height:1.7;overflow-x:auto;margin:8px 0;color:var(--text)}
-.setup-row{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;flex-wrap:wrap}
-.setup-row input{flex:1;min-width:200px;padding:9px 12px;border:0.5px solid var(--border-s);border-radius:var(--r);font-family:var(--mono);font-size:12px;background:#fff;color:var(--text);outline:none}
-.setup-row input:focus{border-color:var(--accent)}
-.setup-row label{font-family:var(--mono);font-size:10px;color:var(--t3);display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.06em}
-.setup-field{flex:1;min-width:200px}
+/* ── Buttons ── */
+.btn{padding:6px 13px;border-radius:7px;font-family:var(--mono);font-size:11px;cursor:pointer;border:0.5px solid var(--border-s);background:transparent;color:var(--t2);transition:background .15s}
+.btn:hover{background:var(--bg)}
+.btn-accent{background:var(--accent-bg);border-color:rgba(0,71,204,.3);color:var(--accent)}
+.btn-accent:hover{background:var(--accent-light)}
+.btn-green{background:var(--green);color:#fff;border-color:var(--green)}
+.btn-green:hover{opacity:.88}
+.btn-danger{color:var(--red);border-color:rgba(160,32,32,.25)}
+.btn-danger:hover{background:var(--red-bg)}
 
-/* Status dot */
-.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle}
-.status-dot.ok{background:var(--green)}
-.status-dot.err{background:var(--red)}
-.status-dot.checking{background:var(--amber);animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-
+/* ── Account grid ── */
 .acct-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(256px,1fr));gap:12px;margin-bottom:2rem}
 .acct-card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rl);padding:1rem 1.2rem;cursor:pointer;transition:border-color .15s,transform .1s}
 .acct-card:hover{border-color:var(--accent);transform:translateY(-1px)}
@@ -79,26 +76,34 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .pill-draft{background:var(--amber-bg);color:var(--amber);border-color:rgba(122,74,0,.25)}
 .pill-live{background:var(--green-bg);color:var(--green);border-color:rgba(10,122,74,.25)}
 .pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
-
-.btn{padding:6px 13px;border-radius:7px;font-family:var(--mono);font-size:11px;cursor:pointer;border:0.5px solid var(--border-s);background:transparent;color:var(--t2);transition:background .15s}
-.btn:hover{background:var(--bg)}
-.btn-accent{background:var(--accent-bg);border-color:rgba(0,71,204,.3);color:var(--accent)}
-.btn-accent:hover{background:var(--accent-light)}
-.btn-green{background:var(--green);color:#fff;border-color:var(--green)}
-.btn-green:hover{opacity:.88}
-.btn-danger{color:var(--red);border-color:rgba(160,32,32,.25)}
-.btn-danger:hover{background:var(--red-bg)}
-
 .new-acct-box{background:var(--surface);border:0.5px dashed var(--border-s);border-radius:var(--rl);padding:1.2rem;display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
 .new-acct-box input{flex:1;min-width:180px;padding:9px 12px;border:0.5px solid var(--border-s);border-radius:var(--r);font-family:var(--mono);font-size:13px;background:var(--bg);color:var(--text);outline:none}
 .new-acct-box input:focus{border-color:var(--accent)}
 
+/* ── Settings modal ── */
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:100;align-items:center;justify-content:center;padding:1rem}
+.modal-backdrop.open{display:flex}
+.modal{background:var(--surface);border-radius:var(--rl);padding:1.75rem;width:100%;max-width:560px;max-height:90vh;overflow-y:auto}
+.modal h2{font-family:var(--disp);font-size:17px;font-weight:700;margin-bottom:4px}
+.modal-sub{font-family:var(--mono);font-size:11px;color:var(--t3);margin-bottom:1.5rem;line-height:1.6}
+.field-group{margin-bottom:1rem}
+.field-group label{display:block;font-family:var(--mono);font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.field-group input{width:100%;padding:9px 12px;border:0.5px solid var(--border-s);border-radius:var(--r);font-family:var(--mono);font-size:12px;background:var(--bg);color:var(--text);outline:none}
+.field-group input:focus{border-color:var(--accent)}
+.modal-actions{display:flex;gap:8px;margin-top:1.25rem;align-items:center;flex-wrap:wrap}
+.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.status-dot.ok{background:var(--green)}
+.status-dot.err{background:var(--red)}
+.status-dot.checking{background:var(--amber);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+#settings-status{font-family:var(--mono);font-size:11px;color:var(--t3)}
+
+/* ── Editor ── */
 #s-editor{background:var(--bg)}
 .editor-body{flex:1;padding:2rem;max-width:800px;width:100%;margin:0 auto}
 .editor-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
 .editor-acct{font-family:var(--mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
 .editor-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start}
-
 .url-bar{background:var(--green-bg);border:0.5px solid rgba(10,122,74,.2);border-radius:var(--r);padding:10px 14px;display:flex;align-items:center;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
 .url-lbl{font-family:var(--mono);font-size:10px;color:var(--green);white-space:nowrap}
 .url-val{font-family:var(--mono);font-size:11px;color:var(--green);flex:1;word-break:break-all}
@@ -106,7 +111,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .btn-copy:hover{background:var(--green-bg)}
 .btn-email-link{padding:5px 10px;border-radius:6px;font-family:var(--mono);font-size:10px;cursor:pointer;border:0.5px solid var(--green);background:var(--green);color:#fff;transition:opacity .15s;white-space:nowrap}
 .btn-email-link:hover{opacity:.85}
-
 .sec-block{margin-bottom:1.75rem}
 .sec-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:7px;border-bottom:0.5px solid var(--border)}
 .sec-code{font-family:var(--mono);font-size:10px;color:var(--t3);min-width:22px}
@@ -130,9 +134,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .opts-display{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
 .opt-chip{font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:999px;border:0.5px solid var(--border);color:var(--t2);background:var(--bg)}
 
-.toast{position:fixed;bottom:24px;right:24px;background:#1a1a18;color:#fff;font-family:var(--mono);font-size:12px;padding:10px 18px;border-radius:var(--r);opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none;z-index:999}
-.toast.show{opacity:1;transform:translateY(0)}
-
+/* ── Responses ── */
 .resp-section{margin-top:2rem}
 .resp-toolbar{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
 .resp-count{font-family:var(--mono);font-size:11px;color:var(--t3);flex:1}
@@ -143,7 +145,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .resp-table tr:last-child td{border-bottom:none}
 .resp-table tr:hover td{background:var(--bg)}
 .empty-state{text-align:center;padding:2.5rem;font-family:var(--mono);font-size:12px;color:var(--t3)}
+.not-configured{background:var(--amber-bg);border:0.5px solid rgba(122,74,0,.2);border-radius:var(--r);padding:12px 14px;font-family:var(--mono);font-size:11px;color:var(--amber);line-height:1.6}
 
+/* ── Toast ── */
+.toast{position:fixed;bottom:24px;right:24px;background:#1a1a18;color:#fff;font-family:var(--mono);font-size:12px;padding:10px 18px;border-radius:var(--r);opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* ── Respondent form ── */
 #s-form{background:var(--bg)}
 .form-wrap{flex:1;padding:2rem;max-width:660px;width:100%;margin:0 auto}
 .form-mast{padding-bottom:1.5rem;margin-bottom:2rem;border-bottom:0.5px solid var(--border)}
@@ -176,13 +184,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .submitted-icon{font-size:32px;margin-bottom:1rem}
 .submitted-title{font-family:var(--disp);font-size:22px;font-weight:700;margin-bottom:8px}
 .submitted-msg{font-family:var(--mono);font-size:12px;color:var(--t2);line-height:1.7}
+.form-loading{display:flex;align-items:center;justify-content:center;min-height:60vh;font-family:var(--mono);font-size:12px;color:var(--t3)}
 
-/* Loading / error states for form */
-.form-loading{display:flex;align-items:center;justify-content:center;min-height:50vh;font-family:var(--mono);font-size:12px;color:var(--t3)}
-.form-error{text-align:center;padding:3rem 2rem}
-.form-error h2{font-family:var(--disp);font-size:20px;margin-bottom:8px}
-.form-error p{font-family:var(--mono);font-size:12px;color:var(--t3)}
-
+/* ── Not found ── */
 #s-notfound{align-items:center;justify-content:center;text-align:center}
 .nf-title{font-family:var(--disp);font-size:22px;font-weight:700;margin-bottom:8px}
 .nf-sub{font-family:var(--mono);font-size:12px;color:var(--t3)}
@@ -190,7 +194,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- ══ ROUTER RUNS FIRST — decides which screen to show ══════════════════════
+     If URL has ?f=  → show respondent form (s-form), nothing else ever loads
+     Otherwise       → show admin login (s-login)
+     Settings modal is only reachable from inside the admin dashboard
+     No admin UI is ever shown to a respondent, under any circumstance
+     ═══════════════════════════════════════════════════════════════════════ -->
+
+<!-- LOGIN (default active — shown before JS runs) -->
 <div id="s-login" class="screen active">
   <div class="lbox">
     <div class="llogo">Accenture</div>
@@ -198,7 +209,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
     <div class="lsub">Admin portal · Enter your Accenture email to continue</div>
     <label for="login-email">Email address</label>
     <input type="email" id="login-email" placeholder="name@accenture.com" autocomplete="email">
-    <div class="lerr" id="login-err">That email isn't on the admin list. Contact your planning lead.</div>
+    <div class="lerr" id="login-err">That email isn't on the admin list.</div>
     <button class="btn-primary" onclick="doLogin()">Continue</button>
   </div>
 </div>
@@ -210,68 +221,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
     <span class="nav-sep">/</span>
     <span class="nav-title">FY27 Account Planning · Admin</span>
     <span class="nav-user" id="nav-user"></span>
+    <button class="btn-nav" onclick="openSettings()">⚙ Settings</button>
     <button class="btn-nav" onclick="doLogout()">Sign out</button>
   </nav>
   <div class="page-body">
     <div class="page-title">Accounts</div>
     <div class="page-sub" id="admin-sub"></div>
-
-    <!-- Supabase setup banner (shown when not configured) -->
-    <div class="setup-banner" id="supabase-banner" style="display:none">
-      <h3>⚡ Connect Supabase for short links &amp; live responses</h3>
-      <p>Without Supabase, form links are too long to share. It takes 2 minutes to set up — free tier is more than enough.</p>
-      <p><strong>Step 1</strong> — Create a free project at <a href="https://supabase.com" target="_blank" style="color:var(--accent)">supabase.com</a>, then run this SQL in the SQL editor:</p>
-      <pre>create table forms (
-  id text primary key default substr(md5(random()::text),1,8),
-  account_id text not null,
-  account_name text not null,
-  questions jsonb not null,
-  notify_email text,
-  created_at timestamptz default now()
-);
-
-create table responses (
-  id uuid primary key default gen_random_uuid(),
-  form_id text references forms(id),
-  account_id text,
-  data jsonb not null,
-  submitted_at timestamptz default now()
-);
-
-alter table forms enable row level security;
-alter table responses enable row level security;
--- Forms are public (respondents need to read them)
-create policy "public read forms" on forms for select using (true);
--- Responses: write-only for the public anon key
--- Reading is done server-side via the Edge Function using the service_role key
-create policy "public insert responses" on responses for insert with check (true);</pre>
-      <p><strong>Step 2</strong> — Deploy the <code>get-responses</code> Edge Function (included in the download). Then paste your credentials below.</p>
-      <p style="margin-top:-4px">From Project Settings → API: copy the <strong>Project URL</strong> and <strong>anon key</strong>. Choose any strong string as the <strong>Admin secret</strong> — set it as <code>ADMIN_SECRET</code> in the Edge Function's environment variables (Supabase dashboard → Edge Functions → get-responses → Secrets).</p>
-      <div class="setup-row">
-        <div class="setup-field">
-          <label>Project URL</label>
-          <input type="text" id="sb-url" placeholder="https://xyzxyz.supabase.co">
-        </div>
-        <div class="setup-field">
-          <label>Anon / public key</label>
-          <input type="text" id="sb-key" placeholder="eyJhbGciOiJIUzI1NiIsI...">
-        </div>
-      </div>
-      <div class="setup-row">
-        <div class="setup-field">
-          <label>Admin secret (must match ADMIN_SECRET env var in Edge Function)</label>
-          <input type="text" id="sb-secret" placeholder="a-long-random-string-you-choose" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>Notification email (optional)</label>
-          <input type="email" id="sb-notify" placeholder="planning-lead@accenture.com">
-        </div>
-      </div>
-      <button class="btn btn-accent" onclick="saveSupabaseConfig()" style="margin-top:4px">Save and test connection</button>
-      <span id="sb-status" style="font-family:var(--mono);font-size:11px;margin-left:12px;color:var(--t3)"></span>
+    <div id="no-config-warn" style="display:none" class="not-configured" onclick="openSettings()" style="cursor:pointer">
+      ⚠ Supabase not connected — click here or use ⚙ Settings to configure. Short URLs and response saving will not work until connected.
     </div>
-
-    <div class="sec-label">Active accounts</div>
+    <div class="sec-label" style="margin-top:1rem">Active accounts</div>
     <div class="acct-grid" id="acct-grid"></div>
     <div class="sec-label">Add account</div>
     <div class="new-acct-box">
@@ -288,6 +247,7 @@ create policy "public insert responses" on responses for insert with check (true
     <span class="nav-sep">/</span>
     <span class="nav-title" id="editor-nav-title"></span>
     <span class="nav-user" id="editor-nav-user"></span>
+    <button class="btn-nav" onclick="openSettings()">⚙ Settings</button>
     <button class="btn-nav" onclick="doLogout()">Sign out</button>
   </nav>
   <div class="editor-body">
@@ -303,7 +263,6 @@ create policy "public insert responses" on responses for insert with check (true
         <button class="btn btn-green" id="publish-btn" onclick="publishForm()">Publish &amp; get URL</button>
       </div>
     </div>
-
     <div id="url-bar-wrap" style="display:none">
       <div class="url-bar">
         <span class="url-lbl">Form URL</span>
@@ -312,13 +271,11 @@ create policy "public insert responses" on responses for insert with check (true
         <button class="btn-email-link" onclick="sendEmail()">Open in Outlook</button>
       </div>
     </div>
-
     <div id="q-editor-body"></div>
-
     <div class="resp-section">
       <div class="sec-label">Responses</div>
       <div class="resp-toolbar">
-        <span class="resp-count" id="resp-count">0 responses</span>
+        <span class="resp-count" id="resp-count">—</span>
         <button class="btn" onclick="refreshResponses()">↻ Refresh</button>
         <button class="btn" onclick="exportCSV()">Export CSV</button>
       </div>
@@ -327,112 +284,185 @@ create policy "public insert responses" on responses for insert with check (true
   </div>
 </div>
 
-<!-- RESPONDENT FORM -->
+<!-- RESPONDENT FORM — completely isolated, no admin HTML visible -->
 <div id="s-form" class="screen">
   <div class="form-wrap" id="form-wrap">
-    <div class="form-loading">Loading form…</div>
+    <div class="form-loading">Loading…</div>
   </div>
 </div>
 
 <!-- NOT FOUND -->
 <div id="s-notfound" class="screen">
-  <div>
-    <div class="nf-title">Form not found</div>
-    <div class="nf-sub">This link is invalid or the form has been removed.</div>
+  <div><div class="nf-title">Form not found</div><div class="nf-sub">This link is invalid or the form has been removed.</div></div>
+</div>
+
+<!-- SETTINGS MODAL — only reachable after login, via ⚙ Settings button -->
+<div class="modal-backdrop" id="settings-modal" onclick="closeSettingsOutside(event)">
+  <div class="modal">
+    <h2>Supabase connection</h2>
+    <div class="modal-sub">These credentials are stored only in your browser. Respondents never see this screen.</div>
+    <div class="field-group">
+      <label>Project URL</label>
+      <input type="text" id="sb-url" placeholder="https://xxxxxxxx.supabase.co">
+    </div>
+    <div class="field-group">
+      <label>Anon / public key</label>
+      <input type="text" id="sb-key" placeholder="eyJhbGciOiJIUzI1NiIsI...">
+    </div>
+    <div class="field-group">
+      <label>Admin secret (set as ADMIN_SECRET in your Edge Function)</label>
+      <input type="text" id="sb-secret" placeholder="your-strong-secret" autocomplete="off">
+    </div>
+    <div class="field-group">
+      <label>Notification email (optional)</label>
+      <input type="email" id="sb-notify" placeholder="planning-lead@accenture.com">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-accent" onclick="saveSettings()">Save &amp; test</button>
+      <button class="btn" onclick="closeSettings()">Cancel</button>
+      <span id="settings-status"></span>
+    </div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// ─────────────────────────────────────────────────────────────────────────────
-// SUPABASE CONFIG — stored in localStorage, set via the admin UI banner
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── ROUTER — runs immediately, before anything else ──────────────────────────
+// This is the FIRST thing that executes. If the URL has ?f= it shows the
+// respondent form and never touches any admin state. Period.
+(function() {
+  const formId = new URLSearchParams(window.location.search).get('f');
+  if (formId) {
+    // Hide login (which is active by default), show form screen
+    document.getElementById('s-login').classList.remove('active');
+    document.getElementById('s-form').classList.add('active');
+    // Defer the actual load until DOM + script is fully parsed
+    window._pendingFormId = formId;
+  }
+})();
+
+// ─── SUPABASE CONFIG ──────────────────────────────────────────────────────────
 function getSBConfig() {
   try { return JSON.parse(localStorage.getItem('ap_sb') || 'null'); } catch(e) { return null; }
 }
 function saveSBConfig(c) { localStorage.setItem('ap_sb', JSON.stringify(c)); }
 
 function sbHeaders(cfg) {
-  return {
-    'Content-Type': 'application/json',
-    'apikey': cfg.key,
-    'Authorization': 'Bearer ' + cfg.key
-  };
+  return { 'Content-Type': 'application/json', 'apikey': cfg.key, 'Authorization': 'Bearer ' + cfg.key };
 }
-
-async function sbFetch(path, opts) {
+async function sbFetch(path, opts={}) {
   const cfg = getSBConfig();
   if (!cfg) throw new Error('Supabase not configured');
-  const res = await fetch(cfg.url + '/rest/v1/' + path, {
-    ...opts,
-    headers: { ...sbHeaders(cfg), ...(opts.headers||{}) }
-  });
+  const res = await fetch(cfg.url + '/rest/v1/' + path, { ...opts, headers: { ...sbHeaders(cfg), ...(opts.headers||{}) } });
   return res;
 }
-
-// Call the get-responses Edge Function (uses service_role server-side; secret never exposed to respondents)
-async function fetchResponsesViaEdgeFn(formId, cfg) {
+async function fetchResponsesViaEdgeFn(formId) {
+  const cfg = getSBConfig();
+  if (!cfg) throw new Error('Supabase not configured');
   const res = await fetch(cfg.url + '/functions/v1/get-responses?form_id=' + formId, {
     headers: { 'x-admin-secret': cfg.secret || '' }
   });
-  if (res.status === 401) throw new Error('Admin secret rejected — check ADMIN_SECRET env var in Edge Function');
+  if (res.status === 401) throw new Error('Admin secret rejected — check ADMIN_SECRET in Edge Function');
   if (!res.ok) throw new Error('Edge Function error ' + res.status);
   return res.json();
 }
 
-async function saveSupabaseConfig() {
+// ─── SETTINGS MODAL ───────────────────────────────────────────────────────────
+function openSettings() {
+  const cfg = getSBConfig() || {};
+  document.getElementById('sb-url').value = cfg.url || '';
+  document.getElementById('sb-key').value = cfg.key || '';
+  document.getElementById('sb-secret').value = cfg.secret || '';
+  document.getElementById('sb-notify').value = cfg.notify || '';
+  document.getElementById('settings-status').innerHTML = '';
+  document.getElementById('settings-modal').classList.add('open');
+}
+function closeSettings() { document.getElementById('settings-modal').classList.remove('open'); }
+function closeSettingsOutside(e) { if (e.target === document.getElementById('settings-modal')) closeSettings(); }
+
+async function saveSettings() {
   const url = document.getElementById('sb-url').value.trim().replace(/\/$/, '');
   const key = document.getElementById('sb-key').value.trim();
   const secret = document.getElementById('sb-secret').value.trim();
   const notify = document.getElementById('sb-notify').value.trim();
   if (!url || !key) { toast('Enter both URL and key'); return; }
-  if (!secret) { toast('Enter an admin secret — any strong random string'); return; }
 
-  const status = document.getElementById('sb-status');
-  status.innerHTML = '<span class="status-dot checking"></span>Testing…';
+  const st = document.getElementById('settings-status');
+  st.innerHTML = '<span class="status-dot checking"></span>Testing…';
 
   try {
     const cfg = { url, key, secret, notify };
-    saveSBConfig(cfg);
-    // Test anon connection (forms table, publicly readable)
+    // Test DB connection
     const res = await fetch(url + '/rest/v1/forms?limit=1', { headers: sbHeaders(cfg) });
-    if (res.ok || res.status === 406) {
-      // Also test the Edge Function is reachable
-      const efRes = await fetch(url + '/functions/v1/get-responses?form_id=__ping__', {
+    if (!res.ok && res.status !== 406) throw new Error('DB error ' + res.status);
+
+    // Test Edge Function if secret provided
+    if (secret) {
+      const ef = await fetch(url + '/functions/v1/get-responses?form_id=__ping__', {
         headers: { 'x-admin-secret': secret }
       });
-      // 400 (missing/invalid form) or 404 means the function is live but just has no data
-      if (efRes.ok || efRes.status === 400 || efRes.status === 404) {
-        status.innerHTML = '<span class="status-dot ok"></span>Connected — DB and Edge Function both reachable!';
-      } else if (efRes.status === 401) {
-        status.innerHTML = '<span class="status-dot err"></span>DB connected but secret rejected — check ADMIN_SECRET env var matches what you entered';
-        return;
-      } else {
-        status.innerHTML = '<span class="status-dot err"></span>DB connected but Edge Function not found (' + efRes.status + ') — deploy get-responses first';
-        return;
-      }
-      toast('Supabase connected');
-      document.getElementById('supabase-banner').style.display = 'none';
-    } else {
-      status.innerHTML = '<span class="status-dot err"></span>Error ' + res.status + ' — check URL and anon key';
+      if (ef.status === 401) { st.innerHTML = '<span class="status-dot err"></span>Secret rejected — check ADMIN_SECRET in Edge Function'; return; }
+      if (ef.status >= 500) { st.innerHTML = '<span class="status-dot err"></span>Edge Function error — check deployment'; return; }
     }
+
+    saveSBConfig(cfg);
+    st.innerHTML = '<span class="status-dot ok"></span>Connected';
+    document.getElementById('no-config-warn').style.display = 'none';
+    toast('Settings saved');
+    setTimeout(closeSettings, 800);
   } catch(e) {
-    status.innerHTML = '<span class="status-dot err"></span>' + e.message;
+    st.innerHTML = '<span class="status-dot err"></span>' + e.message;
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ADMIN AUTH — localStorage only (admin emails never sent to server)
-// ─────────────────────────────────────────────────────────────────────────────
-function getAdmins() {
-  try { return JSON.parse(localStorage.getItem('ap_admins') || '[]'); } catch(e) { return []; }
-}
-function saveAdmins(list) { localStorage.setItem('ap_admins', JSON.stringify(list)); }
+// ─── ADMIN AUTH ───────────────────────────────────────────────────────────────
+function getAdmins() { try { return JSON.parse(localStorage.getItem('ap_admins') || '[]'); } catch(e) { return []; } }
+function saveAdmins(l) { localStorage.setItem('ap_admins', JSON.stringify(l)); }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// MASTER QUESTIONS TEMPLATE
-// ─────────────────────────────────────────────────────────────────────────────
+function doLogin() {
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
+  if (!email) return;
+  const admins = getAdmins();
+  if (!admins.length) { admins.push(email); saveAdmins(admins); }
+  if (admins.includes(email)) {
+    currentUser = email;
+    document.getElementById('login-err').style.display = 'none';
+    showAdmin();
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+  }
+}
+document.getElementById('login-email').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+function doLogout() {
+  currentUser = null; currentAccountId = null;
+  show('s-login');
+  document.getElementById('login-email').value = '';
+}
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let currentUser = null;
+let currentAccountId = null;
+let editingQId = null;
+let _loadedForm = null;
+
+function getState() { try { return JSON.parse(localStorage.getItem('ap_state') || '{}'); } catch(e) { return {}; } }
+function saveState(s) { localStorage.setItem('ap_state', JSON.stringify(s)); }
+function getAccounts() { return getState().accounts || {}; }
+function saveAccounts(a) { const s = getState(); s.accounts = a; saveState(s); }
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ─── MASTER QUESTIONS ─────────────────────────────────────────────────────────
 const MASTER = [
   {sec:'Section 01 · Respondent Identity',time:'~1 min',qs:[
     {id:'q1',num:'Q1',text:'What is your name?',hint:'',type:'short',required:true},
@@ -448,7 +478,7 @@ const MASTER = [
     {id:'q7',num:'Q7',text:'Who is your primary client contact? Provide their name, title, and a one-sentence description of their decision-making authority.',hint:'',type:'short',required:true},
     {id:'q8',num:'Q8',text:"From that person's perspective specifically — not our own — what is Accenture's single most important contribution to their organization right now?",hint:'What would they say if asked by their CEO?',type:'long',required:true},
     {id:'q9',num:'Q9',text:'Which business challenges is Accenture most underinvested in addressing at this account? Select up to two.',hint:'',type:'multi',required:true,opts:['AI and automation','Cloud and infrastructure','Operating model and talent','Customer experience and digital','Data and analytics','Finance and cost optimization','Supply chain and operations','Cybersecurity and risk','Sustainability and ESG','Other — describe below'],max:2},
-    {id:'q10',num:'Q10',text:"Who else at the client should Accenture be building a direct relationship with — but currently isn't? Name them, give their title, and explain specifically why this relationship matters.",hint:'Name and title required. "A senior leader in IT" is not a specific answer.',type:'long',required:true}
+    {id:'q10',num:'Q10',text:"Who else at the client should Accenture be building a direct relationship with — but currently isn't? Name them, give their title, and explain specifically why this relationship matters.",hint:'Name and title required.',type:'long',required:true}
   ]},
   {sec:'Section 04 · White Space',time:'~2 min',qs:[
     {id:'q11',num:'Q11',text:"Where should Accenture be playing at this account that it currently isn't? Identify the specific capability gap, untouched business unit, or relationship blind spot — and say why now is the moment.",hint:'',type:'long',required:true},
@@ -456,86 +486,21 @@ const MASTER = [
     {id:'q13',num:'Q13',text:'If Accenture could originate one transformational engagement ($50M+) at this account in FY27, what would it be? Describe the problem it solves, the outcome it drives, and why the client would fund it.',hint:'',type:'long',required:true}
   ]},
   {sec:'Section 05 · Threat Board',time:'~1 min',qs:[
-    {id:'q14',num:'Q14',text:'Who is the most dangerous competitor at this account right now? Name the firm. What are they doing, which relationships do they hold, and what would it take for the client to choose them over Accenture?',hint:'Name them. Vague competitive landscape summaries will not be useful in the room.',type:'long',required:true},
+    {id:'q14',num:'Q14',text:'Who is the most dangerous competitor at this account right now? Name the firm. What are they doing, which relationships do they hold, and what would it take for the client to choose them over Accenture?',hint:'Name them. Vague summaries will not be useful in the room.',type:'long',required:true},
     {id:'q15a',num:'Q15A',text:'What is the single biggest internal Accenture obstacle to growing this account — something within our control to fix? Name it plainly.',hint:'',type:'long',required:true}
   ]},
   {sec:'Section 06 · Bold Move & Session Ask',time:'~2 min',qs:[
-    {id:'q15b',num:'Q15B',text:"What is one bold move Accenture should make at this account in the next 90 days that hasn't been tried? Not a refinement of what's already happening — something genuinely new.",hint:'',type:'long',required:true},
+    {id:'q15b',num:'Q15B',text:"What is one bold move Accenture should make at this account in the next 90 days that hasn't been tried? Not a refinement — something genuinely new.",hint:'',type:'long',required:true},
     {id:'q15c',num:'Q15C',text:'What is the single question this planning session must answer to be worth your time? Write it as a direct question.',hint:'',type:'short',required:true},
     {id:'q15d',num:'Q15D',text:"Anything the session facilitator should know going in — context, tensions, or dynamics that won't surface any other way?",hint:'',type:'long',required:false}
   ]}
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// LOCAL STATE (accounts stored locally; only form definitions go to Supabase)
-// ─────────────────────────────────────────────────────────────────────────────
-let currentUser = null;
-let currentAccountId = null;
-let editingQId = null;
-let _loadedFormData = null; // for respondent view
-
-function getState() { try { return JSON.parse(localStorage.getItem('ap_state') || '{}'); } catch(e) { return {}; } }
-function saveState(s) { localStorage.setItem('ap_state', JSON.stringify(s)); }
-function getAccounts() { return getState().accounts || {}; }
-function saveAccounts(a) { const s = getState(); s.accounts = a; saveState(s); }
-
-function show(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2400);
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// LOGIN
-// ─────────────────────────────────────────────────────────────────────────────
-function doLogin() {
-  const email = document.getElementById('login-email').value.trim().toLowerCase();
-  const admins = getAdmins();
-  if (!admins.length) {
-    // First time: add this email as admin automatically and proceed
-    admins.push(email);
-    saveAdmins(admins);
-  }
-  if (admins.includes(email)) {
-    currentUser = email;
-    document.getElementById('login-err').style.display = 'none';
-    showAdmin();
-  } else {
-    document.getElementById('login-err').style.display = 'block';
-  }
-}
-document.getElementById('login-email').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-
-function doLogout() {
-  currentUser = null; currentAccountId = null;
-  show('s-login');
-  document.getElementById('login-email').value = '';
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// ADMIN DASHBOARD
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── ADMIN DASHBOARD ──────────────────────────────────────────────────────────
 function showAdmin() {
   document.getElementById('nav-user').textContent = currentUser;
-  const now = new Date();
-  document.getElementById('admin-sub').textContent =
-    'Logged in as ' + currentUser + ' · ' + now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-
-  // Show Supabase banner if not configured
-  const cfg = getSBConfig();
-  document.getElementById('supabase-banner').style.display = cfg ? 'none' : 'block';
-  if (cfg) {
-    document.getElementById('sb-url').value = cfg.url || '';
-    document.getElementById('sb-key').value = cfg.key || '';
-    document.getElementById('sb-secret').value = cfg.secret || '';
-    document.getElementById('sb-notify').value = cfg.notify || '';
-  }
-
+  document.getElementById('admin-sub').textContent = 'Logged in as ' + currentUser + ' · ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  document.getElementById('no-config-warn').style.display = getSBConfig() ? 'none' : 'block';
   renderAccountGrid();
   show('s-admin');
 }
@@ -550,16 +515,11 @@ function renderAccountGrid() {
   }
   grid.innerHTML = keys.map(id => {
     const a = accounts[id];
-    const status = a.formId ? 'pill-live' : 'pill-draft';
-    const statusLabel = a.formId ? 'Live' : 'Draft';
     return `<div class="acct-card" onclick="openEditor('${id}')">
       <div class="acct-name">${a.name}</div>
-      <div class="acct-meta">
-        <span>Updated ${a.updated||'—'}</span>
-        ${a.formId ? `<span>ID: ${a.formId}</span>` : ''}
-      </div>
+      <div class="acct-meta"><span>Updated ${a.updated||'—'}</span>${a.formId?`<span>ID: ${a.formId}</span>`:''}</div>
       <div class="acct-actions">
-        <span class="pill ${status}"><span class="pill-dot"></span>${statusLabel}</span>
+        <span class="pill ${a.formId?'pill-live':'pill-draft'}"><span class="pill-dot"></span>${a.formId?'Live':'Draft'}</span>
         <button class="btn btn-accent" onclick="event.stopPropagation();openEditor('${id}')">Edit</button>
         <button class="btn btn-danger" onclick="event.stopPropagation();deleteAccount('${id}')">Delete</button>
       </div>
@@ -569,14 +529,14 @@ function renderAccountGrid() {
 
 function addAccount() {
   const name = document.getElementById('new-acct-name').value.trim();
-  if (!name) { toast('Enter an account name first'); return; }
+  if (!name) { toast('Enter an account name'); return; }
   const accounts = getAccounts();
   const id = 'acct_' + Date.now();
   accounts[id] = { name, questions: JSON.parse(JSON.stringify(MASTER)), updated: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}) };
   saveAccounts(accounts);
   document.getElementById('new-acct-name').value = '';
   renderAccountGrid();
-  toast('Account "' + name + '" created');
+  toast('"' + name + '" created');
 }
 
 function deleteAccount(id) {
@@ -588,24 +548,19 @@ function deleteAccount(id) {
   toast('Account deleted');
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// QUESTION EDITOR
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── QUESTION EDITOR ──────────────────────────────────────────────────────────
 function openEditor(id) {
   currentAccountId = id;
   const a = getAccounts()[id];
   document.getElementById('editor-acct-label').textContent = a.name;
   document.getElementById('editor-nav-title').textContent = a.name;
   document.getElementById('editor-nav-user').textContent = currentUser;
-
   if (a.formId) {
-    const url = buildShortURL(a.formId);
-    document.getElementById('url-display').textContent = url;
+    document.getElementById('url-display').textContent = buildShortURL(a.formId);
     document.getElementById('url-bar-wrap').style.display = 'block';
   } else {
     document.getElementById('url-bar-wrap').style.display = 'none';
   }
-
   renderQEditor(a.questions);
   renderResponseTable(id);
   show('s-editor');
@@ -616,20 +571,15 @@ function buildShortURL(formId) {
 }
 
 function renderQEditor(sections) {
-  document.getElementById('q-editor-body').innerHTML = sections.map((sec, si) => `
+  document.getElementById('q-editor-body').innerHTML = sections.map((sec,si) => `
     <div class="sec-block">
-      <div class="sec-hdr">
-        <span class="sec-code">${String(si+1).padStart(2,'0')}</span>
-        <span class="sec-name">${sec.sec}</span>
-        <span class="sec-time">${sec.time}</span>
-      </div>
-      ${sec.qs.map(q => renderQItem(q, si)).join('')}
+      <div class="sec-hdr"><span class="sec-code">${String(si+1).padStart(2,'0')}</span><span class="sec-name">${sec.sec}</span><span class="sec-time">${sec.time}</span></div>
+      ${sec.qs.map(q => renderQItem(q,si)).join('')}
     </div>`).join('');
 }
 
-function renderQItem(q, si) {
-  const multiOpts = (q.type==='single'||q.type==='multi') && q.opts ?
-    `<div class="opts-display">${q.opts.map(o=>`<span class="opt-chip">${o}</span>`).join('')}${q.max?`<span class="opt-chip" style="color:var(--accent)">max ${q.max}</span>`:''}</div>` : '';
+function renderQItem(q,si) {
+  const multiOpts = (q.type==='single'||q.type==='multi')&&q.opts ? `<div class="opts-display">${q.opts.map(o=>`<span class="opt-chip">${o}</span>`).join('')}${q.max?`<span class="opt-chip" style="color:var(--accent)">max ${q.max}</span>`:''}</div>` : '';
   return `<div class="q-item" id="qi-${q.id}">
     <div class="q-row">
       <span class="q-num">${q.num}</span>
@@ -644,375 +594,184 @@ function renderQItem(q, si) {
     </div>
     <div class="q-meta">
       <span class="tbadge">${q.type==='short'?'Short text':q.type==='long'?'Long text':q.type==='dropdown'?'Dropdown':q.type==='single'?'Single choice':'Multi-select'}</span>
-      ${q.required ? '<span class="rbadge">Required</span>' : '<span class="obadge">Optional</span>'}
+      ${q.required?'<span class="rbadge">Required</span>':'<span class="obadge">Optional</span>'}
     </div>
   </div>`;
 }
 
-function toggleEdit(qid, si) {
-  const accounts = getAccounts();
-  const a = accounts[currentAccountId];
+function toggleEdit(qid,si) {
+  const accounts = getAccounts(); const a = accounts[currentAccountId];
   if (editingQId === qid) {
     const newText = document.getElementById('qt-'+qid).value.trim();
     const newHint = document.getElementById('qht-'+qid).value.trim();
-    if (newText) {
-      a.questions[si].qs.find(q=>q.id===qid).text = newText;
-      a.questions[si].qs.find(q=>q.id===qid).hint = newHint;
-      a.updated = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
-      saveAccounts(accounts);
-    }
-    document.getElementById('qd-'+qid).textContent = newText || document.getElementById('qd-'+qid).textContent;
-    document.getElementById('qd-'+qid).style.display = '';
-    document.getElementById('qt-'+qid).style.display = 'none';
-    const hd = document.getElementById('qhd-'+qid);
-    hd.textContent = newHint; hd.style.display = newHint ? '' : 'none';
-    document.getElementById('qht-'+qid).style.display = 'none';
-    document.getElementById('qi-'+qid).classList.remove('editing');
-    document.getElementById('qeb-'+qid).textContent = 'Edit';
-    editingQId = null; toast('Question saved');
+    if (newText) { a.questions[si].qs.find(q=>q.id===qid).text=newText; a.questions[si].qs.find(q=>q.id===qid).hint=newHint; a.updated=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}); saveAccounts(accounts); }
+    document.getElementById('qd-'+qid).textContent = newText||document.getElementById('qd-'+qid).textContent;
+    document.getElementById('qd-'+qid).style.display=''; document.getElementById('qt-'+qid).style.display='none';
+    const hd=document.getElementById('qhd-'+qid); hd.textContent=newHint; hd.style.display=newHint?'':'none';
+    document.getElementById('qht-'+qid).style.display='none';
+    document.getElementById('qi-'+qid).classList.remove('editing'); document.getElementById('qeb-'+qid).textContent='Edit';
+    editingQId=null; toast('Saved');
   } else {
-    if (editingQId) {
-      document.getElementById('qd-'+editingQId).style.display = '';
-      document.getElementById('qt-'+editingQId).style.display = 'none';
-      const hd2 = document.getElementById('qhd-'+editingQId);
-      hd2.style.display = hd2.textContent ? '' : 'none';
-      document.getElementById('qht-'+editingQId).style.display = 'none';
-      document.getElementById('qi-'+editingQId).classList.remove('editing');
-      document.getElementById('qeb-'+editingQId).textContent = 'Edit';
-    }
-    document.getElementById('qd-'+qid).style.display = 'none';
-    document.getElementById('qt-'+qid).style.display = '';
-    document.getElementById('qhd-'+qid).style.display = 'none';
-    document.getElementById('qht-'+qid).style.display = '';
-    document.getElementById('qi-'+qid).classList.add('editing');
-    document.getElementById('qeb-'+qid).textContent = 'Save';
-    document.getElementById('qt-'+qid).focus();
-    editingQId = qid;
+    if (editingQId) { document.getElementById('qd-'+editingQId).style.display=''; document.getElementById('qt-'+editingQId).style.display='none'; const hd2=document.getElementById('qhd-'+editingQId); hd2.style.display=hd2.textContent?'':'none'; document.getElementById('qht-'+editingQId).style.display='none'; document.getElementById('qi-'+editingQId).classList.remove('editing'); document.getElementById('qeb-'+editingQId).textContent='Edit'; }
+    document.getElementById('qd-'+qid).style.display='none'; document.getElementById('qt-'+qid).style.display='';
+    document.getElementById('qhd-'+qid).style.display='none'; document.getElementById('qht-'+qid).style.display='';
+    document.getElementById('qi-'+qid).classList.add('editing'); document.getElementById('qeb-'+qid).textContent='Save';
+    document.getElementById('qt-'+qid).focus(); editingQId=qid;
   }
 }
 
-function saveQuestions() {
-  const accounts = getAccounts();
-  accounts[currentAccountId].updated = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
-  saveAccounts(accounts); toast('Draft saved');
-}
+function saveQuestions() { const accounts=getAccounts(); accounts[currentAccountId].updated=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}); saveAccounts(accounts); toast('Draft saved'); }
 
 function resetQuestions() {
-  if (!confirm('Reset all questions to the master template? Your edits will be lost.')) return;
-  const accounts = getAccounts();
-  accounts[currentAccountId].questions = JSON.parse(JSON.stringify(MASTER));
-  accounts[currentAccountId].updated = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
-  saveAccounts(accounts);
-  renderQEditor(accounts[currentAccountId].questions);
-  toast('Reset to master template');
+  if (!confirm('Reset to master template? Edits will be lost.')) return;
+  const accounts=getAccounts(); accounts[currentAccountId].questions=JSON.parse(JSON.stringify(MASTER)); accounts[currentAccountId].updated=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}); saveAccounts(accounts); renderQEditor(accounts[currentAccountId].questions); toast('Reset to master');
 }
 
 async function publishForm() {
   const cfg = getSBConfig();
-  if (!cfg) { toast('Connect Supabase first — see the setup banner on the Accounts page'); return; }
-
+  if (!cfg) { toast('Connect Supabase first — use ⚙ Settings'); openSettings(); return; }
   const btn = document.getElementById('publish-btn');
-  btn.textContent = 'Publishing…'; btn.disabled = true;
-
-  const accounts = getAccounts();
-  const a = accounts[currentAccountId];
-
+  btn.textContent='Publishing…'; btn.disabled=true;
+  const accounts=getAccounts(); const a=accounts[currentAccountId];
   try {
-    // If already published, upsert (update the same form ID so the short link stays stable)
-    const payload = {
-      account_id: currentAccountId,
-      account_name: a.name,
-      questions: a.questions,
-      notify_email: cfg.notify || ''
-    };
-
+    const payload = { account_id:currentAccountId, account_name:a.name, questions:a.questions, notify_email:cfg.notify||'' };
     let formId = a.formId;
-
     if (formId) {
-      // Update existing form row
-      const res = await sbFetch('forms?id=eq.' + formId, {
-        method: 'PATCH',
-        headers: { 'Prefer': 'return=minimal' },
-        body: JSON.stringify({ questions: a.questions, account_name: a.name, notify_email: cfg.notify || '' })
-      });
-      if (!res.ok) throw new Error('Update failed: ' + res.status);
+      const res = await sbFetch('forms?id=eq.'+formId, { method:'PATCH', headers:{'Prefer':'return=minimal'}, body:JSON.stringify({questions:a.questions,account_name:a.name}) });
+      if (!res.ok) throw new Error('Update failed: '+res.status);
     } else {
-      // Insert new form, get back the generated short ID
-      const res = await sbFetch('forms?select=id', {
-        method: 'POST',
-        headers: { 'Prefer': 'return=representation' },
-        body: JSON.stringify(payload)
-      });
-      if (!res.ok) throw new Error('Insert failed: ' + res.status);
-      const data = await res.json();
-      formId = data[0].id;
-      accounts[currentAccountId].formId = formId;
-      a.updated = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
-      saveAccounts(accounts);
+      const res = await sbFetch('forms?select=id', { method:'POST', headers:{'Prefer':'return=representation'}, body:JSON.stringify(payload) });
+      if (!res.ok) throw new Error('Insert failed: '+res.status);
+      const data = await res.json(); formId = data[0].id;
+      accounts[currentAccountId].formId=formId; a.updated=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}); saveAccounts(accounts);
     }
-
-    const url = buildShortURL(formId);
-    document.getElementById('url-display').textContent = url;
-    document.getElementById('url-bar-wrap').style.display = 'block';
+    document.getElementById('url-display').textContent=buildShortURL(formId);
+    document.getElementById('url-bar-wrap').style.display='block';
     toast('Published — short URL ready');
-  } catch(e) {
-    toast('Publish failed: ' + e.message);
-  } finally {
-    btn.textContent = 'Publish & get URL'; btn.disabled = false;
-  }
+  } catch(e) { toast('Publish failed: '+e.message); }
+  finally { btn.textContent='Publish & get URL'; btn.disabled=false; }
 }
 
-function copyURL() {
-  const accounts = getAccounts();
-  const a = accounts[currentAccountId];
-  if (!a.formId) return;
-  navigator.clipboard.writeText(buildShortURL(a.formId)).then(() => toast('URL copied to clipboard'));
-}
+function copyURL() { const a=getAccounts()[currentAccountId]; if (!a.formId) return; navigator.clipboard.writeText(buildShortURL(a.formId)).then(()=>toast('URL copied')); }
 
 function sendEmail() {
-  const accounts = getAccounts();
-  const a = accounts[currentAccountId];
-  if (!a.formId) return;
-  const url = buildShortURL(a.formId);
-  const subject = encodeURIComponent('FY27 Account Planning Pre-Read — ' + a.name);
-  const body = encodeURIComponent(
-    'Hi,\n\nPlease complete the FY27 Account Planning Pre-Read for ' + a.name + ' before our session.\n\n' +
-    'It takes approximately 10 minutes — 15 strategic questions, no status updates.\n\n' +
-    'Form link: ' + url + '\n\nSpecific answers only. Your input shapes the planning session directly.\n\nThank you.'
-  );
-  window.open('mailto:?subject=' + subject + '&body=' + body);
+  const a=getAccounts()[currentAccountId]; if (!a.formId) return;
+  const url=buildShortURL(a.formId);
+  window.open('mailto:?subject='+encodeURIComponent('FY27 Account Planning Pre-Read — '+a.name)+'&body='+encodeURIComponent('Hi,\n\nPlease complete the FY27 Account Planning Pre-Read for '+a.name+' before our session.\n\nForm link: '+url+'\n\nThank you.'));
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// RESPONSES TABLE (fetched live from Supabase)
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── RESPONSES ────────────────────────────────────────────────────────────────
 async function renderResponseTable(accountId) {
-  const accounts = getAccounts();
-  const a = accounts[accountId];
-  const wrap = document.getElementById('resp-table-wrap');
-  document.getElementById('resp-count').textContent = '…';
-
-  if (!a.formId) {
-    wrap.innerHTML = '<div class="empty-state">Publish the form to start collecting responses.</div>';
-    document.getElementById('resp-count').textContent = '0 responses';
-    return;
-  }
-
-  const cfg = getSBConfig();
-  if (!cfg) {
-    wrap.innerHTML = '<div class="empty-state">Connect Supabase to see responses.</div>';
-    document.getElementById('resp-count').textContent = '0 responses';
-    return;
-  }
-
+  const a=getAccounts()[accountId]; const wrap=document.getElementById('resp-table-wrap');
+  document.getElementById('resp-count').textContent='…';
+  if (!a.formId) { wrap.innerHTML='<div class="empty-state">Publish the form to start collecting responses.</div>'; document.getElementById('resp-count').textContent='0 responses'; return; }
+  if (!getSBConfig()) { wrap.innerHTML='<div class="empty-state">Connect Supabase via ⚙ Settings to see responses.</div>'; document.getElementById('resp-count').textContent='—'; return; }
   try {
-    const rows = await fetchResponsesViaEdgeFn(a.formId, cfg);
-    document.getElementById('resp-count').textContent = rows.length + ' response' + (rows.length!==1?'s':'');
-
-    if (!rows.length) {
-      wrap.innerHTML = '<div class="empty-state">No responses yet. Share the form URL to start collecting.</div>';
-      return;
-    }
-
-    const cols = ['Submitted','Q1 · Name','Q2 · Role','Q3 · Time','Q4 · Truth','Q14 · Competitor','Q15B · Bold Move'];
-    const colKeys = ['submitted_at','q1','q2','q3','q4','q14','q15b'];
-
-    wrap.innerHTML = `<div class="resp-table-wrap"><table class="resp-table">
-      <thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead>
-      <tbody>${rows.map(r => {
-        const d = r.data || {};
-        return `<tr>${colKeys.map(k => {
-          const v = k === 'submitted_at' ? new Date(r.submitted_at).toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) : (d[k]||'—');
-          return `<td title="${String(v).replace(/"/g,'&quot;')}">${v}</td>`;
-        }).join('')}</tr>`;
-      }).join('')}</tbody></table></div>`;
-  } catch(e) {
-    wrap.innerHTML = `<div class="empty-state">Could not load responses: ${e.message}</div>`;
-  }
+    const rows = await fetchResponsesViaEdgeFn(a.formId);
+    document.getElementById('resp-count').textContent=rows.length+' response'+(rows.length!==1?'s':'');
+    if (!rows.length) { wrap.innerHTML='<div class="empty-state">No responses yet.</div>'; return; }
+    const cols=['Submitted','Q1 · Name','Q2 · Role','Q3 · Time','Q4 · Truth','Q14 · Competitor','Q15B · Bold Move'];
+    const colKeys=['submitted_at','q1','q2','q3','q4','q14','q15b'];
+    wrap.innerHTML=`<div class="resp-table-wrap"><table class="resp-table"><thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>{const d=r.data||{};return`<tr>${colKeys.map(k=>{const v=k==='submitted_at'?new Date(r.submitted_at).toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):(d[k]||'—');return`<td title="${String(v).replace(/"/g,'&quot;')}">${v}</td>`;}).join('')}</tr>`;}).join('')}</tbody></table></div>`;
+  } catch(e) { wrap.innerHTML=`<div class="empty-state">Could not load: ${e.message}</div>`; document.getElementById('resp-count').textContent='error'; }
 }
 
-async function refreshResponses() {
-  await renderResponseTable(currentAccountId);
-  toast('Responses refreshed');
-}
+async function refreshResponses() { await renderResponseTable(currentAccountId); toast('Refreshed'); }
 
 async function exportCSV() {
-  const accounts = getAccounts();
-  const a = accounts[currentAccountId];
-  if (!a.formId) { toast('Publish the form first'); return; }
-
-  const cfg = getSBConfig();
-  if (!cfg) { toast('Supabase not connected'); return; }
-
+  const a=getAccounts()[currentAccountId]; if (!a.formId) { toast('Publish first'); return; }
+  if (!getSBConfig()) { toast('Connect Supabase first'); return; }
   try {
-    const rows = await fetchResponsesViaEdgeFn(a.formId, cfg);
-    rows.sort((a,b) => new Date(a.submitted_at) - new Date(b.submitted_at));
+    const rows = await fetchResponsesViaEdgeFn(a.formId);
     if (!rows.length) { toast('No responses to export'); return; }
-
-    const allKeys = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15a','q15b','q15c','q15d'];
-    const headers = ['Submitted','Q1 Name','Q2 Role','Q3 Time on Account','Q4 Client Perception','Q5 Relevance Risk','Q6 Stop Doing','Q7 Primary Contact','Q8 Client Perspective','Q9 Underinvested Areas','Q10 Relationship Gap','Q11 White Space','Q12 Ecosystem Partner','Q13 Mega Deal','Q14 Competitor','Q15A Internal Obstacle','Q15B Bold Move','Q15C Session Question','Q15D Facilitator Notes'];
-    const esc = v => '"' + String(v||'').replace(/"/g,'""') + '"';
-    const csvRows = [['Submitted',...headers.slice(1)].map(esc).join(',')];
-    rows.forEach(r => {
-      const d = r.data || {};
-      csvRows.push([esc(new Date(r.submitted_at).toISOString()), ...allKeys.map(k => esc(d[k]||''))].join(','));
-    });
-
-    const name = a.name.replace(/[^a-z0-9]/gi,'_');
-    const blob = new Blob([csvRows.join('\n')], {type:'text/csv'});
-    const el = document.createElement('a');
-    el.href = URL.createObjectURL(blob);
-    el.download = 'FY27_AccountPlanning_' + name + '_' + new Date().toISOString().slice(0,10) + '.csv';
-    el.click();
+    rows.sort((x,y)=>new Date(x.submitted_at)-new Date(y.submitted_at));
+    const allKeys=['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15a','q15b','q15c','q15d'];
+    const headers=['Submitted','Q1 Name','Q2 Role','Q3 Time','Q4 Client Perception','Q5 Relevance Risk','Q6 Stop Doing','Q7 Primary Contact','Q8 Client Perspective','Q9 Underinvested Areas','Q10 Relationship Gap','Q11 White Space','Q12 Ecosystem Partner','Q13 Mega Deal','Q14 Competitor','Q15A Internal Obstacle','Q15B Bold Move','Q15C Session Question','Q15D Facilitator Notes'];
+    const esc=v=>'"'+String(v||'').replace(/"/g,'""')+'"';
+    const csvRows=[headers.map(esc).join(',')];
+    rows.forEach(r=>{const d=r.data||{};csvRows.push([esc(new Date(r.submitted_at).toISOString()),...allKeys.map(k=>esc(d[k]||''))].join(','));});
+    const name=a.name.replace(/[^a-z0-9]/gi,'_');
+    const el=document.createElement('a'); el.href=URL.createObjectURL(new Blob([csvRows.join('\n')],{type:'text/csv'}));
+    el.download='FY27_AccountPlanning_'+name+'_'+new Date().toISOString().slice(0,10)+'.csv'; el.click();
     toast('CSV downloaded');
-  } catch(e) {
-    toast('Export failed: ' + e.message);
-  }
+  } catch(e) { toast('Export failed: '+e.message); }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// RESPONDENT FORM — fetches form definition from Supabase by short ID
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── RESPONDENT FORM ──────────────────────────────────────────────────────────
 async function loadRespondentForm(formId) {
-  show('s-form');
-  document.getElementById('form-wrap').innerHTML = '<div class="form-loading">Loading form…</div>';
-
   const cfg = getSBConfig();
   if (!cfg) {
-    // Fallback: try to find form in local accounts (for admin previewing on their own machine)
-    const accounts = getAccounts();
-    const localMatch = Object.values(accounts).find(a => a.formId === formId);
-    if (localMatch) {
-      _loadedFormData = { id: formId, account_name: localMatch.name, questions: localMatch.questions, notify_email: '' };
-      renderRespondentForm(_loadedFormData);
-      return;
-    }
-    document.getElementById('form-wrap').innerHTML = `<div class="form-error"><h2>Configuration needed</h2><p>This form requires a Supabase connection to load. If you're the admin, connect Supabase from the admin panel.</p></div>`;
+    // Fallback: check local accounts (lets admin preview on their own machine)
+    const local = Object.values(getAccounts()).find(a=>a.formId===formId);
+    if (local) { _loadedForm={id:formId,account_name:local.name,questions:local.questions}; renderRespondentForm(); return; }
+    document.getElementById('form-wrap').innerHTML='<div class="form-loading">This form is not available.</div>';
     return;
   }
-
   try {
-    const res = await sbFetch('forms?id=eq.' + formId + '&select=*');
+    const res = await sbFetch('forms?id=eq.'+formId+'&select=*');
     if (!res.ok) throw new Error(res.status);
     const data = await res.json();
     if (!data.length) { show('s-notfound'); return; }
-    _loadedFormData = data[0];
-    renderRespondentForm(_loadedFormData);
+    _loadedForm = data[0];
+    renderRespondentForm();
   } catch(e) {
-    document.getElementById('form-wrap').innerHTML = `<div class="form-error"><h2>Could not load form</h2><p>${e.message}</p></div>`;
+    document.getElementById('form-wrap').innerHTML=`<div class="form-loading">Could not load form: ${e.message}</div>`;
   }
 }
 
-function renderRespondentForm(form) {
-  let html = `<div class="form-mast">
-    <div class="form-eyebrow">FY27 Account Planning · Pre-Read</div>
-    <div class="form-title">${form.account_name}</div>
-    <div class="form-preamble">This is not a status update. Write down what you actually think — where this account stands, where it's headed, and what it would take to matter more. 10 minutes. 15 questions. Specific answers only.</div>
-  </div>`;
-
+function renderRespondentForm() {
+  const form = _loadedForm;
+  let html = `<div class="form-mast"><div class="form-eyebrow">FY27 Account Planning · Pre-Read</div><div class="form-title">${form.account_name}</div><div class="form-preamble">This is not a status update. Write down what you actually think — where this account stands, where it's headed, and what it would take to matter more. 10 minutes. 15 questions. Specific answers only.</div></div>`;
   form.questions.forEach(sec => {
-    html += `<div class="fsec-head">${sec.sec} <span style="font-weight:400;opacity:.6">${sec.time}</span></div>`;
+    html+=`<div class="fsec-head">${sec.sec} <span style="font-weight:400;opacity:.6">${sec.time}</span></div>`;
     sec.qs.forEach(q => {
-      html += `<div class="fq" id="fq-${q.id}">
-        <div class="fq-label">${q.num}. ${q.text}${!q.required?'<span style="font-size:11px;color:var(--t3);font-family:var(--mono);margin-left:6px">optional</span>':''}</div>
-        ${q.hint?`<div class="fq-hint">${q.hint}</div>`:''}`;
-      if (q.type==='short') html += `<input type="text" id="fi-${q.id}" placeholder="Your answer">`;
-      else if (q.type==='long') html += `<textarea id="fi-${q.id}" placeholder="Your answer" rows="4"></textarea>`;
-      else if (q.type==='dropdown') html += `<select id="fi-${q.id}"><option value="">Select one...</option>${q.opts.map(o=>`<option value="${o}">${o}</option>`).join('')}</select>`;
-      else if (q.type==='single') html += `<div class="choice-group">${q.opts.map((o,i)=>`<div class="choice-item" id="ci-${q.id}-${i}" onclick="selectSingle('${q.id}',${i},${q.opts.length})"><div class="choice-circle"><div class="circle-inner"></div></div><span class="choice-lbl">${o}</span></div>`).join('')}</div>`;
-      else if (q.type==='multi') html += `<div class="choice-group">${q.opts.map((o,i)=>`<div class="choice-item" id="ci-${q.id}-${i}" onclick="selectMulti('${q.id}',${i},${q.max||99})"><div class="choice-square"><span class="sq-check">✓</span></div><span class="choice-lbl">${o}</span></div>`).join('')}</div><div class="multi-note">Select up to ${q.max||2}</div>`;
-      html += `</div>`;
+      html+=`<div class="fq" id="fq-${q.id}"><div class="fq-label">${q.num}. ${q.text}${!q.required?'<span style="font-size:11px;color:var(--t3);font-family:var(--mono);margin-left:6px">optional</span>':''}</div>${q.hint?`<div class="fq-hint">${q.hint}</div>`:''}`;
+      if (q.type==='short') html+=`<input type="text" id="fi-${q.id}" placeholder="Your answer">`;
+      else if (q.type==='long') html+=`<textarea id="fi-${q.id}" placeholder="Your answer" rows="4"></textarea>`;
+      else if (q.type==='dropdown') html+=`<select id="fi-${q.id}"><option value="">Select one...</option>${q.opts.map(o=>`<option value="${o}">${o}</option>`).join('')}</select>`;
+      else if (q.type==='single') html+=`<div class="choice-group">${q.opts.map((o,i)=>`<div class="choice-item" id="ci-${q.id}-${i}" onclick="selectSingle('${q.id}',${i},${q.opts.length})"><div class="choice-circle"><div class="circle-inner"></div></div><span class="choice-lbl">${o}</span></div>`).join('')}</div>`;
+      else if (q.type==='multi') html+=`<div class="choice-group">${q.opts.map((o,i)=>`<div class="choice-item" id="ci-${q.id}-${i}" onclick="selectMulti('${q.id}',${i},${q.max||99})"><div class="choice-square"><span class="sq-check">✓</span></div><span class="choice-lbl">${o}</span></div>`).join('')}</div><div class="multi-note">Select up to ${q.max||2}</div>`;
+      html+=`</div>`;
     });
   });
-
-  html += `<div class="form-submit-wrap"><button class="btn-primary" style="max-width:200px" onclick="submitForm()">Submit responses</button></div>`;
-  document.getElementById('form-wrap').innerHTML = html;
+  html+=`<div class="form-submit-wrap"><button class="btn-primary" style="max-width:200px" onclick="submitForm()">Submit responses</button></div>`;
+  document.getElementById('form-wrap').innerHTML=html;
 }
 
-function selectSingle(qid, idx, total) {
-  for (let i=0;i<total;i++) document.getElementById('ci-'+qid+'-'+i)?.classList.remove('sel');
-  document.getElementById('ci-'+qid+'-'+idx)?.classList.add('sel');
-}
-function selectMulti(qid, idx, max) {
-  const el = document.getElementById('ci-'+qid+'-'+idx);
-  if (el.classList.contains('sel')) { el.classList.remove('sel'); return; }
-  if (el.closest('.choice-group').querySelectorAll('.sel').length >= max) { toast('Select up to ' + max + ' options'); return; }
-  el.classList.add('sel');
-}
+function selectSingle(qid,idx,total) { for(let i=0;i<total;i++) document.getElementById('ci-'+qid+'-'+i)?.classList.remove('sel'); document.getElementById('ci-'+qid+'-'+idx)?.classList.add('sel'); }
+function selectMulti(qid,idx,max) { const el=document.getElementById('ci-'+qid+'-'+idx); if(el.classList.contains('sel')){el.classList.remove('sel');return;} if(el.closest('.choice-group').querySelectorAll('.sel').length>=max){toast('Select up to '+max+' options');return;} el.classList.add('sel'); }
 
 async function submitForm() {
-  if (!_loadedFormData) return;
-  const form = _loadedFormData;
-  const resp = {};
-  let valid = true, firstMissing = null;
-
-  form.questions.forEach(sec => {
-    sec.qs.forEach(q => {
-      let val = '';
-      if (q.type==='short'||q.type==='long'||q.type==='dropdown') val = (document.getElementById('fi-'+q.id)?.value||'').trim();
-      else if (q.type==='single') { const s = document.querySelector('#fq-'+q.id+' .choice-item.sel .choice-lbl'); val = s ? s.textContent : ''; }
-      else if (q.type==='multi') val = Array.from(document.querySelectorAll('#fq-'+q.id+' .choice-item.sel .choice-lbl')).map(s=>s.textContent).join('; ');
-      resp[q.id] = val;
-      if (q.required && !val) {
-        valid = false;
-        if (!firstMissing) firstMissing = q.id;
-        const el = document.getElementById('fq-'+q.id);
-        el.style.outline='1.5px solid var(--accent)'; el.style.borderRadius='8px'; el.style.padding='8px';
-      } else {
-        const el = document.getElementById('fq-'+q.id);
-        if (el) { el.style.outline=''; el.style.padding=''; }
-      }
-    });
-  });
-
-  if (!valid) {
-    toast('Please answer all required questions');
-    document.getElementById('fq-'+firstMissing)?.scrollIntoView({behavior:'smooth',block:'center'});
-    return;
-  }
-
-  const btn = document.querySelector('.form-submit-wrap .btn-primary');
-  if (btn) { btn.textContent = 'Submitting…'; btn.disabled = true; }
-
-  const cfg = getSBConfig();
-  if (cfg) {
-    try {
-      const res = await sbFetch('responses', {
-        method: 'POST',
-        headers: { 'Prefer': 'return=minimal' },
-        body: JSON.stringify({ form_id: form.id, account_id: form.account_id, data: resp })
-      });
-      if (!res.ok) throw new Error('Save failed: ' + res.status);
-    } catch(e) {
-      if (btn) { btn.textContent = 'Submit responses'; btn.disabled = false; }
-      toast('Could not save: ' + e.message + ' — please try again');
-      return;
-    }
-  }
-
-  document.getElementById('form-wrap').innerHTML = `
-    <div class="form-submitted">
-      <div class="submitted-icon">&#10003;</div>
-      <div class="submitted-title">Submitted. Thank you.</div>
-      <div class="submitted-msg">Your responses have been recorded and are visible to the planning lead immediately.<br><br>The account planning session facilitator will synthesize all submissions before the session.<br><br>See you in the room.</div>
-    </div>`;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// ROUTER
-// ─────────────────────────────────────────────────────────────────────────────
-function route() {
-  const params = new URLSearchParams(window.location.search);
-  const formId = params.get('f');
-  if (formId) {
-    loadRespondentForm(formId);
-  } else {
-    const admins = getAdmins();
-    show('s-login');
+  if (!_loadedForm) return;
+  const form=_loadedForm; const resp={}; let valid=true,firstMissing=null;
+  form.questions.forEach(sec=>sec.qs.forEach(q=>{
+    let val='';
+    if(q.type==='short'||q.type==='long'||q.type==='dropdown') val=(document.getElementById('fi-'+q.id)?.value||'').trim();
+    else if(q.type==='single'){const s=document.querySelector('#fq-'+q.id+' .choice-item.sel .choice-lbl');val=s?s.textContent:'';}
+    else if(q.type==='multi') val=Array.from(document.querySelectorAll('#fq-'+q.id+' .choice-item.sel .choice-lbl')).map(s=>s.textContent).join('; ');
+    resp[q.id]=val;
+    if(q.required&&!val){valid=false;if(!firstMissing)firstMissing=q.id;const el=document.getElementById('fq-'+q.id);el.style.outline='1.5px solid var(--accent)';el.style.borderRadius='8px';el.style.padding='8px';}
+    else{const el=document.getElementById('fq-'+q.id);if(el){el.style.outline='';el.style.padding='';}}
+  }));
+  if(!valid){toast('Please answer all required questions');document.getElementById('fq-'+firstMissing)?.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  const btn=document.querySelector('.form-submit-wrap .btn-primary');
+  if(btn){btn.textContent='Submitting…';btn.disabled=true;}
+  try {
+    const res=await sbFetch('responses',{method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify({form_id:form.id,account_id:form.account_id,data:resp})});
+    if(!res.ok) throw new Error('Save failed: '+res.status);
+    document.getElementById('form-wrap').innerHTML=`<div class="form-submitted"><div class="submitted-icon">✓</div><div class="submitted-title">Submitted. Thank you.</div><div class="submitted-msg">Your responses have been recorded and are visible to the planning lead immediately.<br><br>The account planning session facilitator will synthesize all submissions before the session.<br><br>See you in the room.</div></div>`;
+  } catch(e) {
+    if(btn){btn.textContent='Submit responses';btn.disabled=false;}
+    toast('Could not save — please try again: '+e.message);
   }
 }
 
-route();
+// ─── BOOT ─────────────────────────────────────────────────────────────────────
+// If a form ID was detected by the early router, load it now
+if (window._pendingFormId) {
+  loadRespondentForm(window._pendingFormId);
+}
+// Otherwise s-login is already active (set in HTML), nothing to do
 </script>
 </body>
 </html>
