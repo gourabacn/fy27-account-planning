@@ -22,7 +22,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .screen{display:none;min-height:100vh;flex-direction:column}
 .screen.active{display:flex}
 
-/* LOGIN */
 #s-login{align-items:center;justify-content:center;background:#e8edf5}
 .lbox{width:100%;max-width:400px;padding:2rem}
 .llogo{font-family:var(--disp);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem}
@@ -36,7 +35,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .btn-primary:hover{opacity:.88}
 .lerr{font-family:var(--mono);font-size:11px;color:var(--red);margin-top:8px;display:none}
 
-/* NAV */
 .nav{display:flex;align-items:center;gap:12px;padding:0 1.75rem;height:54px;background:#0d0d0d;border-bottom:0.5px solid rgba(255,255,255,0.08);flex-shrink:0}
 .nav-logo{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#60a5fa}
 .nav-sep{color:rgba(255,255,255,0.2);font-size:16px}
@@ -47,13 +45,30 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .btn-back{display:flex;align-items:center;gap:5px;background:none;border:none;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.5);cursor:pointer;padding:4px 8px;border-radius:6px;transition:background .15s}
 .btn-back:hover{background:rgba(255,255,255,0.08);color:#fff}
 
-/* LAYOUT */
 .page-body{flex:1;padding:2rem;max-width:880px;width:100%;margin:0 auto}
 .page-title{font-family:var(--disp);font-size:22px;font-weight:700;margin-bottom:3px}
 .page-sub{font-family:var(--mono);font-size:11px;color:var(--t3);margin-bottom:2rem}
 .sec-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:10px}
 
-/* ACCOUNT GRID */
+/* Supabase setup banner */
+.setup-banner{background:#fff8ec;border:0.5px solid rgba(122,74,0,.25);border-radius:var(--rl);padding:1.2rem 1.4rem;margin-bottom:2rem}
+.setup-banner h3{font-family:var(--disp);font-size:13px;font-weight:700;color:var(--amber);margin-bottom:8px}
+.setup-banner p{font-family:var(--mono);font-size:11px;color:var(--t2);line-height:1.7;margin-bottom:10px}
+.setup-banner code{background:var(--bg);border:0.5px solid var(--border-s);border-radius:5px;padding:0 5px;font-size:11px;font-family:var(--mono)}
+.setup-banner pre{background:var(--bg);border:0.5px solid var(--border-s);border-radius:8px;padding:10px 12px;font-family:var(--mono);font-size:11px;line-height:1.7;overflow-x:auto;margin:8px 0;color:var(--text)}
+.setup-row{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;flex-wrap:wrap}
+.setup-row input{flex:1;min-width:200px;padding:9px 12px;border:0.5px solid var(--border-s);border-radius:var(--r);font-family:var(--mono);font-size:12px;background:#fff;color:var(--text);outline:none}
+.setup-row input:focus{border-color:var(--accent)}
+.setup-row label{font-family:var(--mono);font-size:10px;color:var(--t3);display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.06em}
+.setup-field{flex:1;min-width:200px}
+
+/* Status dot */
+.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.status-dot.ok{background:var(--green)}
+.status-dot.err{background:var(--red)}
+.status-dot.checking{background:var(--amber);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
 .acct-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(256px,1fr));gap:12px;margin-bottom:2rem}
 .acct-card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rl);padding:1rem 1.2rem;cursor:pointer;transition:border-color .15s,transform .1s}
 .acct-card:hover{border-color:var(--accent);transform:translateY(-1px)}
@@ -65,7 +80,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .pill-live{background:var(--green-bg);color:var(--green);border-color:rgba(10,122,74,.25)}
 .pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
 
-/* BUTTONS */
 .btn{padding:6px 13px;border-radius:7px;font-family:var(--mono);font-size:11px;cursor:pointer;border:0.5px solid var(--border-s);background:transparent;color:var(--t2);transition:background .15s}
 .btn:hover{background:var(--bg)}
 .btn-accent{background:var(--accent-bg);border-color:rgba(0,71,204,.3);color:var(--accent)}
@@ -75,12 +89,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .btn-danger{color:var(--red);border-color:rgba(160,32,32,.25)}
 .btn-danger:hover{background:var(--red-bg)}
 
-/* NEW ACCOUNT */
 .new-acct-box{background:var(--surface);border:0.5px dashed var(--border-s);border-radius:var(--rl);padding:1.2rem;display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
 .new-acct-box input{flex:1;min-width:180px;padding:9px 12px;border:0.5px solid var(--border-s);border-radius:var(--r);font-family:var(--mono);font-size:13px;background:var(--bg);color:var(--text);outline:none}
 .new-acct-box input:focus{border-color:var(--accent)}
 
-/* EDITOR */
 #s-editor{background:var(--bg)}
 .editor-body{flex:1;padding:2rem;max-width:800px;width:100%;margin:0 auto}
 .editor-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
@@ -95,16 +107,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .btn-email-link{padding:5px 10px;border-radius:6px;font-family:var(--mono);font-size:10px;cursor:pointer;border:0.5px solid var(--green);background:var(--green);color:#fff;transition:opacity .15s;white-space:nowrap}
 .btn-email-link:hover{opacity:.85}
 
-/* URL warning banner */
-.url-warning{background:var(--amber-bg);border:0.5px solid rgba(122,74,0,.25);border-radius:var(--r);padding:10px 14px;margin-bottom:8px;font-family:var(--mono);font-size:11px;color:var(--amber);line-height:1.6}
-.url-warning strong{font-weight:600}
-
 .sec-block{margin-bottom:1.75rem}
 .sec-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:7px;border-bottom:0.5px solid var(--border)}
 .sec-code{font-family:var(--mono);font-size:10px;color:var(--t3);min-width:22px}
 .sec-name{font-family:var(--disp);font-size:12px;font-weight:600;flex:1}
 .sec-time{font-family:var(--mono);font-size:10px;color:var(--t3)}
-
 .q-item{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:11px 13px;margin-bottom:7px;transition:border-color .15s}
 .q-item.editing{border-color:var(--accent);background:#f0f5ff}
 .q-row{display:flex;align-items:flex-start;gap:9px}
@@ -123,11 +130,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .opts-display{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
 .opt-chip{font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:999px;border:0.5px solid var(--border);color:var(--t2);background:var(--bg)}
 
-/* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;background:#1a1a18;color:#fff;font-family:var(--mono);font-size:12px;padding:10px 18px;border-radius:var(--r);opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none;z-index:999}
 .toast.show{opacity:1;transform:translateY(0)}
 
-/* RESPONSES TABLE */
 .resp-section{margin-top:2rem}
 .resp-toolbar{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
 .resp-count{font-family:var(--mono);font-size:11px;color:var(--t3);flex:1}
@@ -139,11 +144,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .resp-table tr:hover td{background:var(--bg)}
 .empty-state{text-align:center;padding:2.5rem;font-family:var(--mono);font-size:12px;color:var(--t3)}
 
-/* inline responses notice */
-.resp-notice{background:var(--accent-bg);border:0.5px solid rgba(0,71,204,.2);border-radius:var(--r);padding:12px 14px;margin-bottom:12px;font-family:var(--mono);font-size:11px;color:var(--accent);line-height:1.7}
-.resp-notice strong{font-weight:600}
-
-/* FORM (respondent view) */
 #s-form{background:var(--bg)}
 .form-wrap{flex:1;padding:2rem;max-width:660px;width:100%;margin:0 auto}
 .form-mast{padding-bottom:1.5rem;margin-bottom:2rem;border-bottom:0.5px solid var(--border)}
@@ -177,43 +177,18 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .submitted-title{font-family:var(--disp);font-size:22px;font-weight:700;margin-bottom:8px}
 .submitted-msg{font-family:var(--mono);font-size:12px;color:var(--t2);line-height:1.7}
 
-/* Submission copy box */
-.copy-box{text-align:left;margin-top:2rem;background:var(--bg);border:0.5px solid var(--border);border-radius:var(--r);padding:1rem}
-.copy-box-title{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:8px}
-.copy-box textarea{width:100%;font-family:var(--mono);font-size:11px;color:var(--t2);background:var(--surface);border:0.5px solid var(--border);border-radius:6px;padding:8px;resize:vertical;min-height:120px;outline:none;line-height:1.6}
-.copy-box .btn{margin-top:6px}
+/* Loading / error states for form */
+.form-loading{display:flex;align-items:center;justify-content:center;min-height:50vh;font-family:var(--mono);font-size:12px;color:var(--t3)}
+.form-error{text-align:center;padding:3rem 2rem}
+.form-error h2{font-family:var(--disp);font-size:20px;margin-bottom:8px}
+.form-error p{font-family:var(--mono);font-size:12px;color:var(--t3)}
 
-/* NOT FOUND */
 #s-notfound{align-items:center;justify-content:center;text-align:center}
 .nf-title{font-family:var(--disp);font-size:22px;font-weight:700;margin-bottom:8px}
 .nf-sub{font-family:var(--mono);font-size:12px;color:var(--t3)}
 </style>
 </head>
 <body>
-
-<!-- FIRST RUN SETUP -->
-<div id="s-setup" class="screen" style="align-items:center;justify-content:center;background:#e8edf5">
-  <div class="lbox" style="max-width:480px">
-    <div class="llogo">Accenture</div>
-    <div class="ltitle">First-time setup</div>
-    <div class="lsub" style="margin-bottom:1.5rem">Add the email addresses that will have admin access. Also set the email address where form submissions should be sent.</div>
-
-    <label>Submissions go to (admin email)</label>
-    <div style="margin-bottom:16px">
-      <input type="email" id="setup-notify-email" placeholder="planning-lead@accenture.com" style="width:100%;padding:11px 13px;background:#fff;border:0.5px solid rgba(0,0,0,0.22);border-radius:10px;font-family:var(--mono);font-size:13px;outline:none;color:var(--text)">
-      <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:5px;line-height:1.6">Respondents will be prompted to email their answers here after submitting.</div>
-    </div>
-
-    <label>Add admin email (login access)</label>
-    <div style="display:flex;gap:8px;margin-bottom:12px">
-      <input type="email" id="setup-email" placeholder="name@accenture.com" style="flex:1;padding:11px 13px;background:#fff;border:0.5px solid rgba(0,0,0,0.22);border-radius:10px;font-family:var(--mono);font-size:13px;outline:none;color:var(--text)" onkeydown="if(event.key==='Enter')addAdminEntry()">
-      <button onclick="addAdminEntry()" style="padding:11px 16px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-family:var(--disp);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap">Add</button>
-    </div>
-    <div id="setup-list" style="margin-bottom:1.5rem;min-height:40px"></div>
-    <button class="btn-primary" onclick="finishSetup()">Save and continue</button>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:12px;line-height:1.6">Stored only in this browser's local storage. Not visible in source code.</div>
-  </div>
-</div>
 
 <!-- LOGIN -->
 <div id="s-login" class="screen">
@@ -240,6 +215,62 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
   <div class="page-body">
     <div class="page-title">Accounts</div>
     <div class="page-sub" id="admin-sub"></div>
+
+    <!-- Supabase setup banner (shown when not configured) -->
+    <div class="setup-banner" id="supabase-banner" style="display:none">
+      <h3>⚡ Connect Supabase for short links &amp; live responses</h3>
+      <p>Without Supabase, form links are too long to share. It takes 2 minutes to set up — free tier is more than enough.</p>
+      <p><strong>Step 1</strong> — Create a free project at <a href="https://supabase.com" target="_blank" style="color:var(--accent)">supabase.com</a>, then run this SQL in the SQL editor:</p>
+      <pre>create table forms (
+  id text primary key default substr(md5(random()::text),1,8),
+  account_id text not null,
+  account_name text not null,
+  questions jsonb not null,
+  notify_email text,
+  created_at timestamptz default now()
+);
+
+create table responses (
+  id uuid primary key default gen_random_uuid(),
+  form_id text references forms(id),
+  account_id text,
+  data jsonb not null,
+  submitted_at timestamptz default now()
+);
+
+alter table forms enable row level security;
+alter table responses enable row level security;
+-- Forms are public (respondents need to read them)
+create policy "public read forms" on forms for select using (true);
+-- Responses: write-only for the public anon key
+-- Reading is done server-side via the Edge Function using the service_role key
+create policy "public insert responses" on responses for insert with check (true);</pre>
+      <p><strong>Step 2</strong> — Deploy the <code>get-responses</code> Edge Function (included in the download). Then paste your credentials below.</p>
+      <p style="margin-top:-4px">From Project Settings → API: copy the <strong>Project URL</strong> and <strong>anon key</strong>. Choose any strong string as the <strong>Admin secret</strong> — set it as <code>ADMIN_SECRET</code> in the Edge Function's environment variables (Supabase dashboard → Edge Functions → get-responses → Secrets).</p>
+      <div class="setup-row">
+        <div class="setup-field">
+          <label>Project URL</label>
+          <input type="text" id="sb-url" placeholder="https://xyzxyz.supabase.co">
+        </div>
+        <div class="setup-field">
+          <label>Anon / public key</label>
+          <input type="text" id="sb-key" placeholder="eyJhbGciOiJIUzI1NiIsI...">
+        </div>
+      </div>
+      <div class="setup-row">
+        <div class="setup-field">
+          <label>Admin secret (must match ADMIN_SECRET env var in Edge Function)</label>
+          <input type="text" id="sb-secret" placeholder="a-long-random-string-you-choose" autocomplete="off">
+        </div>
+        <div class="setup-field">
+          <label>Notification email (optional)</label>
+          <input type="email" id="sb-notify" placeholder="planning-lead@accenture.com">
+        </div>
+      </div>
+      <button class="btn btn-accent" onclick="saveSupabaseConfig()" style="margin-top:4px">Save and test connection</button>
+      <span id="sb-status" style="font-family:var(--mono);font-size:11px;margin-left:12px;color:var(--t3)"></span>
+    </div>
+
     <div class="sec-label">Active accounts</div>
     <div class="acct-grid" id="acct-grid"></div>
     <div class="sec-label">Add account</div>
@@ -263,20 +294,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
     <div class="editor-hdr">
       <div>
         <div class="editor-acct" id="editor-acct-label"></div>
-        <div class="page-title" id="editor-title">Question Editor</div>
-        <div class="page-sub">Edit questions below then publish to generate the respondent URL.</div>
+        <div class="page-title">Question Editor</div>
+        <div class="page-sub">Edit questions below then publish to get a short shareable URL.</div>
       </div>
       <div class="editor-actions">
         <button class="btn" onclick="resetQuestions()">Reset to master</button>
         <button class="btn btn-accent" onclick="saveQuestions()">Save draft</button>
-        <button class="btn btn-green" onclick="publishForm()">Publish &amp; get URL</button>
+        <button class="btn btn-green" id="publish-btn" onclick="publishForm()">Publish &amp; get URL</button>
       </div>
     </div>
 
     <div id="url-bar-wrap" style="display:none">
-      <div class="url-warning">
-        <strong>How responses reach you:</strong> This app runs entirely in your browser — there's no server storing responses. When a respondent submits, they'll be shown their answers and prompted to send them to <span id="notify-email-display"></span> via email. A backend database integration is in progress for a future release.
-      </div>
       <div class="url-bar">
         <span class="url-lbl">Form URL</span>
         <span class="url-val" id="url-display"></span>
@@ -289,11 +317,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 
     <div class="resp-section">
       <div class="sec-label">Responses</div>
-      <div class="resp-notice">
-        <strong>v1 — email-based collection.</strong> Responses are emailed to you by respondents after they submit. Paste received responses below to store them here for export. A Supabase-backed version is coming in the next release.
-      </div>
       <div class="resp-toolbar">
         <span class="resp-count" id="resp-count">0 responses</span>
+        <button class="btn" onclick="refreshResponses()">↻ Refresh</button>
         <button class="btn" onclick="exportCSV()">Export CSV</button>
       </div>
       <div id="resp-table-wrap"></div>
@@ -303,14 +329,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 
 <!-- RESPONDENT FORM -->
 <div id="s-form" class="screen">
-  <div class="form-wrap" id="form-wrap"></div>
+  <div class="form-wrap" id="form-wrap">
+    <div class="form-loading">Loading form…</div>
+  </div>
 </div>
 
 <!-- NOT FOUND -->
 <div id="s-notfound" class="screen">
   <div>
     <div class="nf-title">Form not found</div>
-    <div class="nf-sub">This link is invalid or the form payload could not be decoded.</div>
+    <div class="nf-sub">This link is invalid or the form has been removed.</div>
   </div>
 </div>
 
@@ -318,64 +346,112 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 
 <script>
 // ─────────────────────────────────────────────────────────────────────────────
-// BACKEND STUB — swap this out in v2 when Supabase/Firebase is wired up.
-// In v1 this is a no-op; responses go via email instead.
+// SUPABASE CONFIG — stored in localStorage, set via the admin UI banner
 // ─────────────────────────────────────────────────────────────────────────────
-const RESPONSE_BACKEND = {
-  enabled: false,          // flip to true in v2
-  endpoint: '',            // e.g. 'https://xyz.supabase.co/rest/v1/responses'
-  apiKey: '',              // public anon key goes here
+function getSBConfig() {
+  try { return JSON.parse(localStorage.getItem('ap_sb') || 'null'); } catch(e) { return null; }
+}
+function saveSBConfig(c) { localStorage.setItem('ap_sb', JSON.stringify(c)); }
 
-  async submit(accountId, accountName, responseData) {
-    if (!this.enabled || !this.endpoint) return { ok: false, reason: 'backend_disabled' };
-    try {
-      const res = await fetch(this.endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': this.apiKey,
-          'Authorization': 'Bearer ' + this.apiKey,
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({ account_id: accountId, account_name: accountName, ...responseData })
+function sbHeaders(cfg) {
+  return {
+    'Content-Type': 'application/json',
+    'apikey': cfg.key,
+    'Authorization': 'Bearer ' + cfg.key
+  };
+}
+
+async function sbFetch(path, opts) {
+  const cfg = getSBConfig();
+  if (!cfg) throw new Error('Supabase not configured');
+  const res = await fetch(cfg.url + '/rest/v1/' + path, {
+    ...opts,
+    headers: { ...sbHeaders(cfg), ...(opts.headers||{}) }
+  });
+  return res;
+}
+
+// Call the get-responses Edge Function (uses service_role server-side; secret never exposed to respondents)
+async function fetchResponsesViaEdgeFn(formId, cfg) {
+  const res = await fetch(cfg.url + '/functions/v1/get-responses?form_id=' + formId, {
+    headers: { 'x-admin-secret': cfg.secret || '' }
+  });
+  if (res.status === 401) throw new Error('Admin secret rejected — check ADMIN_SECRET env var in Edge Function');
+  if (!res.ok) throw new Error('Edge Function error ' + res.status);
+  return res.json();
+}
+
+async function saveSupabaseConfig() {
+  const url = document.getElementById('sb-url').value.trim().replace(/\/$/, '');
+  const key = document.getElementById('sb-key').value.trim();
+  const secret = document.getElementById('sb-secret').value.trim();
+  const notify = document.getElementById('sb-notify').value.trim();
+  if (!url || !key) { toast('Enter both URL and key'); return; }
+  if (!secret) { toast('Enter an admin secret — any strong random string'); return; }
+
+  const status = document.getElementById('sb-status');
+  status.innerHTML = '<span class="status-dot checking"></span>Testing…';
+
+  try {
+    const cfg = { url, key, secret, notify };
+    saveSBConfig(cfg);
+    // Test anon connection (forms table, publicly readable)
+    const res = await fetch(url + '/rest/v1/forms?limit=1', { headers: sbHeaders(cfg) });
+    if (res.ok || res.status === 406) {
+      // Also test the Edge Function is reachable
+      const efRes = await fetch(url + '/functions/v1/get-responses?form_id=__ping__', {
+        headers: { 'x-admin-secret': secret }
       });
-      return { ok: res.ok, status: res.status };
-    } catch(e) {
-      return { ok: false, reason: e.message };
+      // 400 (missing/invalid form) or 404 means the function is live but just has no data
+      if (efRes.ok || efRes.status === 400 || efRes.status === 404) {
+        status.innerHTML = '<span class="status-dot ok"></span>Connected — DB and Edge Function both reachable!';
+      } else if (efRes.status === 401) {
+        status.innerHTML = '<span class="status-dot err"></span>DB connected but secret rejected — check ADMIN_SECRET env var matches what you entered';
+        return;
+      } else {
+        status.innerHTML = '<span class="status-dot err"></span>DB connected but Edge Function not found (' + efRes.status + ') — deploy get-responses first';
+        return;
+      }
+      toast('Supabase connected');
+      document.getElementById('supabase-banner').style.display = 'none';
+    } else {
+      status.innerHTML = '<span class="status-dot err"></span>Error ' + res.status + ' — check URL and anon key';
     }
+  } catch(e) {
+    status.innerHTML = '<span class="status-dot err"></span>' + e.message;
   }
-};
-// ─────────────────────────────────────────────────────────────────────────────
+}
 
+// ─────────────────────────────────────────────────────────────────────────────
+// ADMIN AUTH — localStorage only (admin emails never sent to server)
+// ─────────────────────────────────────────────────────────────────────────────
 function getAdmins() {
   try { return JSON.parse(localStorage.getItem('ap_admins') || '[]'); } catch(e) { return []; }
 }
 function saveAdmins(list) { localStorage.setItem('ap_admins', JSON.stringify(list)); }
 
-function getNotifyEmail() {
-  return localStorage.getItem('ap_notify_email') || '';
-}
-function saveNotifyEmail(email) { localStorage.setItem('ap_notify_email', email); }
-
+// ─────────────────────────────────────────────────────────────────────────────
+// MASTER QUESTIONS TEMPLATE
+// ─────────────────────────────────────────────────────────────────────────────
 const MASTER = [
   {sec:'Section 01 · Respondent Identity',time:'~1 min',qs:[
     {id:'q1',num:'Q1',text:'What is your name?',hint:'',type:'short',required:true},
-    {id:'q2',num:'Q2',text:'What is your primary role on the <Account>?',hint:'',type:'dropdown',required:true,opts:['CAL','Delivery Lead','Solution Architect','Sales','Industry/Domain Lead','Ecosystem/Partner Lead','Other']},
-    {id:'q3',num:'Q3',text:'How much of your time was focused on the <Account> in the last 90 days?',hint:'',type:'single',required:true,opts:['Less than 10%','10–25%','25–50%','More than 50%']}
+    {id:'q2',num:'Q2',text:'What is your primary role on the account?',hint:'',type:'dropdown',required:true,opts:['CAL','Delivery Lead','Solution Architect','Sales','Industry/Domain Lead','Ecosystem/Partner Lead','Other']},
+    {id:'q3',num:'Q3',text:'How much of your time was focused on this account in the last 90 days?',hint:'',type:'single',required:true,opts:['Less than 10%','10–25%','25–50%','More than 50%']}
   ]},
   {sec:'Section 02 · Truth Check',time:'~2 min',qs:[
-    {id:'q4',num:'Q4',text:'If you had to be completely honest: how does this client actually see Accenture today? Not what we hope — what we\'ve earned.',hint:'Give a specific characterization. What words would the client use behind closed doors?',type:'long',required:true},
+    {id:'q4',num:'Q4',text:"If you had to be completely honest: how does this client actually see Accenture today? Not what we hope — what we've earned.",hint:'Give a specific characterization. What words would the client use behind closed doors?',type:'long',required:true},
     {id:'q5',num:'Q5',text:'What is the single biggest risk that Accenture loses relevance at this account in the next 6 months — and what would trigger it?',hint:'Name the specific trigger, not a general vulnerability.',type:'long',required:true},
     {id:'q6',num:'Q6',text:'Name one thing Accenture should stop doing — or actively de-prioritize — at this account. What is it, and why is continuing it a mistake?',hint:'',type:'long',required:true}
   ]},
   {sec:'Section 03 · Client Lens',time:'~2 min',qs:[
     {id:'q7',num:'Q7',text:'Who is your primary client contact? Provide their name, title, and a one-sentence description of their decision-making authority.',hint:'',type:'short',required:true},
-    {id:'q8',num:'Q8',text:'From that person\'s perspective specifically — not our own — what is Accenture\'s single most important contribution to their organization right now?',hint:'What would they say if asked by their CEO?',type:'long',required:true},
+    {id:'q8',num:'Q8',text:"From that person's perspective specifically — not our own — what is Accenture's single most important contribution to their organization right now?",hint:'What would they say if asked by their CEO?',type:'long',required:true},
     {id:'q9',num:'Q9',text:'Which business challenges is Accenture most underinvested in addressing at this account? Select up to two.',hint:'',type:'multi',required:true,opts:['AI and automation','Cloud and infrastructure','Operating model and talent','Customer experience and digital','Data and analytics','Finance and cost optimization','Supply chain and operations','Cybersecurity and risk','Sustainability and ESG','Other — describe below'],max:2},
-    {id:'q10',num:'Q10',text:'Who else at the client should Accenture be building a direct relationship with — but currently isn\'t? Name them, give their title, and explain specifically why this relationship matters.',hint:'Name and title required. "A senior leader in IT" is not a specific answer.',type:'long',required:true}
+    {id:'q10',num:'Q10',text:"Who else at the client should Accenture be building a direct relationship with — but currently isn't? Name them, give their title, and explain specifically why this relationship matters.",hint:'Name and title required. "A senior leader in IT" is not a specific answer.',type:'long',required:true}
   ]},
   {sec:'Section 04 · White Space',time:'~2 min',qs:[
-    {id:'q11',num:'Q11',text:'Where should Accenture be playing at this account that it currently isn\'t? Identify the specific capability gap, untouched business unit, or relationship blind spot — and say why now is the moment.',hint:'',type:'long',required:true},
+    {id:'q11',num:'Q11',text:"Where should Accenture be playing at this account that it currently isn't? Identify the specific capability gap, untouched business unit, or relationship blind spot — and say why now is the moment.",hint:'',type:'long',required:true},
     {id:'q12',num:'Q12',text:'Which ecosystem partner represents the biggest untapped opportunity at this account — and what is the specific play? Name the partner, name the client need, and describe the joint move.',hint:'',type:'long',required:true},
     {id:'q13',num:'Q13',text:'If Accenture could originate one transformational engagement ($50M+) at this account in FY27, what would it be? Describe the problem it solves, the outcome it drives, and why the client would fund it.',hint:'',type:'long',required:true}
   ]},
@@ -384,94 +460,47 @@ const MASTER = [
     {id:'q15a',num:'Q15A',text:'What is the single biggest internal Accenture obstacle to growing this account — something within our control to fix? Name it plainly.',hint:'',type:'long',required:true}
   ]},
   {sec:'Section 06 · Bold Move & Session Ask',time:'~2 min',qs:[
-    {id:'q15b',num:'Q15B',text:'What is one bold move Accenture should make at this account in the next 90 days that hasn\'t been tried? Not a refinement of what\'s already happening — something genuinely new.',hint:'',type:'long',required:true},
+    {id:'q15b',num:'Q15B',text:"What is one bold move Accenture should make at this account in the next 90 days that hasn't been tried? Not a refinement of what's already happening — something genuinely new.",hint:'',type:'long',required:true},
     {id:'q15c',num:'Q15C',text:'What is the single question this planning session must answer to be worth your time? Write it as a direct question.',hint:'',type:'short',required:true},
-    {id:'q15d',num:'Q15D',text:'Anything the session facilitator should know going in — context, tensions, or dynamics that won\'t surface any other way?',hint:'',type:'long',required:false}
+    {id:'q15d',num:'Q15D',text:"Anything the session facilitator should know going in — context, tensions, or dynamics that won't surface any other way?",hint:'',type:'long',required:false}
   ]}
 ];
 
-// STATE
+// ─────────────────────────────────────────────────────────────────────────────
+// LOCAL STATE (accounts stored locally; only form definitions go to Supabase)
+// ─────────────────────────────────────────────────────────────────────────────
 let currentUser = null;
 let currentAccountId = null;
 let editingQId = null;
+let _loadedFormData = null; // for respondent view
 
-function getState() {
-  try { return JSON.parse(localStorage.getItem('ap_state') || '{}'); } catch(e) { return {}; }
-}
+function getState() { try { return JSON.parse(localStorage.getItem('ap_state') || '{}'); } catch(e) { return {}; } }
 function saveState(s) { localStorage.setItem('ap_state', JSON.stringify(s)); }
-
 function getAccounts() { return getState().accounts || {}; }
 function saveAccounts(a) { const s = getState(); s.accounts = a; saveState(s); }
-
-function getResponses(accountId) { return getState()['resp_'+accountId] || []; }
-function saveResponse(accountId, resp) {
-  const s = getState();
-  const k = 'resp_'+accountId;
-  s[k] = s[k] || [];
-  s[k].push(resp);
-  saveState(s);
-}
 
 function show(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
-
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
+  setTimeout(() => t.classList.remove('show'), 2400);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SELF-CONTAINED URL ENCODING / DECODING
-// The form payload is: { v: 1, id: accountId, name: accountName, qs: questions, notify: email }
-// Encoded as base64url so no server lookup is needed.
-// ─────────────────────────────────────────────────────────────────────────────
-
-function encodeFormPayload(accountId, accountName, questions, notifyEmail) {
-  const payload = {
-    v: 1,
-    id: accountId,
-    name: accountName,
-    qs: questions,
-    notify: notifyEmail || ''
-  };
-  const json = JSON.stringify(payload);
-  // btoa works on ASCII; use encodeURIComponent to handle unicode safely
-  const b64 = btoa(unescape(encodeURIComponent(json)));
-  // Make URL-safe (base64url)
-  return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
-}
-
-function decodeFormPayload(token) {
-  try {
-    // Restore standard base64 from base64url
-    let b64 = token.replace(/-/g, '+').replace(/_/g, '/');
-    while (b64.length % 4) b64 += '=';
-    const json = decodeURIComponent(escape(atob(b64)));
-    const payload = JSON.parse(json);
-    if (!payload || payload.v !== 1 || !payload.qs) return null;
-    return payload;
-  } catch(e) {
-    return null;
-  }
-}
-
-function buildFormURL(accountId) {
-  const accounts = getAccounts();
-  const a = accounts[accountId];
-  if (!a) return '';
-  const token = encodeFormPayload(accountId, a.name, a.questions, getNotifyEmail());
-  return window.location.origin + window.location.pathname + '?form=' + token;
-}
-
 // LOGIN
+// ─────────────────────────────────────────────────────────────────────────────
 function doLogin() {
   const email = document.getElementById('login-email').value.trim().toLowerCase();
   const admins = getAdmins();
-  if (!admins.length) { showSetup(); return; }
+  if (!admins.length) {
+    // First time: add this email as admin automatically and proceed
+    admins.push(email);
+    saveAdmins(admins);
+  }
   if (admins.includes(email)) {
     currentUser = email;
     document.getElementById('login-err').style.display = 'none';
@@ -482,63 +511,31 @@ function doLogin() {
 }
 document.getElementById('login-email').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
 
-function showSetup() { show('s-setup'); renderSetupList(); }
-
-function renderSetupList() {
-  const admins = getAdmins();
-  const list = document.getElementById('setup-list');
-  if (!admins.length) {
-    list.innerHTML = '<div style="font-family:var(--mono);font-size:12px;color:var(--t3);padding:8px 0">No admins added yet.</div>';
-    return;
-  }
-  list.innerHTML = admins.map((e,i) => `<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:0.5px solid var(--border);font-family:var(--mono);font-size:12px;">
-    <span style="flex:1;color:var(--text)">${e}</span>
-    <button onclick="removeAdmin(${i})" style="background:none;border:none;cursor:pointer;font-size:12px;color:var(--red);font-family:var(--mono)">Remove</button>
-  </div>`).join('');
-}
-
-function addAdminEntry() {
-  const input = document.getElementById('setup-email');
-  const email = input.value.trim().toLowerCase();
-  if (!email || !email.includes('@')) { toast('Enter a valid email'); return; }
-  const admins = getAdmins();
-  if (admins.includes(email)) { toast('Already on the list'); return; }
-  admins.push(email);
-  saveAdmins(admins);
-  input.value = '';
-  renderSetupList();
-  toast('Admin added');
-}
-
-function removeAdmin(i) {
-  const admins = getAdmins();
-  admins.splice(i, 1);
-  saveAdmins(admins);
-  renderSetupList();
-}
-
-function finishSetup() {
-  const admins = getAdmins();
-  if (!admins.length) { toast('Add at least one admin email first'); return; }
-  const notifyEmail = document.getElementById('setup-notify-email').value.trim().toLowerCase();
-  if (notifyEmail) saveNotifyEmail(notifyEmail);
-  show('s-login');
-  toast('Setup complete — log in with your email');
-}
-
 function doLogout() {
-  currentUser = null;
-  currentAccountId = null;
+  currentUser = null; currentAccountId = null;
   show('s-login');
   document.getElementById('login-email').value = '';
 }
 
-// ADMIN
+// ─────────────────────────────────────────────────────────────────────────────
+// ADMIN DASHBOARD
+// ─────────────────────────────────────────────────────────────────────────────
 function showAdmin() {
   document.getElementById('nav-user').textContent = currentUser;
   const now = new Date();
   document.getElementById('admin-sub').textContent =
     'Logged in as ' + currentUser + ' · ' + now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+
+  // Show Supabase banner if not configured
+  const cfg = getSBConfig();
+  document.getElementById('supabase-banner').style.display = cfg ? 'none' : 'block';
+  if (cfg) {
+    document.getElementById('sb-url').value = cfg.url || '';
+    document.getElementById('sb-key').value = cfg.key || '';
+    document.getElementById('sb-secret').value = cfg.secret || '';
+    document.getElementById('sb-notify').value = cfg.notify || '';
+  }
+
   renderAccountGrid();
   show('s-admin');
 }
@@ -553,14 +550,13 @@ function renderAccountGrid() {
   }
   grid.innerHTML = keys.map(id => {
     const a = accounts[id];
-    const respCount = getResponses(id).length;
-    const status = a.published ? 'pill-live' : 'pill-draft';
-    const statusLabel = a.published ? 'Live' : 'Draft';
+    const status = a.formId ? 'pill-live' : 'pill-draft';
+    const statusLabel = a.formId ? 'Live' : 'Draft';
     return `<div class="acct-card" onclick="openEditor('${id}')">
       <div class="acct-name">${a.name}</div>
       <div class="acct-meta">
-        <span>${respCount} response${respCount!==1?'s':''}</span>
         <span>Updated ${a.updated||'—'}</span>
+        ${a.formId ? `<span>ID: ${a.formId}</span>` : ''}
       </div>
       <div class="acct-actions">
         <span class="pill ${status}"><span class="pill-dot"></span>${statusLabel}</span>
@@ -576,12 +572,7 @@ function addAccount() {
   if (!name) { toast('Enter an account name first'); return; }
   const accounts = getAccounts();
   const id = 'acct_' + Date.now();
-  accounts[id] = {
-    name,
-    questions: JSON.parse(JSON.stringify(MASTER)),
-    published: false,
-    updated: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})
-  };
+  accounts[id] = { name, questions: JSON.parse(JSON.stringify(MASTER)), updated: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}) };
   saveAccounts(accounts);
   document.getElementById('new-acct-name').value = '';
   renderAccountGrid();
@@ -589,31 +580,27 @@ function addAccount() {
 }
 
 function deleteAccount(id) {
-  if (!confirm('Delete this account and all its responses?')) return;
+  if (!confirm('Delete this account and all its data?')) return;
   const accounts = getAccounts();
   delete accounts[id];
   saveAccounts(accounts);
-  const s = getState();
-  delete s['resp_'+id];
-  saveState(s);
   renderAccountGrid();
   toast('Account deleted');
 }
 
-// EDITOR
+// ─────────────────────────────────────────────────────────────────────────────
+// QUESTION EDITOR
+// ─────────────────────────────────────────────────────────────────────────────
 function openEditor(id) {
   currentAccountId = id;
-  const accounts = getAccounts();
-  const a = accounts[id];
+  const a = getAccounts()[id];
   document.getElementById('editor-acct-label').textContent = a.name;
-  document.getElementById('editor-title').textContent = 'Question Editor';
   document.getElementById('editor-nav-title').textContent = a.name;
   document.getElementById('editor-nav-user').textContent = currentUser;
 
-  if (a.published) {
-    const url = buildFormURL(id);
+  if (a.formId) {
+    const url = buildShortURL(a.formId);
     document.getElementById('url-display').textContent = url;
-    document.getElementById('notify-email-display').textContent = getNotifyEmail() || '[no email set — go to setup]';
     document.getElementById('url-bar-wrap').style.display = 'block';
   } else {
     document.getElementById('url-bar-wrap').style.display = 'none';
@@ -624,9 +611,12 @@ function openEditor(id) {
   show('s-editor');
 }
 
+function buildShortURL(formId) {
+  return window.location.origin + window.location.pathname + '?f=' + formId;
+}
+
 function renderQEditor(sections) {
-  const wrap = document.getElementById('q-editor-body');
-  wrap.innerHTML = sections.map((sec, si) => `
+  document.getElementById('q-editor-body').innerHTML = sections.map((sec, si) => `
     <div class="sec-block">
       <div class="sec-hdr">
         <span class="sec-code">${String(si+1).padStart(2,'0')}</span>
@@ -646,7 +636,7 @@ function renderQItem(q, si) {
       <div class="q-body">
         <div class="q-display" id="qd-${q.id}">${q.text}</div>
         <textarea class="q-input" id="qt-${q.id}" style="display:none" rows="3">${q.text}</textarea>
-        ${q.hint ? `<div class="q-hint-display" id="qhd-${q.id}">${q.hint}</div>` : `<div class="q-hint-display" id="qhd-${q.id}" style="display:none">${q.hint||''}</div>`}
+        <div class="q-hint-display" id="qhd-${q.id}" ${!q.hint?'style="display:none"':''}>${q.hint||''}</div>
         <textarea class="q-hint-input" id="qht-${q.id}" style="display:none" rows="2" placeholder="Helper text (optional)">${q.hint||''}</textarea>
         ${multiOpts}
       </div>
@@ -662,7 +652,6 @@ function renderQItem(q, si) {
 function toggleEdit(qid, si) {
   const accounts = getAccounts();
   const a = accounts[currentAccountId];
-
   if (editingQId === qid) {
     const newText = document.getElementById('qt-'+qid).value.trim();
     const newHint = document.getElementById('qht-'+qid).value.trim();
@@ -676,18 +665,17 @@ function toggleEdit(qid, si) {
     document.getElementById('qd-'+qid).style.display = '';
     document.getElementById('qt-'+qid).style.display = 'none';
     const hd = document.getElementById('qhd-'+qid);
-    hd.textContent = newHint;
-    hd.style.display = newHint ? '' : 'none';
+    hd.textContent = newHint; hd.style.display = newHint ? '' : 'none';
     document.getElementById('qht-'+qid).style.display = 'none';
     document.getElementById('qi-'+qid).classList.remove('editing');
     document.getElementById('qeb-'+qid).textContent = 'Edit';
-    editingQId = null;
-    toast('Question saved');
+    editingQId = null; toast('Question saved');
   } else {
     if (editingQId) {
       document.getElementById('qd-'+editingQId).style.display = '';
       document.getElementById('qt-'+editingQId).style.display = 'none';
-      document.getElementById('qhd-'+editingQId).style.display = document.getElementById('qhd-'+editingQId).textContent ? '' : 'none';
+      const hd2 = document.getElementById('qhd-'+editingQId);
+      hd2.style.display = hd2.textContent ? '' : 'none';
       document.getElementById('qht-'+editingQId).style.display = 'none';
       document.getElementById('qi-'+editingQId).classList.remove('editing');
       document.getElementById('qeb-'+editingQId).textContent = 'Edit';
@@ -706,8 +694,7 @@ function toggleEdit(qid, si) {
 function saveQuestions() {
   const accounts = getAccounts();
   accounts[currentAccountId].updated = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
-  saveAccounts(accounts);
-  toast('Draft saved');
+  saveAccounts(accounts); toast('Draft saved');
 }
 
 function resetQuestions() {
@@ -720,181 +707,260 @@ function resetQuestions() {
   toast('Reset to master template');
 }
 
-function publishForm() {
+async function publishForm() {
+  const cfg = getSBConfig();
+  if (!cfg) { toast('Connect Supabase first — see the setup banner on the Accounts page'); return; }
+
+  const btn = document.getElementById('publish-btn');
+  btn.textContent = 'Publishing…'; btn.disabled = true;
+
   const accounts = getAccounts();
-  accounts[currentAccountId].published = true;
-  accounts[currentAccountId].updated = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
-  saveAccounts(accounts);
-  const url = buildFormURL(currentAccountId);
-  document.getElementById('url-display').textContent = url;
-  document.getElementById('notify-email-display').textContent = getNotifyEmail() || '[no email set]';
-  document.getElementById('url-bar-wrap').style.display = 'block';
-  toast('Form published — URL ready');
+  const a = accounts[currentAccountId];
+
+  try {
+    // If already published, upsert (update the same form ID so the short link stays stable)
+    const payload = {
+      account_id: currentAccountId,
+      account_name: a.name,
+      questions: a.questions,
+      notify_email: cfg.notify || ''
+    };
+
+    let formId = a.formId;
+
+    if (formId) {
+      // Update existing form row
+      const res = await sbFetch('forms?id=eq.' + formId, {
+        method: 'PATCH',
+        headers: { 'Prefer': 'return=minimal' },
+        body: JSON.stringify({ questions: a.questions, account_name: a.name, notify_email: cfg.notify || '' })
+      });
+      if (!res.ok) throw new Error('Update failed: ' + res.status);
+    } else {
+      // Insert new form, get back the generated short ID
+      const res = await sbFetch('forms?select=id', {
+        method: 'POST',
+        headers: { 'Prefer': 'return=representation' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('Insert failed: ' + res.status);
+      const data = await res.json();
+      formId = data[0].id;
+      accounts[currentAccountId].formId = formId;
+      a.updated = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
+      saveAccounts(accounts);
+    }
+
+    const url = buildShortURL(formId);
+    document.getElementById('url-display').textContent = url;
+    document.getElementById('url-bar-wrap').style.display = 'block';
+    toast('Published — short URL ready');
+  } catch(e) {
+    toast('Publish failed: ' + e.message);
+  } finally {
+    btn.textContent = 'Publish & get URL'; btn.disabled = false;
+  }
 }
 
 function copyURL() {
-  const url = buildFormURL(currentAccountId);
-  navigator.clipboard.writeText(url).then(() => toast('URL copied to clipboard'));
+  const accounts = getAccounts();
+  const a = accounts[currentAccountId];
+  if (!a.formId) return;
+  navigator.clipboard.writeText(buildShortURL(a.formId)).then(() => toast('URL copied to clipboard'));
 }
 
 function sendEmail() {
   const accounts = getAccounts();
-  const name = accounts[currentAccountId].name;
-  const url = buildFormURL(currentAccountId);
-  const subject = encodeURIComponent('FY27 Account Planning Pre-Read — ' + name);
+  const a = accounts[currentAccountId];
+  if (!a.formId) return;
+  const url = buildShortURL(a.formId);
+  const subject = encodeURIComponent('FY27 Account Planning Pre-Read — ' + a.name);
   const body = encodeURIComponent(
-    'Hi,\n\nPlease complete the FY27 Account Planning Pre-Read for ' + name + ' before our session.\n\n' +
+    'Hi,\n\nPlease complete the FY27 Account Planning Pre-Read for ' + a.name + ' before our session.\n\n' +
     'It takes approximately 10 minutes — 15 strategic questions, no status updates.\n\n' +
-    'Form link: ' + url + '\n\n' +
-    'Specific answers only. Your input shapes the planning session directly.\n\n' +
-    'Thank you.'
+    'Form link: ' + url + '\n\nSpecific answers only. Your input shapes the planning session directly.\n\nThank you.'
   );
   window.open('mailto:?subject=' + subject + '&body=' + body);
 }
 
-// RESPONSES
-function renderResponseTable(accountId) {
-  const responses = getResponses(accountId);
+// ─────────────────────────────────────────────────────────────────────────────
+// RESPONSES TABLE (fetched live from Supabase)
+// ─────────────────────────────────────────────────────────────────────────────
+async function renderResponseTable(accountId) {
+  const accounts = getAccounts();
+  const a = accounts[accountId];
   const wrap = document.getElementById('resp-table-wrap');
-  document.getElementById('resp-count').textContent = responses.length + ' response' + (responses.length!==1?'s':'');
+  document.getElementById('resp-count').textContent = '…';
 
-  if (!responses.length) {
-    wrap.innerHTML = '<div class="empty-state">No responses yet. Responses emailed to you by respondents can be pasted in via the import panel above (coming in the next build).</div>';
+  if (!a.formId) {
+    wrap.innerHTML = '<div class="empty-state">Publish the form to start collecting responses.</div>';
+    document.getElementById('resp-count').textContent = '0 responses';
     return;
   }
 
-  const cols = ['Submitted','Q1 · Name','Q2 · Role','Q3 · Time','Q4 · Truth','Q14 · Competitor','Q15B · Bold Move'];
-  const colKeys = ['_ts','q1','q2','q3','q4','q14','q15b'];
+  const cfg = getSBConfig();
+  if (!cfg) {
+    wrap.innerHTML = '<div class="empty-state">Connect Supabase to see responses.</div>';
+    document.getElementById('resp-count').textContent = '0 responses';
+    return;
+  }
 
-  wrap.innerHTML = `<div class="resp-table-wrap"><table class="resp-table">
-    <thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead>
-    <tbody>${responses.map(r=>`<tr>${colKeys.map(k=>`<td title="${(r[k]||'').replace(/"/g,'&quot;')}">${r[k]||'—'}</td>`).join('')}</tr>`).join('')}
-    </tbody></table></div>`;
+  try {
+    const rows = await fetchResponsesViaEdgeFn(a.formId, cfg);
+    document.getElementById('resp-count').textContent = rows.length + ' response' + (rows.length!==1?'s':'');
+
+    if (!rows.length) {
+      wrap.innerHTML = '<div class="empty-state">No responses yet. Share the form URL to start collecting.</div>';
+      return;
+    }
+
+    const cols = ['Submitted','Q1 · Name','Q2 · Role','Q3 · Time','Q4 · Truth','Q14 · Competitor','Q15B · Bold Move'];
+    const colKeys = ['submitted_at','q1','q2','q3','q4','q14','q15b'];
+
+    wrap.innerHTML = `<div class="resp-table-wrap"><table class="resp-table">
+      <thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead>
+      <tbody>${rows.map(r => {
+        const d = r.data || {};
+        return `<tr>${colKeys.map(k => {
+          const v = k === 'submitted_at' ? new Date(r.submitted_at).toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) : (d[k]||'—');
+          return `<td title="${String(v).replace(/"/g,'&quot;')}">${v}</td>`;
+        }).join('')}</tr>`;
+      }).join('')}</tbody></table></div>`;
+  } catch(e) {
+    wrap.innerHTML = `<div class="empty-state">Could not load responses: ${e.message}</div>`;
+  }
 }
 
-function exportCSV() {
-  const responses = getResponses(currentAccountId);
-  if (!responses.length) { toast('No responses to export'); return; }
+async function refreshResponses() {
+  await renderResponseTable(currentAccountId);
+  toast('Responses refreshed');
+}
 
-  const allKeys = ['_ts','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15a','q15b','q15c','q15d'];
-  const headers = ['Submitted','Q1 Name','Q2 Role','Q3 Time on Account','Q4 Client Perception','Q5 Relevance Risk','Q6 Stop Doing','Q7 Primary Contact','Q8 Client Perspective','Q9 Underinvested Areas','Q10 Relationship Gap','Q11 White Space','Q12 Ecosystem Partner','Q13 Mega Deal','Q14 Competitor','Q15A Internal Obstacle','Q15B Bold Move','Q15C Session Question','Q15D Facilitator Notes'];
-
-  const esc = v => '"' + String(v||'').replace(/"/g,'""') + '"';
-  const rows = [headers.map(esc).join(',')];
-  responses.forEach(r => rows.push(allKeys.map(k => esc(r[k]||'')).join(',')));
-
+async function exportCSV() {
   const accounts = getAccounts();
-  const name = accounts[currentAccountId].name.replace(/[^a-z0-9]/gi,'_');
-  const blob = new Blob([rows.join('\n')], {type:'text/csv'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'FY27_AccountPlanning_' + name + '_' + new Date().toISOString().slice(0,10) + '.csv';
-  a.click();
-  toast('CSV downloaded');
+  const a = accounts[currentAccountId];
+  if (!a.formId) { toast('Publish the form first'); return; }
+
+  const cfg = getSBConfig();
+  if (!cfg) { toast('Supabase not connected'); return; }
+
+  try {
+    const rows = await fetchResponsesViaEdgeFn(a.formId, cfg);
+    rows.sort((a,b) => new Date(a.submitted_at) - new Date(b.submitted_at));
+    if (!rows.length) { toast('No responses to export'); return; }
+
+    const allKeys = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15a','q15b','q15c','q15d'];
+    const headers = ['Submitted','Q1 Name','Q2 Role','Q3 Time on Account','Q4 Client Perception','Q5 Relevance Risk','Q6 Stop Doing','Q7 Primary Contact','Q8 Client Perspective','Q9 Underinvested Areas','Q10 Relationship Gap','Q11 White Space','Q12 Ecosystem Partner','Q13 Mega Deal','Q14 Competitor','Q15A Internal Obstacle','Q15B Bold Move','Q15C Session Question','Q15D Facilitator Notes'];
+    const esc = v => '"' + String(v||'').replace(/"/g,'""') + '"';
+    const csvRows = [['Submitted',...headers.slice(1)].map(esc).join(',')];
+    rows.forEach(r => {
+      const d = r.data || {};
+      csvRows.push([esc(new Date(r.submitted_at).toISOString()), ...allKeys.map(k => esc(d[k]||''))].join(','));
+    });
+
+    const name = a.name.replace(/[^a-z0-9]/gi,'_');
+    const blob = new Blob([csvRows.join('\n')], {type:'text/csv'});
+    const el = document.createElement('a');
+    el.href = URL.createObjectURL(blob);
+    el.download = 'FY27_AccountPlanning_' + name + '_' + new Date().toISOString().slice(0,10) + '.csv';
+    el.click();
+    toast('CSV downloaded');
+  } catch(e) {
+    toast('Export failed: ' + e.message);
+  }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// RESPONDENT FORM — loads entirely from the URL token, no localStorage needed
+// RESPONDENT FORM — fetches form definition from Supabase by short ID
 // ─────────────────────────────────────────────────────────────────────────────
+async function loadRespondentForm(formId) {
+  show('s-form');
+  document.getElementById('form-wrap').innerHTML = '<div class="form-loading">Loading form…</div>';
 
-let _formPayload = null; // cached decoded payload for the current form session
+  const cfg = getSBConfig();
+  if (!cfg) {
+    // Fallback: try to find form in local accounts (for admin previewing on their own machine)
+    const accounts = getAccounts();
+    const localMatch = Object.values(accounts).find(a => a.formId === formId);
+    if (localMatch) {
+      _loadedFormData = { id: formId, account_name: localMatch.name, questions: localMatch.questions, notify_email: '' };
+      renderRespondentForm(_loadedFormData);
+      return;
+    }
+    document.getElementById('form-wrap').innerHTML = `<div class="form-error"><h2>Configuration needed</h2><p>This form requires a Supabase connection to load. If you're the admin, connect Supabase from the admin panel.</p></div>`;
+    return;
+  }
 
-function loadRespondentForm(token) {
-  const payload = decodeFormPayload(token);
-  if (!payload) { show('s-notfound'); return; }
-  _formPayload = payload;
+  try {
+    const res = await sbFetch('forms?id=eq.' + formId + '&select=*');
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    if (!data.length) { show('s-notfound'); return; }
+    _loadedFormData = data[0];
+    renderRespondentForm(_loadedFormData);
+  } catch(e) {
+    document.getElementById('form-wrap').innerHTML = `<div class="form-error"><h2>Could not load form</h2><p>${e.message}</p></div>`;
+  }
+}
 
-  const wrap = document.getElementById('form-wrap');
+function renderRespondentForm(form) {
   let html = `<div class="form-mast">
     <div class="form-eyebrow">FY27 Account Planning · Pre-Read</div>
-    <div class="form-title">${payload.name}</div>
+    <div class="form-title">${form.account_name}</div>
     <div class="form-preamble">This is not a status update. Write down what you actually think — where this account stands, where it's headed, and what it would take to matter more. 10 minutes. 15 questions. Specific answers only.</div>
   </div>`;
 
-  payload.qs.forEach(sec => {
+  form.questions.forEach(sec => {
     html += `<div class="fsec-head">${sec.sec} <span style="font-weight:400;opacity:.6">${sec.time}</span></div>`;
     sec.qs.forEach(q => {
       html += `<div class="fq" id="fq-${q.id}">
         <div class="fq-label">${q.num}. ${q.text}${!q.required?'<span style="font-size:11px;color:var(--t3);font-family:var(--mono);margin-left:6px">optional</span>':''}</div>
         ${q.hint?`<div class="fq-hint">${q.hint}</div>`:''}`;
-
-      if (q.type === 'short') {
-        html += `<input type="text" id="fi-${q.id}" placeholder="Your answer">`;
-      } else if (q.type === 'long') {
-        html += `<textarea id="fi-${q.id}" placeholder="Your answer" rows="4"></textarea>`;
-      } else if (q.type === 'dropdown') {
-        html += `<select id="fi-${q.id}"><option value="">Select one...</option>${q.opts.map(o=>`<option value="${o}">${o}</option>`).join('')}</select>`;
-      } else if (q.type === 'single') {
-        html += `<div class="choice-group">${q.opts.map((o,i)=>`
-          <div class="choice-item" id="ci-${q.id}-${i}" onclick="selectSingle('${q.id}',${i},${q.opts.length})">
-            <div class="choice-circle"><div class="circle-inner"></div></div>
-            <span class="choice-lbl">${o}</span>
-          </div>`).join('')}</div>`;
-      } else if (q.type === 'multi') {
-        html += `<div class="choice-group">${q.opts.map((o,i)=>`
-          <div class="choice-item" id="ci-${q.id}-${i}" onclick="selectMulti('${q.id}',${i},${q.max||99})">
-            <div class="choice-square"><span class="sq-check">✓</span></div>
-            <span class="choice-lbl">${o}</span>
-          </div>`).join('')}</div>
-          <div class="multi-note">Select up to ${q.max||2}</div>`;
-      }
+      if (q.type==='short') html += `<input type="text" id="fi-${q.id}" placeholder="Your answer">`;
+      else if (q.type==='long') html += `<textarea id="fi-${q.id}" placeholder="Your answer" rows="4"></textarea>`;
+      else if (q.type==='dropdown') html += `<select id="fi-${q.id}"><option value="">Select one...</option>${q.opts.map(o=>`<option value="${o}">${o}</option>`).join('')}</select>`;
+      else if (q.type==='single') html += `<div class="choice-group">${q.opts.map((o,i)=>`<div class="choice-item" id="ci-${q.id}-${i}" onclick="selectSingle('${q.id}',${i},${q.opts.length})"><div class="choice-circle"><div class="circle-inner"></div></div><span class="choice-lbl">${o}</span></div>`).join('')}</div>`;
+      else if (q.type==='multi') html += `<div class="choice-group">${q.opts.map((o,i)=>`<div class="choice-item" id="ci-${q.id}-${i}" onclick="selectMulti('${q.id}',${i},${q.max||99})"><div class="choice-square"><span class="sq-check">✓</span></div><span class="choice-lbl">${o}</span></div>`).join('')}</div><div class="multi-note">Select up to ${q.max||2}</div>`;
       html += `</div>`;
     });
   });
 
-  html += `<div class="form-submit-wrap">
-    <button class="btn-primary" style="max-width:200px" onclick="submitForm()">Submit responses</button>
-  </div>`;
-
-  wrap.innerHTML = html;
-  show('s-form');
+  html += `<div class="form-submit-wrap"><button class="btn-primary" style="max-width:200px" onclick="submitForm()">Submit responses</button></div>`;
+  document.getElementById('form-wrap').innerHTML = html;
 }
 
 function selectSingle(qid, idx, total) {
-  for (let i = 0; i < total; i++) {
-    document.getElementById('ci-'+qid+'-'+i)?.classList.remove('sel');
-  }
+  for (let i=0;i<total;i++) document.getElementById('ci-'+qid+'-'+i)?.classList.remove('sel');
   document.getElementById('ci-'+qid+'-'+idx)?.classList.add('sel');
 }
-
 function selectMulti(qid, idx, max) {
   const el = document.getElementById('ci-'+qid+'-'+idx);
   if (el.classList.contains('sel')) { el.classList.remove('sel'); return; }
-  const parent = el.closest('.choice-group');
-  const selected = parent.querySelectorAll('.sel').length;
-  if (selected >= max) { toast('Select up to ' + max + ' options'); return; }
+  if (el.closest('.choice-group').querySelectorAll('.sel').length >= max) { toast('Select up to ' + max + ' options'); return; }
   el.classList.add('sel');
 }
 
 async function submitForm() {
-  if (!_formPayload) return;
-  const payload = _formPayload;
-  const resp = { _ts: new Date().toISOString() };
-  let valid = true;
-  let firstMissing = null;
+  if (!_loadedFormData) return;
+  const form = _loadedFormData;
+  const resp = {};
+  let valid = true, firstMissing = null;
 
-  payload.qs.forEach(sec => {
+  form.questions.forEach(sec => {
     sec.qs.forEach(q => {
       let val = '';
-      if (q.type === 'short' || q.type === 'long' || q.type === 'dropdown') {
-        val = (document.getElementById('fi-'+q.id)?.value||'').trim();
-      } else if (q.type === 'single') {
-        const sel = document.querySelector('#fq-'+q.id+' .choice-item.sel .choice-lbl');
-        val = sel ? sel.textContent : '';
-      } else if (q.type === 'multi') {
-        const sels = document.querySelectorAll('#fq-'+q.id+' .choice-item.sel .choice-lbl');
-        val = Array.from(sels).map(s=>s.textContent).join('; ');
-      }
+      if (q.type==='short'||q.type==='long'||q.type==='dropdown') val = (document.getElementById('fi-'+q.id)?.value||'').trim();
+      else if (q.type==='single') { const s = document.querySelector('#fq-'+q.id+' .choice-item.sel .choice-lbl'); val = s ? s.textContent : ''; }
+      else if (q.type==='multi') val = Array.from(document.querySelectorAll('#fq-'+q.id+' .choice-item.sel .choice-lbl')).map(s=>s.textContent).join('; ');
       resp[q.id] = val;
       if (q.required && !val) {
         valid = false;
         if (!firstMissing) firstMissing = q.id;
-        document.getElementById('fq-'+q.id).style.outline = '1.5px solid var(--accent)';
-        document.getElementById('fq-'+q.id).style.borderRadius = '8px';
-        document.getElementById('fq-'+q.id).style.padding = '8px';
+        const el = document.getElementById('fq-'+q.id);
+        el.style.outline='1.5px solid var(--accent)'; el.style.borderRadius='8px'; el.style.padding='8px';
       } else {
-        document.getElementById('fq-'+q.id).style.outline = '';
-        document.getElementById('fq-'+q.id).style.padding = '';
+        const el = document.getElementById('fq-'+q.id);
+        if (el) { el.style.outline=''; el.style.padding=''; }
       }
     });
   });
@@ -905,77 +971,44 @@ async function submitForm() {
     return;
   }
 
-  // Try backend first (v2+); fall through to email if disabled
-  const backendResult = await RESPONSE_BACKEND.submit(payload.id, payload.name, resp);
+  const btn = document.querySelector('.form-submit-wrap .btn-primary');
+  if (btn) { btn.textContent = 'Submitting…'; btn.disabled = true; }
 
-  // Build a readable plain-text summary of the responses for the email fallback
-  const allQs = payload.qs.flatMap(s => s.qs);
-  const summary = allQs.map(q => {
-    const val = resp[q.id] || '(no answer)';
-    return q.num + '. ' + q.text + '\n' + val;
-  }).join('\n\n');
-
-  const notifyEmail = payload.notify || '';
-  const emailSubject = encodeURIComponent('FY27 Account Planning Pre-Read — ' + payload.name + ' — ' + (resp.q1 || 'Respondent'));
-  const emailBody = encodeURIComponent(
-    'FY27 Account Planning Pre-Read\nAccount: ' + payload.name + '\nSubmitted: ' + resp._ts + '\n\n' +
-    '─────────────────────────────\n\n' + summary
-  );
-  const mailtoLink = notifyEmail
-    ? 'mailto:' + notifyEmail + '?subject=' + emailSubject + '&body=' + emailBody
-    : 'mailto:?subject=' + emailSubject + '&body=' + emailBody;
-
-  // Copy-text for the fallback box
-  const copyText = 'FY27 Account Planning Pre-Read\nAccount: ' + payload.name + '\nSubmitted: ' + resp._ts + '\n\n' +
-    allQs.map(q => q.num + '. ' + q.text + '\n' + (resp[q.id] || '(no answer)')).join('\n\n');
-
-  const backendMsg = backendResult.ok
-    ? '<p style="color:var(--green);font-family:var(--mono);font-size:12px;margin-top:8px">✓ Responses saved to database.</p>'
-    : '';
+  const cfg = getSBConfig();
+  if (cfg) {
+    try {
+      const res = await sbFetch('responses', {
+        method: 'POST',
+        headers: { 'Prefer': 'return=minimal' },
+        body: JSON.stringify({ form_id: form.id, account_id: form.account_id, data: resp })
+      });
+      if (!res.ok) throw new Error('Save failed: ' + res.status);
+    } catch(e) {
+      if (btn) { btn.textContent = 'Submit responses'; btn.disabled = false; }
+      toast('Could not save: ' + e.message + ' — please try again');
+      return;
+    }
+  }
 
   document.getElementById('form-wrap').innerHTML = `
     <div class="form-submitted">
       <div class="submitted-icon">&#10003;</div>
       <div class="submitted-title">Submitted. Thank you.</div>
-      <div class="submitted-msg">
-        Your responses have been recorded. The account planning session facilitator will synthesize all submissions before the session.<br><br>
-        ${backendResult.ok ? 'Your responses were saved automatically.' : `<strong>One more step:</strong> Please email your responses to the planning lead so they're captured.`}
-        <br><br>See you in the room.
-      </div>
-      ${backendMsg}
-      ${!backendResult.ok ? `
-      <div style="margin-top:1.5rem">
-        <a href="${mailtoLink}" style="display:inline-block;padding:11px 22px;background:var(--accent);color:#fff;border-radius:var(--r);font-family:var(--disp);font-size:14px;font-weight:600;text-decoration:none;">
-          ${notifyEmail ? 'Email responses to planning lead' : 'Email responses (opens mail app)'}
-        </a>
-      </div>
-      <div class="copy-box" style="margin-top:1.5rem">
-        <div class="copy-box-title">Or copy your answers manually</div>
-        <textarea readonly id="copy-ta">${copyText.replace(/</g,'&lt;')}</textarea>
-        <button class="btn btn-accent" onclick="doCopy()">Copy to clipboard</button>
-      </div>` : ''}
+      <div class="submitted-msg">Your responses have been recorded and are visible to the planning lead immediately.<br><br>The account planning session facilitator will synthesize all submissions before the session.<br><br>See you in the room.</div>
     </div>`;
 }
 
-function doCopy() {
-  const ta = document.getElementById('copy-ta');
-  if (!ta) return;
-  navigator.clipboard.writeText(ta.value).then(() => toast('Copied to clipboard'));
-}
-
+// ─────────────────────────────────────────────────────────────────────────────
 // ROUTER
+// ─────────────────────────────────────────────────────────────────────────────
 function route() {
   const params = new URLSearchParams(window.location.search);
-  const formToken = params.get('form');
-  if (formToken) {
-    loadRespondentForm(formToken);
+  const formId = params.get('f');
+  if (formId) {
+    loadRespondentForm(formId);
   } else {
     const admins = getAdmins();
-    if (!admins.length) {
-      show('s-setup');
-    } else {
-      show('s-login');
-    }
+    show('s-login');
   }
 }
 
