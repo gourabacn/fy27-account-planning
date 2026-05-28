@@ -3,534 +3,794 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FY27 Account Planning · Synthesis</title>
+<title>FY27 Synthesis · Accenture</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pptxgenjs/3.12.0/pptxgen.bundle.js"></script>
 <style>
 :root {
-  --bg:#f0f2f5; --surface:#fff; --border:rgba(0,0,0,0.1); --border-s:rgba(0,0,0,0.2);
-  --text:#0d0d0d; --t2:#2a2a2a; --t3:#666660;
-  --accent:#0047cc; --accent-bg:rgba(0,71,204,0.07); --accent-light:#ddeaff;
-  --green:#0a5e38; --green-bg:#d6f2e5;
-  --red:#8b1a1a; --red-bg:#fce8e8;
-  --r:10px; --rl:16px;
-  --mono:'DM Mono',monospace; --disp:'Syne',sans-serif; --body:'Lora',serif;
+  --bg:#f0f2f5;--surface:#fff;--border:rgba(0,0,0,0.09);--border-s:rgba(0,0,0,0.2);
+  --text:#0d0d0d;--t2:#2a2a2a;--t3:#666;
+  --accent:#0047cc;--accent-bg:rgba(0,71,204,0.07);--accent-light:#ddeaff;
+  --green:#0a5e38;--green-bg:#d6f2e5;--green-border:rgba(10,94,56,0.2);
+  --amber:#6b3d00;--amber-bg:#fdefd3;
+  --red:#8b1a1a;--red-bg:#fce8e8;
+  --mono:'DM Mono',monospace;--disp:'Syne',sans-serif;--body:'Lora',serif;
+  --r:10px;--rl:16px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:15px}
 body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:100vh}
-nav{display:flex;align-items:center;gap:12px;padding:0 2rem;height:54px;background:#0d0d0d;flex-shrink:0}
+
+/* NAV */
+.nav{display:flex;align-items:center;gap:12px;padding:0 1.75rem;height:54px;background:#0d0d0d;border-bottom:0.5px solid rgba(255,255,255,0.08)}
 .nav-logo{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#60a5fa}
-.nav-sep{color:rgba(255,255,255,0.2)}
-.nav-title{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.4)}
-.main{max-width:820px;margin:0 auto;padding:2.5rem 2rem}
-.page-title{font-family:var(--disp);font-size:24px;font-weight:700;margin-bottom:4px}
-.page-sub{font-family:var(--mono);font-size:11px;color:var(--t3);margin-bottom:2rem}
-.card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rl);padding:1.25rem;margin-bottom:1rem}
-.card-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:10px}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1rem}
-.field-block{display:flex;flex-direction:column;gap:5px}
-.field-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)}
-.field-input{padding:10px 12px;border:0.5px solid var(--border-s);border-radius:var(--r);font-family:var(--mono);font-size:13px;background:var(--surface);color:var(--text);outline:none}
-.field-input:focus{border-color:var(--accent)}
-.gh-row{display:flex;gap:8px;align-items:flex-end}
-.gh-row .field-input{flex:1}
-.btn{padding:8px 16px;border-radius:8px;font-family:var(--mono);font-size:11px;cursor:pointer;border:0.5px solid var(--border-s);background:transparent;color:var(--t2);transition:background .15s;white-space:nowrap}
+.nav-sep{color:rgba(255,255,255,0.2);font-size:16px}
+.nav-title{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.45);flex:1}
+.nav-badge{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:999px;border:0.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.4)}
+
+/* PAGE */
+.page{max-width:860px;margin:0 auto;padding:2.5rem 2rem}
+.page-title{font-family:var(--disp);font-size:22px;font-weight:700;margin-bottom:4px}
+.page-sub{font-family:var(--mono);font-size:11px;color:var(--t3);margin-bottom:2rem;line-height:1.65}
+
+/* UPLOAD ZONE */
+.upload-zone{background:var(--surface);border:0.5px dashed var(--border-s);border-radius:var(--rl);padding:2rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;margin-bottom:1.5rem}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--accent);background:var(--accent-bg)}
+.upload-zone.loaded{border-style:solid;border-color:var(--green);background:var(--green-bg)}
+.upload-icon{font-size:28px;margin-bottom:10px;opacity:.4}
+.upload-label{font-family:var(--mono);font-size:12px;color:var(--t3)}
+.upload-status{font-family:var(--mono);font-size:12px;color:var(--green);margin-top:6px}
+#csv-input{display:none}
+
+/* CONTROLS */
+.controls{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:2rem}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-family:var(--mono);font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em}
+.field input{padding:9px 12px;border:0.5px solid var(--border-s);border-radius:var(--r);font-family:var(--mono);font-size:13px;background:var(--surface);color:var(--text);outline:none;transition:border-color .2s;min-width:220px}
+.field input:focus{border-color:var(--accent)}
+
+/* BUTTONS */
+.btn{padding:9px 16px;border-radius:var(--r);font-family:var(--mono);font-size:12px;cursor:pointer;border:0.5px solid var(--border-s);background:transparent;color:var(--t2);transition:all .15s;white-space:nowrap}
 .btn:hover{background:var(--bg)}
-.btn-accent{background:var(--accent-bg);border-color:var(--accent);color:var(--accent)}
+.btn-accent{background:var(--accent-bg);border-color:rgba(0,71,204,.3);color:var(--accent)}
 .btn-accent:hover{background:var(--accent-light)}
-.btn-big{display:block;width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:var(--r);font-family:var(--disp);font-size:15px;font-weight:600;cursor:pointer;transition:opacity .15s;margin-bottom:1rem}
-.btn-big:hover{opacity:.88}
-.btn-big:disabled{opacity:.4;cursor:not-allowed}
+.btn-run{background:var(--accent);color:#fff;border-color:var(--accent);padding:10px 22px;font-size:13px;font-weight:600}
+.btn-run:hover{opacity:.88}
+.btn-run:disabled{opacity:.45;cursor:not-allowed}
 .btn-green{background:var(--green);color:#fff;border-color:var(--green)}
 .btn-green:hover{opacity:.88}
-.file-row{display:flex;gap:8px;align-items:center}
-.file-input-wrap{flex:1;position:relative}
-.file-input-wrap input[type=file]{width:100%;padding:9px 12px;border:0.5px solid var(--border-s);border-radius:var(--r);font-family:var(--mono);font-size:12px;background:var(--surface);cursor:pointer;color:var(--text)}
-.status-box{background:var(--green-bg);border:0.5px solid rgba(10,94,56,.2);border-radius:var(--r);padding:10px 14px;font-family:var(--mono);font-size:12px;color:var(--green);margin-top:8px;display:none}
-.error-box{background:var(--red-bg);border:0.5px solid rgba(139,26,26,.2);border-radius:var(--r);padding:10px 14px;font-family:var(--mono);font-size:12px;color:var(--red);margin-bottom:1rem;display:none;line-height:1.6}
-.api-note{font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:5px;line-height:1.5}
-.api-link{color:var(--accent);text-decoration:none}
-.progress-wrap{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rl);padding:1.5rem;margin-bottom:1rem;display:none}
-.prog-label{font-family:var(--mono);font-size:11px;color:var(--t2);margin-bottom:8px}
-.prog-bar-bg{background:var(--bg);border-radius:999px;height:4px;overflow:hidden;margin-bottom:12px}
-.prog-bar{height:4px;background:var(--accent);border-radius:999px;transition:width .4s;width:0%}
-.prog-step{font-family:var(--mono);font-size:11px;color:var(--t3);padding:4px 0;display:flex;align-items:center;gap:8px}
-.prog-step.done{color:var(--green)}
-.prog-step.active{color:var(--accent)}
-.step-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
-.report-card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rl);padding:1.5rem;margin-bottom:1rem;display:none}
-.report-toolbar{display:flex;gap:8px;align-items:center;margin-bottom:1rem;padding-bottom:1rem;border-bottom:0.5px solid var(--border);flex-wrap:wrap}
-.report-title{font-family:var(--disp);font-size:14px;font-weight:600;flex:1}
-.report-body{font-size:14px;line-height:1.8;white-space:pre-wrap;font-family:var(--body)}
-.report-body h1{font-family:var(--disp);font-size:20px;font-weight:700;margin:0 0 6px}
-.report-body h2{font-family:var(--disp);font-size:15px;font-weight:600;margin:1.5rem 0 6px;color:var(--accent)}
-.report-body hr{border:none;border-top:0.5px solid var(--border);margin:1rem 0}
+
+/* PROGRESS */
+.progress-bar-wrap{background:rgba(0,71,204,0.1);border-radius:999px;height:4px;margin:1rem 0;overflow:hidden}
+.progress-bar{height:100%;background:var(--accent);border-radius:999px;transition:width .4s ease;width:0%}
+.progress-msg{font-family:var(--mono);font-size:11px;color:var(--t3);text-align:center;margin-bottom:1rem}
+
+/* ERROR */
+.err-box{background:var(--red-bg);border:0.5px solid rgba(160,32,32,.2);border-radius:var(--r);padding:12px 16px;font-family:var(--mono);font-size:12px;color:var(--red);margin-bottom:1.5rem;display:none}
+
+/* REPORT */
+#report{display:none;margin-top:2rem}
+.report-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:0.5px solid var(--border-s)}
+.report-title{font-family:var(--disp);font-size:26px;font-weight:700;margin-bottom:4px}
+.report-meta{font-family:var(--mono);font-size:11px;color:var(--t3)}
+.report-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+/* SENTIMENT SCORE */
+.sentiment-block{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rl);padding:1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
+.sentiment-score{font-family:var(--disp);font-size:56px;font-weight:700;line-height:1}
+.sentiment-score.high{color:var(--green)}
+.sentiment-score.mid{color:#a05c00}
+.sentiment-score.low{color:var(--red)}
+.sentiment-label{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.sentiment-desc{font-size:14px;line-height:1.6;color:var(--t2)}
+.sentiment-bar-wrap{width:100%;height:8px;background:rgba(0,0,0,0.07);border-radius:999px;overflow:hidden;margin-top:8px}
+.sentiment-bar{height:100%;border-radius:999px;transition:width 1s ease}
+
+/* SECTION CARD */
+.rcard{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rl);padding:1.5rem;margin-bottom:1.25rem}
+.rcard-hdr{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.rcard-num{font-family:var(--mono);font-size:10px;color:var(--t3);min-width:24px}
+.rcard-title{font-family:var(--disp);font-size:14px;font-weight:700;flex:1;text-transform:uppercase;letter-spacing:.05em}
+.rcard-badge{font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:999px;border:0.5px solid}
+
+/* LISTS */
+.rlist{list-style:none;display:flex;flex-direction:column;gap:10px}
+.rlist li{display:flex;gap:10px;font-size:14px;line-height:1.6}
+.rlist-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:8px}
+.rlist-num{font-family:var(--mono);font-size:11px;color:var(--accent);min-width:20px;padding-top:2px}
+
+/* QUOTE */
+.quote-block{border-left:2px solid var(--border-s);padding:8px 14px;margin:6px 0;font-size:13px;color:var(--t2);line-height:1.65;font-style:italic}
+
+/* TWO-COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+@media(max-width:600px){.two-col{grid-template-columns:1fr}}
+
+/* FAULT LINE */
+.fault-item{background:var(--amber-bg);border:0.5px solid rgba(122,74,0,.2);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;font-size:14px;line-height:1.6}
+.fault-label{font-family:var(--mono);font-size:10px;color:var(--amber);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+
+/* WATCH LIST */
+.watch-item{border-left:3px solid var(--red);padding:10px 14px;margin-bottom:8px;background:var(--red-bg);border-radius:0 var(--r) var(--r) 0}
+.watch-title{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--red);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+.watch-body{font-size:14px;line-height:1.6}
+
+/* AGENDA */
+.agenda-q{background:var(--accent-bg);border:0.5px solid rgba(0,71,204,.15);border-radius:var(--r);padding:13px 16px;margin-bottom:8px}
+.agenda-qnum{font-family:var(--mono);font-size:10px;color:var(--accent);margin-bottom:4px}
+.agenda-qtext{font-size:15px;line-height:1.55;font-weight:500}
+
+/* COMPETITOR */
+.competitor-block{display:flex;gap:1rem;align-items:flex-start;flex-wrap:wrap}
+.competitor-name-box{background:#0d0d0d;color:#fff;border-radius:var(--r);padding:14px 18px;font-family:var(--disp);font-size:16px;font-weight:700;min-width:120px;text-align:center}
+.competitor-detail{flex:1;font-size:14px;line-height:1.65}
+
+/* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;background:#1a1a18;color:#fff;font-family:var(--mono);font-size:12px;padding:10px 18px;border-radius:var(--r);opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none;z-index:999}
 .toast.show{opacity:1;transform:translateY(0)}
+
+/* CONSENSUS CHIP */
+.consensus-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.cc{background:var(--green-bg);border:0.5px solid var(--green-border);border-radius:999px;padding:4px 12px;font-family:var(--mono);font-size:11px;color:var(--green)}
+
+/* LOADING */
+#loading-wrap{display:none;text-align:center;padding:3rem 0}
+.spinner{width:32px;height:32px;border:2px solid var(--border-s);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-msg{font-family:var(--mono);font-size:12px;color:var(--t3)}
 </style>
 </head>
 <body>
-<nav>
+
+<nav class="nav">
   <span class="nav-logo">Accenture</span>
   <span class="nav-sep">/</span>
-  <span class="nav-title">FY27 Account Planning · Synthesis Engine</span>
+  <span class="nav-title">FY27 Account Planning · Synthesis</span>
+  <span class="nav-badge">AI-Powered</span>
 </nav>
 
-<div class="main">
-  <div class="page-title">Pre-Read Synthesis</div>
-  <div class="page-sub">Load responses → run synthesis → get the CAL pre-read report.</div>
+<div class="page">
+  <div class="page-title">Account Planning Synthesis</div>
+  <div class="page-sub">Export the CSV from the planning tool, upload it here, and click Run Synthesis.<br>Claude analyzes all responses and produces a comprehensive visual report automatically.</div>
 
-  <!-- STEP 1: Account + Date -->
-  <div class="card">
-    <div class="card-label">Step 1 · Account details</div>
-    <div class="field-row">
-      <div class="field-block">
-        <span class="field-label">Account name</span>
-        <input type="text" class="field-input" id="f-account" placeholder="e.g. Alaska Airlines" oninput="onAccountChange()">
-      </div>
-      <div class="field-block">
-        <span class="field-label">Planning session date</span>
-        <input type="date" class="field-input" id="f-date">
-      </div>
-    </div>
+  <div class="upload-zone" id="upload-zone" onclick="document.getElementById('csv-input').click()" ondragover="onDrag(event)" ondrop="onDrop(event)">
+    <div class="upload-icon">⬆</div>
+    <div class="upload-label">Click to upload CSV, or drag and drop here</div>
+    <div class="upload-status" id="upload-status" style="display:none"></div>
+    <input type="file" id="csv-input" accept=".csv" onchange="loadCSV(this.files[0])">
   </div>
 
-  <!-- STEP 2: Load CSV -->
-  <div class="card">
-    <div class="card-label">Step 2 · Load responses CSV</div>
-
-    <div style="margin-bottom:12px">
-      <div class="field-label" style="margin-bottom:6px">Fetch from GitHub automatically</div>
-      <div class="gh-row">
-        <input type="text" class="field-input" id="f-ghuser" placeholder="GitHub username" value="gourabacn">
-        <input type="text" class="field-input" id="f-ghrepo" placeholder="Repo name" value="fy27-account-planning">
-        <button class="btn btn-accent" onclick="doFetch()">Fetch CSV</button>
-      </div>
-      <div style="font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:5px">Reads <span id="fetch-path-preview" style="color:var(--accent)">data/[account]_responses.csv</span> from your repo</div>
+  <div class="controls">
+    <div class="field">
+      <label>Account name</label>
+      <input type="text" id="account-name" placeholder="e.g. United Airlines">
     </div>
-
-    <div style="font-family:var(--mono);font-size:11px;color:var(--t3);text-align:center;padding:8px 0">— or upload manually —</div>
-
-    <div class="file-row">
-      <div class="file-input-wrap">
-        <input type="file" id="f-csv" accept=".csv,.CSV" onchange="onFileChange(this)">
-      </div>
-      <button class="btn btn-accent" onclick="onLoadClick()">Load file</button>
+    <div class="field">
+      <label>Session date</label>
+      <input type="text" id="session-date" placeholder="e.g. June 4, 2026">
     </div>
-
-    <div class="status-box" id="csv-status"></div>
+    <button class="btn btn-run" id="btn-run" onclick="runSynthesis()" disabled>▶ Run Synthesis</button>
   </div>
 
-  <!-- STEP 3: hidden - API key stored in Cloudflare Worker -->
-  <input type="hidden" id="f-apikey" value="managed-by-cloudflare">
+  <div class="err-box" id="err-box"></div>
 
-  <div class="error-box" id="error-box"></div>
-
-  <!-- RUN -->
-  <button class="btn-big" id="btn-run" onclick="runSynthesis()" disabled>▶ Run synthesis</button>
-  <!-- API key managed by Cloudflare Worker - admins do not need to enter it -->
-
-  <!-- PROGRESS -->
-  <div class="progress-wrap" id="progress-wrap">
-    <div class="prog-label" id="prog-label">Starting...</div>
-    <div class="prog-bar-bg"><div class="prog-bar" id="prog-bar"></div></div>
-    <div class="prog-step" id="ps1"><span class="step-dot"></span>Parsing responses</div>
-    <div class="prog-step" id="ps2"><span class="step-dot"></span>Synthesizing client perception and risks</div>
-    <div class="prog-step" id="ps3"><span class="step-dot"></span>Analyzing white space and threats</div>
-    <div class="prog-step" id="ps4"><span class="step-dot"></span>Extracting bold moves and session priorities</div>
-    <div class="prog-step" id="ps5"><span class="step-dot"></span>Formatting pre-read report</div>
+  <div id="loading-wrap">
+    <div class="spinner"></div>
+    <div class="loading-msg" id="loading-msg">Analyzing responses across all questions...</div>
   </div>
 
-  <!-- REPORT -->
-  <div class="report-card" id="report-card">
-    <div class="report-toolbar">
-      <div class="report-title" id="report-title">Pre-Read Report</div>
-      <button class="btn btn-accent" onclick="doCopy()">Copy</button>
-      <button class="btn btn-green" onclick="doDownload()">Download .txt</button>
-      <button class="btn btn-green" id="btn-save-gh" onclick="doSaveGitHub()" style="display:none">Save to GitHub</button>
-      <button class="btn btn-accent" id="btn-share" onclick="doShare()" style="display:none">Share ✉</button>
-      <button class="btn" onclick="doReset()">Start over</button>
+  <div id="report">
+    <div class="report-hdr">
+      <div>
+        <div class="report-meta" id="report-meta"></div>
+        <div class="report-title" id="report-title"></div>
+      </div>
+      <div class="report-actions">
+        <button class="btn btn-accent" onclick="window.print()">Export PDF</button>
+        <button class="btn btn-green" onclick="exportPPT()">Export PPT</button>
+        <button class="btn" onclick="shareReport()">Share via email</button>
+      </div>
     </div>
-    <div class="report-body" id="report-body"></div>
+    <div id="report-body"></div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// STATE
-var csvData = [];
-var reportText = '';
-var acctName = '';
-var reportGHUrl = '';
+let parsedRows = [];
+let parsedHeaders = [];
+let lastReport = null;
 
-// UTILS
 function toast(msg) {
-  var t = document.getElementById('toast');
+  const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show'); }, 2500);
-}
-function showError(msg) {
-  var el = document.getElementById('error-box');
-  el.textContent = msg;
-  el.style.display = 'block';
-}
-function hideError() {
-  document.getElementById('error-box').style.display = 'none';
-}
-function showStatus(msg) {
-  var el = document.getElementById('csv-status');
-  el.textContent = msg;
-  el.style.display = 'block';
+  setTimeout(() => t.classList.remove('show'), 2400);
 }
 
-// UPDATE BUTTON STATE
-function updateBtn() {
-  var hasCSV = csvData.length > 1;
-  document.getElementById('btn-run').disabled = !hasCSV;
+function showErr(msg) {
+  const b = document.getElementById('err-box');
+  b.textContent = msg;
+  b.style.display = 'block';
+  setTimeout(() => b.style.display = 'none', 7000);
 }
 
-function onAccountChange() {
-  acctName = document.getElementById('f-account').value.trim();
-  var name = acctName.replace(/[^a-z0-9]/gi,'_') || '[account]';
-  document.getElementById('fetch-path-preview').textContent = 'data/' + name + '_responses.csv';
+function onDrag(e) { e.preventDefault(); document.getElementById('upload-zone').classList.add('drag'); }
+function onDrop(e) {
+  e.preventDefault();
+  document.getElementById('upload-zone').classList.remove('drag');
+  const f = e.dataTransfer.files[0];
+  if (f) loadCSV(f);
 }
 
-// FILE HANDLING
-function onFileChange(input) {
-  if (input.files && input.files[0]) {
-    readFile(input.files[0]);
-  }
-}
-
-function onLoadClick() {
-  var input = document.getElementById('f-csv');
-  if (!input.files || !input.files.length || !input.files[0]) {
-    showError('Please select a CSV file using the file picker first, then click Load file.');
-    return;
-  }
-  readFile(input.files[0]);
-}
-
-function readFile(file) {
-  hideError();
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    var text = e.target.result;
-    var parsed = parseCSV(text);
-    if (parsed.length < 2) {
-      showError('CSV appears empty or invalid. Make sure this is the exported file from the admin app.');
-      return;
-    }
-    csvData = parsed;
-    var rows = parsed.length - 1;
-    showStatus('✓ ' + file.name + ' · ' + rows + ' response' + (rows !== 1 ? 's' : '') + ' loaded');
-    toast(rows + ' responses loaded successfully');
-    updateBtn();
-  };
-  reader.onerror = function() {
-    showError('Could not read file. Please try again.');
-  };
-  reader.readAsText(file);
-}
-
-// FETCH FROM GITHUB
-async function doFetch() {
-  hideError();
-  var user = document.getElementById('f-ghuser').value.trim();
-  var repo = document.getElementById('f-ghrepo').value.trim();
-  var acct = document.getElementById('f-account').value.trim();
-
-  if (!acct) { showError('Enter the account name first.'); document.getElementById('f-account').focus(); return; }
-  if (!user || !repo) { showError('Enter GitHub username and repo.'); return; }
-
-  var safeName = acct.replace(/[^a-z0-9]/gi,'_');
-  var urls = [
-    'https://raw.githubusercontent.com/' + user + '/' + repo + '/main/data/' + safeName + '_responses.csv',
-    'https://raw.githubusercontent.com/' + user + '/' + repo + '/main/data/FY27_AccountPlanning_' + safeName + '.csv',
-    'https://raw.githubusercontent.com/' + user + '/' + repo + '/main/' + safeName + '_responses.csv'
-  ];
-
-  var btn = document.querySelector('[onclick="doFetch()"]');
-  btn.textContent = 'Fetching...';
-  btn.disabled = true;
-
-  try {
-    var found = false;
-    for (var i = 0; i < urls.length; i++) {
-      var res = await fetch(urls[i]);
-      if (res.ok) {
-        var text = await res.text();
-        var parsed = parseCSV(text);
-        if (parsed.length >= 2) {
-          csvData = parsed;
-          var rows = parsed.length - 1;
-          showStatus('✓ Fetched from GitHub · ' + rows + ' response' + (rows !== 1 ? 's' : '') + ' loaded');
-          toast(rows + ' responses fetched from GitHub');
-          updateBtn();
-          found = true;
-          break;
-        }
+function loadCSV(file) {
+  Papa.parse(file, {
+    header: true,
+    skipEmptyLines: true,
+    complete(results) {
+      parsedHeaders = results.meta.fields || [];
+      parsedRows = results.data;
+      const zone = document.getElementById('upload-zone');
+      zone.classList.add('loaded');
+      document.getElementById('upload-status').style.display = 'block';
+      document.getElementById('upload-status').textContent =
+        `✓ ${parsedRows.length} response${parsedRows.length !== 1 ? 's' : ''} loaded — ${file.name}`;
+      document.getElementById('btn-run').disabled = false;
+      if (!document.getElementById('account-name').value) {
+        const nameGuess = file.name.replace(/[_-]/g,' ').replace(/\.csv$/i,'').replace(/FY27[_ ]?AccountPlanning[_ ]?/i,'').trim();
+        if (nameGuess) document.getElementById('account-name').value = nameGuess;
       }
-    }
-    if (!found) {
-      showError('CSV not found in GitHub repo. Upload the CSV to data/' + safeName + '_responses.csv in your repo first, or use the manual file picker below.');
-    }
-  } catch(err) {
-    showError('Fetch failed: ' + err.message);
-  } finally {
-    btn.textContent = 'Fetch CSV';
-    btn.disabled = false;
-  }
-}
-
-// CSV PARSER
-function parseCSV(text) {
-  var lines = text.split(/\r?\n/).filter(function(l){ return l.trim(); });
-  return lines.map(function(line) {
-    var cols = [], cur = '', inQ = false;
-    for (var i = 0; i < line.length; i++) {
-      var ch = line[i];
-      if (ch === '"' && !inQ) { inQ = true; }
-      else if (ch === '"' && inQ && line[i+1] === '"') { cur += '"'; i++; }
-      else if (ch === '"' && inQ) { inQ = false; }
-      else if (ch === ',' && !inQ) { cols.push(cur); cur = ''; }
-      else { cur += ch; }
-    }
-    cols.push(cur);
-    return cols;
+      toast(`${parsedRows.length} responses loaded`);
+    },
+    error(err) { showErr('CSV parse error: ' + err.message); }
   });
 }
 
-function getCol(row, headers, keyword) {
-  var idx = -1;
-  for (var i = 0; i < headers.length; i++) {
-    if (headers[i] && headers[i].toLowerCase().indexOf(keyword.toLowerCase()) >= 0) {
-      idx = i; break;
-    }
-  }
-  return idx >= 0 ? (row[idx] || '').trim() : '';
-}
-
-function formatResponses() {
-  var headers = csvData[0];
-  var rows = csvData.slice(1);
-  return rows.map(function(row, i) {
-    function g(k) { return getCol(row, headers, k); }
-    return '--- RESPONDENT ' + (i+1) + ' ---\n' +
-      'Name: ' + g('name') + '\n' +
-      'Role: ' + g('role') + '\n' +
-      'Time on account: ' + g('time') + '\n' +
-      'Q4 Client perception: ' + (g('perception') || g('q4') || g('client')) + '\n' +
-      'Q5 Relevance risk: ' + (g('risk') || g('q5') || g('relevance')) + '\n' +
-      'Q6 Stop doing: ' + (g('stop') || g('q6') || g('deprioritize')) + '\n' +
-      'Q7 Primary contact: ' + (g('contact') || g('q7') || g('primary')) + '\n' +
-      'Q8 Client perspective: ' + (g('perspective') || g('q8')) + '\n' +
-      'Q9 Underinvested: ' + (g('underinvested') || g('q9')) + '\n' +
-      'Q10 Relationship gap: ' + (g('relationship') || g('q10')) + '\n' +
-      'Q11 White space: ' + (g('white') || g('q11') || g('space')) + '\n' +
-      'Q12 Ecosystem: ' + (g('ecosystem') || g('q12') || g('partner')) + '\n' +
-      'Q13 Mega deal: ' + (g('mega') || g('q13') || g('deal')) + '\n' +
-      'Q14 Competitor: ' + (g('competitor') || g('q14') || g('threat')) + '\n' +
-      'Q15A Internal obstacle: ' + (g('obstacle') || g('q15a') || g('internal')) + '\n' +
-      'Q15B Bold move: ' + (g('bold') || g('q15b')) + '\n' +
-      'Q15C Session question: ' + (g('session') || g('q15c') || g('question')) + '\n' +
-      'Q15D Facilitator notes: ' + (g('facilitator') || g('q15d') || g('notes'));
+function buildPrompt(rows, headers, account, date) {
+  const formatted = rows.map((r, i) => {
+    const name = r['Q1 Name'] || r['q1'] || `Respondent ${i+1}`;
+    const role = r['Q2 Role'] || r['q2'] || '';
+    const lines = headers.map(h => {
+      const v = (r[h] || '').trim();
+      if (!v || v === '—') return null;
+      return `  ${h}: ${v}`;
+    }).filter(Boolean);
+    return `--- RESPONDENT ${i+1}: ${name}${role ? ' (' + role + ')' : ''} ---\n${lines.join('\n')}`;
   }).join('\n\n');
-}
 
-function buildPrompt() {
-  var account = document.getElementById('f-account').value.trim() || 'the account';
-  var date = document.getElementById('f-date').value || 'TBD';
-  var responses = formatResponses();
-  var n = csvData.length - 1;
+  return `You are a senior Accenture account strategy analyst preparing a planning session synthesis.
 
-  return 'You are a senior Accenture account planning facilitator. You have received pre-read survey responses from ' + n + ' Accenture team members about the ' + account + ' account ahead of the FY27 Account Planning session on ' + date + '.\n\n' +
-    'Synthesize all responses into a structured, candid, executive-quality pre-read report for the Client Account Lead (CAL). Be direct. Name patterns. Surface tensions. Flag disagreements. Do not soften findings.\n\n' +
-    'Structure the report as follows:\n\n' +
-    '# FY27 Account Planning Pre-Read — ' + account + '\n' +
-    '## Prepared for: Client Account Lead | Respondents: ' + n + ' | Session: ' + date + '\n\n---\n\n' +
-    '## 01 · How the client sees us\nSynthesize Q4. Honest characterization. What would the client say behind closed doors?\n\n' +
-    '## 02 · Our biggest risk of losing relevance\nSynthesize Q5. Name the specific trigger. Is there a clear #1 risk?\n\n' +
-    '## 03 · What we should stop doing\nSynthesize Q6. What is the team telling us to de-prioritize? Is there consensus?\n\n' +
-    '## 04 · The client relationship\nSynthesize Q7 and Q10. Who do we know? Who are we missing? What does this tell us about our influence?\n\n' +
-    '## 05 · Where we are underinvested\nSynthesize Q8 and Q9. Most important contribution vs biggest gaps.\n\n' +
-    '## 06 · White space\nSynthesize Q11 and Q12. Where should we be playing? Which ecosystem partner move has momentum?\n\n' +
-    '## 07 · The mega deal\nSynthesize Q13. Is there a coherent $50M+ opportunity? Consensus or divergence?\n\n' +
-    '## 08 · Threat board\nSynthesize Q14. Who is the most dangerous competitor? What would it take for the client to choose them?\n\n' +
-    '## 09 · Our internal obstacle\nSynthesize Q15A. What is broken internally? Be direct.\n\n' +
-    '## 10 · Bold moves and session priorities\nSynthesize Q15B, Q15C, Q15D. Bold moves surfaced. The question the session must answer. Facilitator context.\n\n' +
-    '## 11 · What this session must do\n3-5 sentences: the single most important thing this session must accomplish. What success looks like. What failure looks like.\n\n' +
-    '---\n\nRaw responses:\n\n' + responses + '\n\nWrite the full report now. Be specific. Use details from responses. Do not pad. Do not hedge.';
-}
+ACCOUNT: ${account}
+SESSION DATE: ${date || 'Upcoming'}
+TOTAL RESPONDENTS: ${rows.length}
 
-// RUN SYNTHESIS
-async function runSynthesis() {
-  hideError();
-  acctName = document.getElementById('f-account').value.trim() || 'Account';
-  var date = document.getElementById('f-date').value;
-  var apiKey = 'proxy-managed';
+Below are all pre-read responses from the account team. Analyze them deeply and produce a synthesis in the exact JSON structure specified.
 
-  if (csvData.length < 2) { showError('No CSV loaded. Load responses first.'); return; }
+${formatted}
 
-  document.getElementById('btn-run').disabled = true;
-  document.getElementById('btn-run').textContent = 'Running...';
-  document.getElementById('progress-wrap').style.display = 'block';
-  document.getElementById('report-card').style.display = 'none';
+---
 
-  var steps = ['ps1','ps2','ps3','ps4','ps5'];
-  var pcts = [10, 25, 45, 65, 80];
-  for (var i = 0; i < steps.length; i++) {
-    (function(idx) {
-      setTimeout(function() {
-        if (idx > 0) {
-          var prev = document.getElementById(steps[idx-1]);
-          prev.className = 'prog-step done';
-        }
-        var cur = document.getElementById(steps[idx]);
-        cur.className = 'prog-step active';
-        document.getElementById('prog-bar').style.width = pcts[idx] + '%';
-        document.getElementById('prog-label').textContent = cur.textContent.trim();
-      }, idx * 3000);
-    })(i);
+Produce a JSON object with EXACTLY these keys. Be brutally specific — use real names, numbers, and direct quotes from the responses. Do not generalize. Do not soften. This is for senior internal use only.
+
+{
+  "sentiment": {
+    "score": <integer 0-100>,
+    "rating": <"High" | "Moderate" | "Low">,
+    "summary": "<2-3 sentence explanation of key drivers of this score>"
+  },
+  "consensus": {
+    "points": ["<thing team agrees on 1>", "<thing team agrees on 2>", "<thing team agrees on 3>"],
+    "supportingQuotes": ["<direct quote from a respondent>", "<another direct quote>"]
+  },
+  "faultLines": [
+    {"tension": "<description of the disagreement or gap>", "detail": "<who disagrees and how>"},
+    {"tension": "<another fault line>", "detail": "<specifics>"}
+  ],
+  "clientPerception": {
+    "headline": "<one blunt sentence: how the client actually sees Accenture>",
+    "detail": "<2-3 sentences synthesizing the team's honest assessment>",
+    "quote": "<most revealing direct quote from a respondent>"
+  },
+  "topRisks": [
+    {"risk": "<risk name>", "trigger": "<what would cause it>", "severity": <1-3>},
+    {"risk": "<risk 2>", "trigger": "<trigger>", "severity": <1-3>},
+    {"risk": "<risk 3>", "trigger": "<trigger>", "severity": <1-3>}
+  ],
+  "whiteSpace": [
+    {"opportunity": "<opportunity name>", "play": "<specific action>", "respondents": <number who mentioned it>},
+    {"opportunity": "<opportunity 2>", "play": "<play>", "respondents": <number>},
+    {"opportunity": "<opportunity 3>", "play": "<play>", "respondents": <number>}
+  ],
+  "competitor": {
+    "name": "<competitor firm name>",
+    "threat": "<what they are doing and which relationships they hold>",
+    "winCondition": "<what would make the client choose them over Accenture>"
+  },
+  "boldMoves": [
+    {"move": "<bold move description>", "endorsements": <number of respondents who suggested it>, "timeframe": "<90 days | FY27>"},
+    {"move": "<bold move 2>", "endorsements": <number>, "timeframe": "<timeframe>"},
+    {"move": "<bold move 3>", "endorsements": <number>, "timeframe": "<timeframe>"}
+  ],
+  "sessionAgenda": [
+    {"question": "<session must-answer question 1>", "why": "<why this question is critical>"},
+    {"question": "<session must-answer question 2>", "why": "<why>"},
+    {"question": "<session must-answer question 3>", "why": "<why>"}
+  ],
+  "facilitatorWatchList": [
+    {"flag": "<flag title>", "detail": "<specific dynamic, tension, or individual the facilitator must know about>"},
+    {"flag": "<flag 2>", "detail": "<detail>"},
+    {"flag": "<flag 3>", "detail": "<detail>"}
+  ],
+  "stopDoing": ["<thing to stop or de-prioritize 1>", "<thing 2>"],
+  "megaDeal": {
+    "description": "<the transformational $50M+ engagement described by respondents>",
+    "problem": "<the client problem it solves>",
+    "fundingRationale": "<why the client would fund it>"
   }
+}
+
+Return ONLY the JSON object. No preamble, no explanation, no markdown fences.`;
+}
+
+const PROXY = 'https://claude-proxy.gourab-bec.workers.dev';
+
+const LOADING_MSGS = [
+  'Reading all responses...',
+  'Identifying consensus and fault lines...',
+  'Scoring team sentiment...',
+  'Mapping white space and bold moves...',
+  'Building facilitator watch list...',
+  'Finalizing the synthesis report...'
+];
+
+async function runSynthesis() {
+  if (!parsedRows.length) { showErr('Upload a CSV first.'); return; }
+  const account = document.getElementById('account-name').value.trim() || 'Account';
+  const date = document.getElementById('session-date').value.trim();
+
+  document.getElementById('report').style.display = 'none';
+  document.getElementById('err-box').style.display = 'none';
+  document.getElementById('btn-run').disabled = true;
+
+  const loadWrap = document.getElementById('loading-wrap');
+  const loadMsg = document.getElementById('loading-msg');
+  loadWrap.style.display = 'block';
+
+  let msgIdx = 0;
+  const msgInterval = setInterval(() => {
+    msgIdx = (msgIdx + 1) % LOADING_MSGS.length;
+    loadMsg.textContent = LOADING_MSGS[msgIdx];
+  }, 2800);
 
   try {
-    var prompt = buildPrompt();
-    var res = await fetch('https://claude-proxy.gourab-bec.workers.dev', {
+    const prompt = buildPrompt(parsedRows, parsedHeaders, account, date);
+    const res = await fetch(PROXY, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': 'REPLACE_WITH_YOUR_KEY'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 4000,
+        max_tokens: 4096,
         messages: [{ role: 'user', content: prompt }]
       })
     });
 
+    clearInterval(msgInterval);
+
     if (!res.ok) {
-      var err = await res.json();
-      throw new Error(err.error ? err.error.message : 'API error ' + res.status);
+      const errText = await res.text();
+      throw new Error(`API error ${res.status}: ${errText}`);
     }
 
-    var data = await res.json();
-    reportText = data.content.map(function(b){ return b.text || ''; }).join('');
+    const data = await res.json();
+    const raw = data.content.map(b => b.text || '').join('').trim();
+    const clean = raw.replace(/^```json\s*/,'').replace(/\s*```$/,'').trim();
+    const report = JSON.parse(clean);
+    lastReport = { report, account, date, responseCount: parsedRows.length };
+    renderReport(report, account, date, parsedRows.length);
 
-    steps.forEach(function(id){ document.getElementById(id).className = 'prog-step done'; });
-    document.getElementById('prog-bar').style.width = '100%';
-    document.getElementById('prog-label').textContent = 'Report complete';
-
-    setTimeout(function(){
-      document.getElementById('progress-wrap').style.display = 'none';
-      renderReport(reportText, acctName, date);
-    }, 600);
-
-  } catch(err) {
-    document.getElementById('progress-wrap').style.display = 'none';
+  } catch (err) {
+    clearInterval(msgInterval);
+    showErr('Synthesis failed: ' + err.message + '. Check that the Cloudflare proxy is running.');
+    console.error(err);
+  } finally {
+    loadWrap.style.display = 'none';
     document.getElementById('btn-run').disabled = false;
-    document.getElementById('btn-run').textContent = '▶ Run synthesis';
-    showError('Synthesis failed: ' + err.message);
   }
 }
 
-function renderReport(text, account, date) {
-  var html = text
-    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/^---$/gm, '<hr>');
-
-  document.getElementById('report-body').innerHTML = html;
-  document.getElementById('report-title').textContent = 'Pre-Read · ' + account + (date ? ' · ' + date : '');
-  document.getElementById('report-card').style.display = 'block';
-  document.getElementById('btn-save-gh').style.display = '';
-  document.getElementById('report-card').scrollIntoView({ behavior: 'smooth' });
-  toast('Report generated successfully');
+function sentimentColor(score) {
+  if (score >= 65) return 'high';
+  if (score >= 40) return 'mid';
+  return 'low';
+}
+function sentimentBarColor(score) {
+  if (score >= 65) return '#0a5e38';
+  if (score >= 40) return '#a05c00';
+  return '#8b1a1a';
+}
+function severityLabel(n) {
+  return n >= 3 ? '🔴 Critical' : n === 2 ? '🟡 Elevated' : '🟢 Watch';
 }
 
-function doCopy() {
-  navigator.clipboard.writeText(reportText).then(function(){ toast('Copied to clipboard'); });
+function renderReport(r, account, date, count) {
+  document.getElementById('report-title').textContent = account;
+  document.getElementById('report-meta').textContent =
+    `FY27 Account Planning · Pre-Read Synthesis · ${count} responses · ${date || new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}`;
+
+  const body = document.getElementById('report-body');
+  const s = r.sentiment || {};
+  const cls = sentimentColor(s.score || 0);
+  const barColor = sentimentBarColor(s.score || 0);
+
+  let html = `
+  <div class="sentiment-block">
+    <div>
+      <div class="sentiment-label">Team Confidence Score</div>
+      <div class="sentiment-score ${cls}">${s.score || '—'}<span style="font-size:24px;font-weight:400;color:var(--t3)">/100</span></div>
+      <div class="sentiment-bar-wrap" style="margin-top:10px;width:180px">
+        <div class="sentiment-bar" style="width:${s.score||0}%;background:${barColor}"></div>
+      </div>
+    </div>
+    <div style="flex:1">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">${s.rating || ''} Confidence</div>
+      <div class="sentiment-desc">${s.summary || ''}</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="rcard">
+      <div class="rcard-hdr">
+        <span class="rcard-num">01</span>
+        <span class="rcard-title">Consensus</span>
+      </div>
+      <ul class="rlist">${(r.consensus?.points||[]).map(p=>`<li><span class="rlist-dot"></span><span>${p}</span></li>`).join('')}</ul>
+      ${(r.consensus?.supportingQuotes||[]).map(q=>`<div class="quote-block">"${q}"</div>`).join('')}
+    </div>
+    <div class="rcard">
+      <div class="rcard-hdr">
+        <span class="rcard-num">02</span>
+        <span class="rcard-title">Fault Lines</span>
+        <span class="rcard-badge" style="background:var(--amber-bg);color:var(--amber);border-color:rgba(122,74,0,.25)">${(r.faultLines||[]).length} tensions</span>
+      </div>
+      ${(r.faultLines||[]).map(f=>`<div class="fault-item"><div class="fault-label">${f.tension||''}</div><div style="font-size:14px;line-height:1.6">${f.detail||''}</div></div>`).join('')}
+    </div>
+  </div>
+
+  <div class="rcard">
+    <div class="rcard-hdr">
+      <span class="rcard-num">03</span>
+      <span class="rcard-title">Client Perception of Accenture</span>
+    </div>
+    <div style="font-family:var(--disp);font-size:16px;font-weight:600;margin-bottom:10px;line-height:1.4">${r.clientPerception?.headline||''}</div>
+    <div style="font-size:14px;line-height:1.7;color:var(--t2);margin-bottom:10px">${r.clientPerception?.detail||''}</div>
+    ${r.clientPerception?.quote ? `<div class="quote-block">"${r.clientPerception.quote}"</div>` : ''}
+  </div>
+
+  <div class="rcard">
+    <div class="rcard-hdr">
+      <span class="rcard-num">04</span>
+      <span class="rcard-title">Top Risks</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+    ${(r.topRisks||[]).map((rk,i)=>`
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:0.5px solid var(--border)">
+        <span style="font-family:var(--mono);font-size:10px;color:var(--t3);min-width:20px;padding-top:2px">${String(i+1).padStart(2,'0')}</span>
+        <div style="flex:1">
+          <div style="font-size:14px;font-weight:500;margin-bottom:3px">${rk.risk||''}</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--t3)">Trigger: ${rk.trigger||''}</div>
+        </div>
+        <span style="font-family:var(--mono);font-size:10px;white-space:nowrap">${severityLabel(rk.severity)}</span>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="rcard">
+      <div class="rcard-hdr">
+        <span class="rcard-num">05</span>
+        <span class="rcard-title">White Space</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+      ${(r.whiteSpace||[]).map((ws,i)=>`
+        <div style="padding-bottom:10px;border-bottom:0.5px solid var(--border)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+            <div style="font-size:14px;font-weight:500">${ws.opportunity||''}</div>
+            ${ws.respondents?`<span style="font-family:var(--mono);font-size:10px;color:var(--accent);background:var(--accent-bg);padding:2px 7px;border-radius:999px">${ws.respondents} agree</span>`:''}
+          </div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--t3);line-height:1.5">${ws.play||''}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="rcard">
+      <div class="rcard-hdr">
+        <span class="rcard-num">06</span>
+        <span class="rcard-title">Competitive Threat</span>
+      </div>
+      <div class="competitor-block">
+        <div class="competitor-name-box">${r.competitor?.name||'—'}</div>
+        <div class="competitor-detail">
+          <div style="margin-bottom:8px;font-size:14px;line-height:1.65">${r.competitor?.threat||''}</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--red);border-left:2px solid var(--red);padding-left:10px;line-height:1.5">Win condition: ${r.competitor?.winCondition||''}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rcard">
+    <div class="rcard-hdr">
+      <span class="rcard-num">07</span>
+      <span class="rcard-title">Bold Moves</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+    ${(r.boldMoves||[]).map((bm,i)=>`
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:0.5px solid var(--border)">
+        <span style="font-family:var(--mono);font-size:10px;color:var(--t3);min-width:20px;padding-top:2px">${String(i+1).padStart(2,'0')}</span>
+        <div style="flex:1;font-size:14px;line-height:1.6">${bm.move||''}</div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;white-space:nowrap">
+          ${bm.endorsements>1?`<span style="font-family:var(--mono);font-size:10px;color:var(--green);background:var(--green-bg);padding:2px 7px;border-radius:999px">${bm.endorsements} voices</span>`:''}
+          <span style="font-family:var(--mono);font-size:10px;color:var(--t3)">${bm.timeframe||''}</span>
+        </div>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  <div class="rcard">
+    <div class="rcard-hdr">
+      <span class="rcard-num">08</span>
+      <span class="rcard-title">Session Agenda — Must-Answer Questions</span>
+    </div>
+    ${(r.sessionAgenda||[]).map((aq,i)=>`
+      <div class="agenda-q">
+        <div class="agenda-qnum">Question ${i+1}</div>
+        <div class="agenda-qtext">${aq.question||''}</div>
+        ${aq.why?`<div style="font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:6px">${aq.why}</div>`:''}
+      </div>`).join('')}
+  </div>
+
+  <div class="rcard">
+    <div class="rcard-hdr">
+      <span class="rcard-num">09</span>
+      <span class="rcard-title">Facilitator Watch List</span>
+      <span class="rcard-badge" style="background:var(--red-bg);color:var(--red);border-color:rgba(160,32,32,.2)">Internal only</span>
+    </div>
+    ${(r.facilitatorWatchList||[]).map(fw=>`
+      <div class="watch-item">
+        <div class="watch-title">${fw.flag||''}</div>
+        <div class="watch-body">${fw.detail||''}</div>
+      </div>`).join('')}
+  </div>
+
+  <div class="two-col">
+    <div class="rcard">
+      <div class="rcard-hdr">
+        <span class="rcard-num">10</span>
+        <span class="rcard-title">Stop Doing</span>
+      </div>
+      <ul class="rlist">
+        ${(r.stopDoing||[]).map(s=>`<li><span class="rlist-dot" style="background:var(--red)"></span><span>${s}</span></li>`).join('')}
+      </ul>
+    </div>
+    <div class="rcard">
+      <div class="rcard-hdr">
+        <span class="rcard-num">11</span>
+        <span class="rcard-title">Mega Deal FY27</span>
+      </div>
+      ${r.megaDeal ? `
+        <div style="font-size:14px;font-weight:500;margin-bottom:8px;line-height:1.5">${r.megaDeal.description||''}</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--t3);margin-bottom:4px">Problem: ${r.megaDeal.problem||''}</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--green)">Funding rationale: ${r.megaDeal.fundingRationale||''}</div>
+      ` : '<div style="font-family:var(--mono);font-size:12px;color:var(--t3)">Not identified</div>'}
+    </div>
+  </div>`;
+
+  body.innerHTML = html;
+  document.getElementById('report').style.display = 'block';
+  document.getElementById('report').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  toast('Synthesis complete');
 }
 
-function doDownload() {
-  var date = document.getElementById('f-date').value || new Date().toISOString().slice(0,10);
-  var name = acctName.replace(/[^a-z0-9]/gi,'_');
-  var blob = new Blob([reportText], { type: 'text/plain' });
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'FY27_PreRead_' + name + '_' + date + '.txt';
-  a.click();
-  toast('Downloaded');
+function shareReport() {
+  const account = document.getElementById('account-name').value.trim() || 'Account';
+  const subject = encodeURIComponent(`FY27 Account Planning Synthesis — ${account}`);
+  const body = encodeURIComponent(
+    `Hi,\n\nThe FY27 Account Planning synthesis for ${account} is ready.\n\n` +
+    `Please review the report ahead of our planning session. It synthesizes all pre-read responses including:\n` +
+    `- Team confidence score and consensus\n- Fault lines and tensions\n- Top risks and white space\n` +
+    `- Bold moves and session agenda\n- Facilitator watch list\n\n` +
+    `Link: ${window.location.href}\n\n` +
+    `See you in the room.`
+  );
+  window.open(`mailto:?subject=${subject}&body=${body}`);
 }
 
-async function doSaveGitHub() {
-  var gh = {};
-  try { gh = JSON.parse(localStorage.getItem('ap_github') || '{}'); } catch(e){}
-  if (!gh.token || !gh.user || !gh.repo) {
-    showError('Open the admin app first and configure GitHub settings (token, username, repo).');
-    return;
-  }
-  var date = document.getElementById('f-date').value || new Date().toISOString().slice(0,10);
-  var name = acctName.replace(/[^a-z0-9]/gi,'_');
-  var filename = 'reports/' + name + '_' + date + '_report.md';
-  var apiUrl = 'https://api.github.com/repos/' + gh.user + '/' + gh.repo + '/contents/' + filename;
+function exportPPT() {
+  if (!lastReport) { toast('Run synthesis first'); return; }
+  const { report: r, account, date, responseCount } = lastReport;
+  const pptx = new PptxGenJS();
+  pptx.layout = 'LAYOUT_WIDE';
+  pptx.author = 'Accenture FY27 Account Planning';
 
-  var btn = document.getElementById('btn-save-gh');
-  btn.textContent = 'Saving...';
-  btn.disabled = true;
+  const DARK = '0d0d0d';
+  const WHITE = 'FFFFFF';
+  const ACCENT = '0047cc';
+  const GREEN = '0a5e38';
+  const RED = '8b1a1a';
+  const AMBER = '6b3d00';
+  const LTGRAY = 'f0f2f5';
+  const MIDGRAY = '666660';
 
-  try {
-    var sha = null;
-    var check = await fetch(apiUrl, { headers: { 'Authorization': 'Bearer ' + gh.token, 'Accept': 'application/vnd.github+json' }});
-    if (check.ok) { var ex = await check.json(); sha = ex.sha; }
-
-    var body = { message: 'Add ' + name + ' pre-read ' + date, content: btoa(unescape(encodeURIComponent(reportText))) };
-    if (sha) body.sha = sha;
-
-    var push = await fetch(apiUrl, {
-      method: 'PUT',
-      headers: { 'Authorization': 'Bearer ' + gh.token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+  function titleSlide() {
+    const sl = pptx.addSlide();
+    sl.background = { color: DARK };
+    sl.addText('ACCENTURE', { x:0.5, y:0.4, w:12, h:0.3, fontSize:10, bold:true, color:'60a5fa', charSpacing:3 });
+    sl.addText(`FY27 ACCOUNT PLANNING · SYNTHESIS`, { x:0.5, y:0.85, w:12, h:0.25, fontSize:9, color:'aaaaaa', charSpacing:2 });
+    sl.addText(account, { x:0.5, y:1.3, w:12, h:1.2, fontSize:44, bold:true, color:WHITE });
+    sl.addText(`${responseCount} Responses · ${date || new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}`,
+      { x:0.5, y:2.7, w:12, h:0.3, fontSize:13, color:'888888' });
+    sl.addShape(pptx.ShapeType.rect, { x:0.5, y:3.15, w:1.2, h:0.04, fill:{ color:ACCENT } });
+    const sections = ['Team Confidence','Consensus & Fault Lines','Client Perception','Top Risks','White Space',
+      'Competitive Threat','Bold Moves','Session Agenda','Watch List'];
+    sections.forEach((s,i) => {
+      sl.addText(`${String(i+1).padStart(2,'0')} ${s}`, {
+        x: 0.5 + (i % 3) * 4.2, y: 3.5 + Math.floor(i/3) * 0.38,
+        w:3.8, h:0.32, fontSize:10, color:'666666'
+      });
     });
-
-    if (!push.ok) { var e2 = await push.json(); throw new Error(e2.message); }
-
-    reportGHUrl = 'https://github.com/' + gh.user + '/' + gh.repo + '/blob/main/' + filename;
-    btn.textContent = 'Saved ✓';
-    document.getElementById('btn-share').style.display = '';
-    toast('Report saved to GitHub');
-  } catch(err) {
-    btn.textContent = 'Save to GitHub';
-    btn.disabled = false;
-    showError('Save failed: ' + err.message);
   }
-}
 
-function doShare() {
-  var date = document.getElementById('f-date').value || 'TBD';
-  var subject = encodeURIComponent('FY27 Account Planning Pre-Read — ' + acctName);
-  var body = encodeURIComponent('Hi,\n\nThe FY27 Account Planning Pre-Read report for ' + acctName + ' is ready for your review before the planning session on ' + date + '.\n\n' + (reportGHUrl ? 'Report link: ' + reportGHUrl + '\n\n' : '') + 'Please review ahead of the session.\n\nThank you.');
-  window.open('mailto:?subject=' + subject + '&body=' + body);
-  toast('Outlook opened');
-}
+  function sentimentSlide() {
+    const s = r.sentiment || {};
+    const sl = pptx.addSlide();
+    sl.background = { color: LTGRAY };
+    sl.addText('01 · TEAM CONFIDENCE', { x:0.5, y:0.3, w:12, h:0.3, fontSize:9, bold:true, color:MIDGRAY, charSpacing:2 });
+    sl.addText(account, { x:0.5, y:0.6, w:12, h:0.4, fontSize:16, bold:true, color:DARK });
+    const scoreColor = s.score >= 65 ? GREEN : s.score >= 40 ? AMBER : RED;
+    sl.addText(`${s.score||'—'}`, { x:0.5, y:1.2, w:3, h:2, fontSize:96, bold:true, color:scoreColor });
+    sl.addText('/100', { x:1.7, y:2.8, w:2, h:0.4, fontSize:18, color:MIDGRAY });
+    sl.addText(s.rating ? `${s.rating} Confidence` : '', { x:0.5, y:3.3, w:3, h:0.35, fontSize:13, bold:true, color:scoreColor });
+    sl.addText(s.summary||'', { x:4, y:1.3, w:8.5, h:2, fontSize:15, color:DARK, valign:'top', wrap:true });
+    sl.addShape(pptx.ShapeType.rect, { x:4, y:3.4, w:8*(s.score||0)/100, h:0.15, fill:{ color:scoreColor } });
+    sl.addShape(pptx.ShapeType.rect, { x:4, y:3.4, w:8, h:0.15, fill:{ color:'dddddd' } });
+    sl.addShape(pptx.ShapeType.rect, { x:4, y:3.4, w:8*(s.score||0)/100, h:0.15, fill:{ color:scoreColor } });
+  }
 
-function doReset() {
-  csvData = [];
-  reportText = '';
-  reportGHUrl = '';
-  document.getElementById('f-account').value = '';
-  document.getElementById('f-date').value = '';
-  document.getElementById('f-csv').value = '';
-  document.getElementById('csv-status').style.display = 'none';
-  document.getElementById('report-card').style.display = 'none';
-  document.getElementById('progress-wrap').style.display = 'none';
-  document.getElementById('btn-run').disabled = true;
-  document.getElementById('btn-run').textContent = '▶ Run synthesis';
-  hideError();
-  toast('Reset — ready for new account');
+  function consensusSlide() {
+    const sl = pptx.addSlide();
+    sl.background = { color: WHITE };
+    sl.addText('02 · CONSENSUS & FAULT LINES', { x:0.5, y:0.3, w:12, h:0.3, fontSize:9, bold:true, color:MIDGRAY, charSpacing:2 });
+    sl.addText('Where the team agrees', { x:0.5, y:0.7, w:6, h:0.35, fontSize:14, bold:true, color:DARK });
+    (r.consensus?.points||[]).forEach((p,i) => {
+      sl.addShape(pptx.ShapeType.roundRect, { x:0.5, y:1.15+i*0.65, w:6, h:0.55, fill:{ color:'e6f2ec' }, line:{ color:'0a5e38', width:0.5 } });
+      sl.addText(p, { x:0.7, y:1.2+i*0.65, w:5.6, h:0.45, fontSize:11, color:GREEN, wrap:true });
+    });
+    sl.addText('Fault lines & tensions', { x:7, y:0.7, w:5.5, h:0.35, fontSize:14, bold:true, color:DARK });
+    (r.faultLines||[]).forEach((f,i) => {
+      sl.addShape(pptx.ShapeType.roundRect, { x:7, y:1.15+i*0.95, w:5.5, h:0.85, fill:{ color:'fdefd3' }, line:{ color:'a05c00', width:0.5 } });
+      sl.addText(f.tension||'', { x:7.2, y:1.2+i*0.95, w:5.1, h:0.3, fontSize:10, bold:true, color:AMBER });
+      sl.addText(f.detail||'', { x:7.2, y:1.5+i*0.95, w:5.1, h:0.4, fontSize:9, color:'2a2a2a', wrap:true });
+    });
+  }
+
+  function clientPerceptionSlide() {
+    const cp = r.clientPerception || {};
+    const sl = pptx.addSlide();
+    sl.background = { color: DARK };
+    sl.addText('03 · CLIENT PERCEPTION', { x:0.5, y:0.3, w:12, h:0.3, fontSize:9, bold:true, color:'aaaaaa', charSpacing:2 });
+    sl.addText('How the client actually sees Accenture', { x:0.5, y:0.65, w:12, h:0.35, fontSize:14, color:'aaaaaa' });
+    sl.addText(cp.headline||'', { x:0.5, y:1.2, w:12, h:1, fontSize:24, bold:true, color:WHITE, wrap:true });
+    sl.addShape(pptx.ShapeType.rect, { x:0.5, y:2.35, w:0.06, h:1.2, fill:{ color:'444444' } });
+    sl.addText(cp.detail||'', { x:0.75, y:2.35, w:11.5, h:1.2, fontSize:13, color:'cccccc', wrap:true });
+    if (cp.quote) {
+      sl.addShape(pptx.ShapeType.rect, { x:0.5, y:3.7, w:12, h:0.9, fill:{ color:'1a1a18' } });
+      sl.addText(`"${cp.quote}"`, { x:0.7, y:3.75, w:11.6, h:0.8, fontSize:12, color:'888888', italic:true, wrap:true });
+    }
+  }
+
+  function risksSlide() {
+    const sl = pptx.addSlide();
+    sl.background = { color: WHITE };
+    sl.addText('04 · TOP RISKS', { x:0.5, y:0.3, w:12, h:0.3, fontSize:9, bold:true, color:MIDGRAY, charSpacing:2 });
+    (r.topRisks||[]).forEach((rk,i) => {
+      const yBase = 0.75 + i * 1.2;
+      const svColor = rk.severity >= 3 ? RED : rk.severity === 2 ? AMBER : GREEN;
+      sl.addShape(pptx.ShapeType.roundRect, { x:0.5, y:yBase, w:12, h:1.05, fill:{ color:LTGRAY }, line:{ color:'dddddd', width:0.5 } });
+      sl.addText(`0${i+1}`, { x:0.7, y:yBase+0.05, w:0.7, h:0.9, fontSize:22, bold:true, color:'dddddd', valign:'middle' });
+      sl.addText(rk.risk||'', { x:1.5, y:yBase+0.08, w:9, h:0.4, fontSize:13, bold:true, color:DARK });
+      sl.addText(`Trigger: ${rk.trigger||''}`, { x:1.5, y:yBase+0.55, w:9, h:0.38, fontSize:10, color:MIDGRAY, wrap:true });
+      sl.addText(rk.severity >= 3 ? 'Critical' : rk.severity === 2 ? 'Elevated' : 'Watch',
+        { x:10.8, y:yBase+0.05, w:1.5, h:0.35, fontSize:9, bold:true, color:svColor, align:'right' });
+    });
+  }
+
+  function whiteSpaceSlide() {
+    const sl = pptx.addSlide();
+    sl.background = { color: WHITE };
+    sl.addText('05 · WHITE SPACE OPPORTUNITIES', { x:0.5, y:0.3, w:12, h:0.3, fontSize:9, bold:true, color:MIDGRAY, charSpacing:2 });
+    (r.whiteSpace||[]).forEach((ws,i) => {
+      const yBase = 0.75 + i * 1.2;
+      sl.addShape(pptx.ShapeType.roundRect, { x:0.5, y:yBase, w:12, h:1.05, fill:{ color:'e6f1fb' }, line:{ color:'b5d4f4', width:0.5 } });
+      sl.addText(`${String(i+1).padStart(2,'0')}`, { x:0.65, y:yBase+0.1, w:0.6, h:0.4, fontSize:18, bold:true, color:'b5d4f4' });
+      sl.addText(ws.opportunity||'', { x:1.4, y:yBase+0.1, w:8.5, h:0.4, fontSize:13, bold:true, color:'042C53' });
+      sl.addText(ws.play||'', { x:1.4, y:yBase+0.58, w:8.5, h:0.38, fontSize:10, color:'185FA5', wrap:true });
+      if (ws.respondents) {
+        sl.addShape(pptx.ShapeType.roundRect, { x:11, y:yBase+0.3, w:1.2, h:0.3, fill:{ color:ACCENT } });
+        sl.addText(`${ws.respondents} agree`, { x:11, y:yBase+0.3, w:1.2, h:0.3, fontSize:8, bold:true, color:WHITE, align:'center' });
+      }
+    });
+  }
+
+  function competitorSlide() {
+    const c = r.competitor || {};
+    const sl = pptx.addSlide();
+    sl.background = { color: DARK };
+    sl.addText('06 · COMPETITIVE THREAT', { x:0.5, y:0.3, w:12, h:0.3, fontSize:9, bold:true, color:'aaaaaa', charSpacing:2 });
+    sl.addShape(pptx.ShapeType.roundRect, { x:0.5, y:0.75, w:3.5, h:1.5, fill:{ color:'1a1a18' } });
+    sl.addText(c.name||'—', { x:0.5, y:0.75, w:3.5, h:1.5, fontSize:28, bold:true, color:WHITE, align:'center', valign:'middle' });
+    sl.addText('Primary Threat', { x:0.5, y:2.3, w:3.5, h:0.3, fontSize:9, color:'888888', align:'center' });
+    sl.addText(c.threat||'', { x:4.3, y:0.8, w:8.2, h:1.4, fontSize:13, color:'cccccc', wrap:true });
+    sl.addShape(pptx.ShapeType.rect, { x:4.3, y:2.45, w:8.2, h:0.85, fill:{ color:RED } });
+    sl.addText(`Win condition: ${c.winCondition||''}`, { x:4.5, y:2.5, w:8, h:0.75, fontSize:11, color:WHITE, wrap:true });
+  }
+
+  function boldMovesSlide() {
+    const sl = pptx.addSlide();
+    sl.background = { color: WHITE };
+    sl.addText('07 · BOLD MOVES', { x:0.5, y:0.3, w:12, h:0.3, fontSize:9, bold:true, color:MIDGRAY, charSpacing:2 });
+    (r.boldMoves||[]).forEach((bm,i) => {
+      const yBase = 0.75 + i * 1.15;
+      sl.addShape(pptx.ShapeType.roundRect, { x:0.5, y:yBase, w:12, h:1, fill:{ color:LTGRAY }, line:{ color:'dddddd', width:0.5 } });
+      sl.addText(`${String(i+1).padStart(2,'0')}`, { x:0.7, y:yBase+0.05, w:0.7, h:0.85, fontSize:22, bold:true, color:'dddddd', valign:'middle' });
+      sl.addText(bm.move||'', { x:1.5, y:yBase+0.1, w:8.8, h:0.75, fontSize:12, color:DARK, wrap:true });
+      if (bm.endorsements > 1) {
+        sl.addShape(pptx.ShapeType.roundRect, { x:10.5, y:yBase+0.15, w:1.7, h:0.3, fill:{ color:'d6f2e5' } });
+        sl.addText(`${bm.endorsements} voices`, { x:10.5, y:yBase+0.15, w:1.7, h:0.3, fontSize:8, bold:true, color:GREEN, align:'center' });
+      }
+      sl.addText(bm.timeframe||'', { x:10.5, y:yBase+0.6, w:1.7, h:0.25, fontSize:8, color:MIDGRAY, align:'right' });
+    });
+  }
+
+  function agendaSlide() {
+    const sl = pptx.addSlide();
+    sl.background = { color: ACCENT };
+    sl.addText('08 · SESSION AGENDA', { x:0.5, y:0.3, w:12, h:0.3, fontSize:9, bold:true, color:'rgba(255,255,255,0.6)', charSpacing:2 });
+    sl.addText('This session must answer:', { x:0.5, y:0.65, w:12, h:0.4, fontSize:18, color:WHITE });
+    (r.sessionAgenda||[]).forEach((aq,i) => {
+      sl.addShape(pptx.ShapeType.roundRect, { x:0.5, y:1.2+i*1.2, w:12, h:1.05, fill:{ color:'0039a8' } });
+      sl.addText(`Q${i+1}`, { x:0.7, y:1.25+i*1.2, w:0.6, h:0.4, fontSize:10, bold:true, color:'88aaff' });
+      sl.addText(aq.question||'', { x:1.4, y:1.25+i*1.2, w:10.5, h:0.45, fontSize:14, bold:true, color:WHITE, wrap:true });
+      sl.addText(aq.why||'', { x:1.4, y:1.72+i*1.2, w:10.5, h:0.38, fontSize:10, color:'aaaacc', wrap:true });
+    });
+  }
+
+  function watchListSlide() {
+    const sl = pptx.addSlide();
+    sl.background = { color: WHITE };
+    sl.addText('09 · FACILITATOR WATCH LIST', { x:0.5, y:0.3, w:12, h:0.3, fontSize:9, bold:true, color:MIDGRAY, charSpacing:2 });
+    sl.addText('Internal only — not for distribution', { x:0.5, y:0.6, w:12, h:0.25, fontSize:9, color:RED, italic:true });
+    (r.facilitatorWatchList||[]).forEach((fw,i) => {
+      const yBase = 0.95 + i * 1.1;
+      sl.addShape(pptx.ShapeType.rect, { x:0.5, y:yBase, w:0.07, h:0.9, fill:{ color:RED } });
+      sl.addShape(pptx.ShapeType.roundRect, { x:0.65, y:yBase, w:11.85, h:0.9, fill:{ color:'fce8e8' }, line:{ color:'f0c0c0', width:0.5 } });
+      sl.addText(fw.flag||'', { x:0.85, y:yBase+0.05, w:11.4, h:0.32, fontSize:11, bold:true, color:RED });
+      sl.addText(fw.detail||'', { x:0.85, y:yBase+0.42, w:11.4, h:0.38, fontSize:10, color:'2a2a2a', wrap:true });
+    });
+  }
+
+  titleSlide();
+  sentimentSlide();
+  consensusSlide();
+  clientPerceptionSlide();
+  risksSlide();
+  whiteSpaceSlide();
+  competitorSlide();
+  boldMovesSlide();
+  agendaSlide();
+  watchListSlide();
+
+  const fname = `FY27_Synthesis_${account.replace(/[^a-z0-9]/gi,'_')}_${new Date().toISOString().slice(0,10)}.pptx`;
+  pptx.writeFile({ fileName: fname }).then(() => toast('PPT downloaded'));
 }
 </script>
 </body>
